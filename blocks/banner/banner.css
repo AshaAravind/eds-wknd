@@ -1,0 +1,61 @@
+.banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  padding: 32px 24px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgb(0 0 0 / 45%);
+}
+
+.banner .banner-image {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+}
+
+.banner .banner-image picture {
+  display: block;
+  height: 100%;
+}
+
+.banner .banner-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.banner .banner-content {
+  position: relative;
+  max-width: 800px;
+  color: blue;
+}
+
+.banner.dark-blue .banner-content {
+  color: darkblue;
+}
+
+.banner .banner-content :is(h1, h2, h3, h4, h5, h6) {
+  color: inherit;
+}
+
+@media (width >= 600px) {
+  .banner {
+    min-height: 360px;
+  }
+}
+
+@media (width >= 900px) {
+  .banner {
+    min-height: 440px;
+    padding: 48px 32px;
+  }
+}
