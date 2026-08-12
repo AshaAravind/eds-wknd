@@ -1,5 +1,3 @@
-import { createElement } from '../../scripts/scripts.js';
-
 const getPageTitle = async (url) => {
   const resp = await fetch(url);
   if (resp.ok) {
@@ -37,7 +35,7 @@ const createLink = (path) => {
 };
 
 export default async function decorate(block) {
-  const breadcrumb = createElement('nav', '', {
+  const breadcrumb = document.createElement('nav', '', {
     'aria-label': 'Breadcrumb',
   });
   block.innerHTML = '';
