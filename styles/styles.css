@@ -323,3 +323,12 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+
+/* read by the Sidekick Library panel; unlike the reserved "metadata" block, it is not stripped by the rendering pipeline */
+.library-metadata {
+  display: none;
+}
+
+main .section.light-gray-background {
+  background-color: lightgray;
+}
