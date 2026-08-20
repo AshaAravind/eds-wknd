@@ -3,26 +3,26 @@ const getPageTitle = async (url) => {
   if (resp.ok) {
     const html = document.createElement('div');
     html.innerHTML = await resp.text();
-    return html.querySelector('title').innerText;
+    return html.querySelector('title')?.innerText || '';
   }
 
   return '';
 };
+
+const formatSegment = (segment) => segment
+  .replace(/[-_]/g, ' ')
+  .replace(/\b\w/g, (c) => c.toUpperCase());
 
 const getAllPathsExceptCurrent = async (paths) => {
   const result = [];
   // remove first and last slash characters
   const pathsList = paths.replace(/^\/|\/$/g, '').split('/');
   for (let i = 0; i < pathsList.length - 1; i += 1) {
-    const pathPart = pathsList[i];
-    const prevPath = result[i - 1] ? result[i - 1].path : '';
-    const path = `${prevPath}/${pathPart}`;
+    const path = `/${pathsList.slice(0, i + 1).join('/')}`;
     const url = `${window.location.origin}${path}`;
     /* eslint-disable-next-line no-await-in-loop */
-    const name = await getPageTitle(url);
-    if (name) {
-      result.push({ path, name, url });
-    }
+    const name = (await getPageTitle(url)) || formatSegment(pathsList[i]);
+    result.push({ path, name, url });
   }
   return result;
 };
@@ -35,9 +35,8 @@ const createLink = (path) => {
 };
 
 export default async function decorate(block) {
-  const breadcrumb = document.createElement('nav', '', {
-    'aria-label': 'Breadcrumb',
-  });
+  const breadcrumb = document.createElement('nav');
+  breadcrumb.setAttribute('aria-label', 'Breadcrumb');
   block.innerHTML = '';
   const HomeLink = createLink({ path: '', name: 'Home', url: window.location.origin });
   const breadcrumbLinks = [HomeLink.outerHTML];
