@@ -1,0 +1,161 @@
+/* Block: columns-media — values extracted from source computed styles */
+
+/* ---- Images: 3:2 framed, rounded (both instances) ---- */
+.columns-media picture {
+  display: block;
+  line-height: 0;
+}
+
+.columns-media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* Image stack (instance 1): EDS wraps the 3 pictures in a single <p> */
+.columns-media-img-col > p {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+/* ---- Text content ---- */
+.columns-media h1,
+.columns-media h2 {
+  margin: 0;
+}
+
+/* instance 2 article heading matches the source xxl size */
+.columns-media h2 {
+  font-size: var(--heading-font-size-xxl);
+}
+
+.columns-media p {
+  margin: 24px 0 0;
+  color: var(--text-color);
+}
+
+/* ---- Blog-article header byline (grouped by JS into .columns-media-article-meta) ---- */
+.columns-media-byline p {
+  margin: 0;
+  font-size: var(--body-font-size-xs);
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+.columns-media-byline .columns-media-by,
+.columns-media-dateline p {
+  color: var(--link-color);
+}
+
+/* ---- CTA links (instance 1): two links in one <p>, so EDS does NOT
+   auto-decorate them as .button — style them as source pill buttons ---- */
+.columns-media p:has(a) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.columns-media-byline {
+  margin-top: 16px;
+}
+
+.columns-media-author,
+.columns-media-dateline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.columns-media-dateline {
+  margin-top: 8px;
+}
+
+/* category tag pill */
+.columns-media-tag {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin: 16px 0 0;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  background-color: #f4fe8b;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+/* instance 2 author / meta lines (image-col holds a direct <picture>).
+   Exclude the blog article-meta column so its grouped byline/tag keep
+   their own styling above. */
+.columns-media > div:has(.columns-media-img-col > picture) > div:not(.columns-media-img-col, .columns-media-article-meta) p {
+  margin: 8px 0 0;
+  font-size: var(--body-font-size-s);
+  color: var(--link-color);
+}
+
+.columns-media p a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 2px solid var(--text-color);
+  border-radius: 9999px;
+  padding: 12px 24px;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-decoration: none;
+}
+
+/* primary (first) = filled black; secondary (second) = outlined white */
+.columns-media p a:first-child {
+  background-color: var(--text-color);
+  color: var(--background-color);
+}
+
+.columns-media p a:last-child {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.columns-media p a:first-child:hover,
+.columns-media p a:first-child:focus-visible {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.columns-media p a:last-child:hover,
+.columns-media p a:last-child:focus-visible {
+  background-color: var(--text-color);
+  color: var(--background-color);
+  text-decoration: none;
+}
+
+/* ---- Layout: mobile stacks (natural DOM order), desktop = 2 columns ---- */
+@media (width >= 900px) {
+  .columns-media > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+
+  /* instance 1 (image stack) uses a wider column gap */
+  .columns-media > div:has(.columns-media-img-col > p) {
+    gap: 64px;
+  }
+
+  /* instance 1 image stack becomes a 2-column grid */
+  .columns-media-img-col > p {
+    grid-template-columns: 1fr 1fr;
+  }
+}

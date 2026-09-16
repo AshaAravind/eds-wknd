@@ -1,0 +1,78 @@
+/* Block: accordion-faq — values extracted from source computed styles */
+
+.accordion-faq {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.accordion-faq .accordion-faq-item {
+  border: 1px solid rgb(232 232 232);
+  border-radius: 16px;
+  background-color: transparent;
+}
+
+.accordion-faq .accordion-faq-item-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 32px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.accordion-faq .accordion-faq-item-label::-webkit-details-marker {
+  display: none;
+}
+
+.accordion-faq .accordion-faq-item-text {
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--text-color);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* plus icon (two 2px strokes forming a +) */
+.accordion-faq .accordion-faq-item-icon {
+  position: relative;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+}
+
+.accordion-faq .accordion-faq-item-icon::before,
+.accordion-faq .accordion-faq-item-icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: var(--text-color);
+  transform: translate(-50%, -50%);
+}
+
+.accordion-faq .accordion-faq-item-icon::before {
+  width: 2px;
+  height: 14px;
+}
+
+.accordion-faq .accordion-faq-item-icon::after {
+  width: 14px;
+  height: 2px;
+}
+
+.accordion-faq .accordion-faq-item-body {
+  padding: 0 32px 32px;
+}
+
+.accordion-faq .accordion-faq-item-body p {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: rgb(64 64 64);
+}

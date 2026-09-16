@@ -1,0 +1,45 @@
+{
+  "variantName": "columns-media",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-09-01T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://wknd-trendsetters.site/about-us",
+    "originPage": "About Us page",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "feature",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "text column + media column",
+    "buttonCount": 2,
+    "imageCount": 3
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "hero-style intros with side images",
+      "image + text side-by-side sections",
+      "editorial/article headers with a feature image"
+    ],
+    "notSuitableFor": [
+      "repeating card grids",
+      "full-width background banners"
+    ]
+  },
+  "usage": {
+    "pagesUsing": [
+      "/about-us",
+      "/blog/ace-pro-court-polo",
+      "/index",
+      "/blog",
+      "/faq",
+      "/fashion-trends-young-adults-casual-sport"
+    ],
+    "reuseCount": 6,
+    "lastUsed": "2026-09-07T12:00:00.000Z"
+  }
+}

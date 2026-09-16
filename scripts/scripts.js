@@ -143,6 +143,39 @@ function decorateButtons(main) {
 }
 
 /**
+ * Consumes `.section-metadata` blocks: applies the `style` value(s) as classes
+ * on the parent section and any other key/value pairs as data attributes, then
+ * removes the metadata element. Mirrors the standard EDS boilerplate behaviour,
+ * which this project's aem.js decorateSections omits.
+ * @param {Element} main The main element
+ */
+function decorateSectionMetadata(main) {
+  main.querySelectorAll(':scope > .section').forEach((section) => {
+    const metaWrapper = [...section.children].find((child) => child.querySelector(':scope > .section-metadata'));
+    const sectionMeta = metaWrapper && metaWrapper.querySelector(':scope > .section-metadata');
+    if (!sectionMeta) return;
+    const meta = {};
+    sectionMeta.querySelectorAll(':scope > div').forEach((row) => {
+      if (row.children.length >= 2) {
+        const key = row.children[0].textContent.trim().toLowerCase();
+        const value = row.children[1].textContent.trim();
+        if (key) meta[key] = value;
+      }
+    });
+    Object.entries(meta).forEach(([key, value]) => {
+      if (key === 'style') {
+        value.split(',').map((s) => s.trim()).filter(Boolean).forEach((style) => {
+          section.classList.add(style.toLowerCase().replace(/\s+/g, '-'));
+        });
+      } else {
+        section.dataset[key.replace(/-([a-z])/g, (m, c) => c.toUpperCase())] = value;
+      }
+    });
+    metaWrapper.remove();
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -151,6 +184,7 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  decorateSectionMetadata(main);
   decorateBlocks(main);
   decorateButtons(main);
 }

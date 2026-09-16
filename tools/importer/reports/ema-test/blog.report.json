@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "url": "https://wknd-trendsetters.site/blog",
+  "path": "ema-test/blog",
+  "timestamp": "2026-09-07T12:05:17.627Z",
+  "title": "Blog — WKND Trendsetters",
+  "template": "content-hub",
+  "blocks": [
+    "columns-media",
+    "columns-media",
+    "cards-article"
+  ]
+}

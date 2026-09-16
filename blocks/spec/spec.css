@@ -1,0 +1,33 @@
+.spec {
+  margin: 1.5em 0;
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-s);
+}
+
+.spec .spec-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px 24px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.spec .spec-row:last-child {
+  border-bottom: none;
+}
+
+.spec .spec-label {
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.spec .spec-value {
+  color: var(--text-color);
+}
+
+@media (width >= 600px) {
+  .spec .spec-row {
+    grid-template-columns: 200px 1fr;
+    align-items: baseline;
+  }
+}
