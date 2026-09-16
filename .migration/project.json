@@ -1,0 +1,11 @@
+{
+  "type": "da",
+  "sites": {
+    "eds-wknd": {
+      "previewOrg": "ashaaravind",
+      "previewSite": "eds-wknd",
+      "contentHostUrl": "https://content.da.live/ashaaravind/eds-wknd/",
+      "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json"
+    }
+  }
+}

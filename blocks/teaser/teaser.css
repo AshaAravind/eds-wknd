@@ -1,0 +1,62 @@
+.teaser > div {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: center;
+}
+
+.teaser .teaser-image {
+  line-height: 0;
+}
+
+.teaser .teaser-image picture,
+.teaser .teaser-image img {
+  width: 100%;
+  height: auto;
+}
+
+.teaser .teaser-content {
+  padding: 8px 0;
+}
+
+/* eyebrow: the first short paragraph acts as a label (e.g. "Featured Article") */
+.teaser .teaser-content > p:first-child {
+  margin-top: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--body-font-size-xs);
+  font-weight: 600;
+  color: var(--dark-color);
+}
+
+.teaser .teaser-content h2,
+.teaser .teaser-content h3 {
+  margin-top: 0;
+}
+
+.teaser .teaser-content .button-container {
+  margin-top: 16px;
+}
+
+/* members-only: inert CTA rendered as a static pill */
+.teaser.members-only .teaser-content a[aria-disabled='true'],
+.teaser.members-only .teaser-content .button-container {
+  opacity: 0.85;
+  cursor: default;
+}
+
+@media (width >= 900px) {
+  .teaser > div {
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  /* text-first variant: reverse so the image sits on the left */
+  .teaser.image-left > div .teaser-content {
+    order: 2;
+  }
+
+  .teaser.image-left > div .teaser-image {
+    order: 1;
+  }
+}

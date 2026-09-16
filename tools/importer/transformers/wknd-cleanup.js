@@ -1,0 +1,49 @@
+/* eslint-disable */
+/* global WebImporter */
+
+/**
+ * Transformer: WKND site-wide cleanup.
+ * Removes non-authorable AEM WCM site chrome (experience-fragment header/footer,
+ * mobile nav, tracking iframe) and strips leftover non-authorable elements.
+ * All selectors verified against migration-work/cleaned.html.
+ */
+const TransformHook = { beforeTransform: 'beforeTransform', afterTransform: 'afterTransform' };
+
+export default function transform(hookName, element, payload) {
+  if (hookName === TransformHook.beforeTransform) {
+    // Non-authorable site chrome removed before block parsing so parsers only see page content.
+    // Found in cleaned.html:
+    //   line 5   <header class="experiencefragment cmp-experiencefragment--header ...">
+    //   line 471 <footer class="experiencefragment cmp-experiencefragment--footer ...">
+    //   line 566 <iframe id="destination_publishing_iframe_wkndsite_0" ...> (Adobe ID/demdex tracking)
+    //   line 568 <div id="toggleNav"> (mobile nav toggle)
+    //   line 574 <div id="mobileNav" class="cmp-navigation--mobile"> (mobile nav duplicate)
+    WebImporter.DOMUtils.remove(element, [
+      'header.cmp-experiencefragment--header',
+      'footer.cmp-experiencefragment--footer',
+      '#destination_publishing_iframe_wkndsite_0',
+      '#toggleNav',
+      '#mobileNav',
+    ]);
+  }
+
+  if (hookName === TransformHook.afterTransform) {
+    // Leftover non-authorable elements. Found in cleaned.html:
+    //   empty <meta> tags scattered inside cmp-image blocks (lines 183, 204, 227, 271, 334, 378)
+    //   demdex iframe fallback, any noscript/link
+    WebImporter.DOMUtils.remove(element, [
+      'meta',
+      'iframe',
+      'noscript',
+      'link',
+    ]);
+
+    // Strip AEM data-layer / accessibility tracking attributes left on nodes.
+    element.querySelectorAll('*').forEach((el) => {
+      el.removeAttribute('data-cmp-data-layer');
+      el.removeAttribute('data-cmp-hook-image');
+      el.removeAttribute('data-cmp-data-layer-name');
+      el.removeAttribute('data-cmp-data-layer-enabled');
+    });
+  }
+}

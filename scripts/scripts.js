@@ -143,6 +143,35 @@ function decorateButtons(main) {
 }
 
 /**
+ * Applies section metadata: reads `.section-metadata` blocks, moves the
+ * key/value pairs onto the parent section (e.g. `style` → section class),
+ * then removes the block so it is not loaded as a standalone block.
+ * @param {Element} main The main element
+ */
+function decorateSectionMetadata(main) {
+  main.querySelectorAll(':scope > div > div.section-metadata').forEach((metaBlock) => {
+    const section = metaBlock.parentElement;
+    const meta = {};
+    [...metaBlock.children].forEach((row) => {
+      if (row.children.length >= 2) {
+        const key = row.children[0].textContent.trim().toLowerCase();
+        const value = row.children[1].textContent.trim();
+        if (key) meta[key] = value;
+      }
+    });
+    if (meta.style) {
+      meta.style.split(',').map((s) => s.trim()).filter(Boolean).forEach((s) => {
+        section.classList.add(s.replace(/\s+/g, '-').toLowerCase());
+      });
+    }
+    Object.keys(meta).forEach((key) => {
+      if (key !== 'style') section.dataset[key] = meta[key];
+    });
+    metaBlock.remove();
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -150,6 +179,7 @@ function decorateButtons(main) {
 export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
+  decorateSectionMetadata(main);
   decorateSections(main);
   decorateBlocks(main);
   decorateButtons(main);

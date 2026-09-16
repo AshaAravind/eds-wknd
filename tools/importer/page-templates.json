@@ -1,0 +1,108 @@
+{
+  "metadata": {
+    "projectType": "da"
+  },
+  "templates": [
+    {
+      "name": "home",
+      "urls": [
+        "https://wknd.site/us/en.html"
+      ],
+      "representativeUrl": "https://wknd.site/us/en.html",
+      "description": "Homepage: hero carousel, featured article teaser, recent articles list, next adventure teaser, adventures list",
+      "blocks": [
+        { "name": "carousel", "instances": [".carousel.cmp-carousel--hero", ".cmp-carousel"] },
+        { "name": "teaser", "instances": [".teaser.cmp-teaser--featured", ".cmp-teaser--featured"] },
+        { "name": "article-list", "instances": [".cmp-image-list"] },
+        { "name": "adventure-list", "instances": [".cmp-image-list"] }
+      ],
+      "sections": [
+        { "id": "1", "name": "hero-carousel", "selector": [".carousel.cmp-carousel--hero"], "style": null, "blocks": ["carousel"], "defaultContent": [] },
+        { "id": "2", "name": "featured-article", "selector": [".teaser.cmp-teaser--featured"], "style": "grey", "blocks": ["teaser"], "defaultContent": [] },
+        { "id": "3", "name": "recent-articles", "selector": [".cmp-image-list"], "style": null, "blocks": ["article-list"], "defaultContent": [] },
+        { "id": "4", "name": "next-adventures", "selector": [".teaser"], "style": null, "blocks": ["teaser"], "defaultContent": [] },
+        { "id": "5", "name": "adventures", "selector": [".cmp-image-list"], "style": null, "blocks": ["adventure-list"], "defaultContent": [] }
+      ],
+      "urlPattern": "/us/en"
+    },
+    {
+      "name": "magazine-landing",
+      "urls": [
+        "https://wknd.site/us/en/magazine.html"
+      ],
+      "representativeUrl": "https://wknd.site/us/en/magazine.html",
+      "description": "Magazine landing: page title, featured article teaser, all-articles list, members-only static, teasers",
+      "blocks": [],
+      "urlPattern": "/us/en/magazine"
+    },
+    {
+      "name": "adventures-landing",
+      "urls": [
+        "https://wknd.site/us/en/adventures.html"
+      ],
+      "representativeUrl": "https://wknd.site/us/en/adventures.html",
+      "description": "Adventures landing: page title, intro teaser, adventures list with category filter tabs",
+      "blocks": [],
+      "urlPattern": "/us/en/adventures"
+    },
+    {
+      "name": "article-detail",
+      "urls": [
+        "https://wknd.site/us/en/magazine/western-australia.html",
+        "https://wknd.site/us/en/magazine/arctic-surfing.html",
+        "https://wknd.site/us/en/magazine/san-diego-surf.html",
+        "https://wknd.site/us/en/magazine/ski-touring.html",
+        "https://wknd.site/us/en/magazine/guide-la-skateparks.html"
+      ],
+      "representativeUrl": "https://wknd.site/us/en/magazine/western-australia.html",
+      "description": "Magazine article detail page: article hero + body",
+      "blocks": [],
+      "urlPattern": "/us/en/magazine/*"
+    },
+    {
+      "name": "adventure-detail",
+      "urls": [
+        "https://wknd.site/us/en/adventures/climbing-new-zealand.html",
+        "https://wknd.site/us/en/adventures/bali-surf-camp.html",
+        "https://wknd.site/us/en/adventures/beervana-portland.html",
+        "https://wknd.site/us/en/adventures/colorado-rock-climbing.html",
+        "https://wknd.site/us/en/adventures/cycling-southern-utah.html",
+        "https://wknd.site/us/en/adventures/cycling-tuscany.html",
+        "https://wknd.site/us/en/adventures/downhill-skiing-wyoming.html",
+        "https://wknd.site/us/en/adventures/gastronomic-marais-tour.html",
+        "https://wknd.site/us/en/adventures/napa-wine-tasting.html",
+        "https://wknd.site/us/en/adventures/riverside-camping-australia.html",
+        "https://wknd.site/us/en/adventures/ski-touring-mont-blanc.html",
+        "https://wknd.site/us/en/adventures/surf-camp-costa-rica.html",
+        "https://wknd.site/us/en/adventures/tahoe-skiing.html",
+        "https://wknd.site/us/en/adventures/west-coast-cycling.html",
+        "https://wknd.site/us/en/adventures/whistler-mountain-biking.html",
+        "https://wknd.site/us/en/adventures/yosemite-backpacking.html"
+      ],
+      "representativeUrl": "https://wknd.site/us/en/adventures/climbing-new-zealand.html",
+      "description": "Adventure detail page: adventure hero + details + body",
+      "blocks": [],
+      "urlPattern": "/us/en/adventures/*"
+    },
+    {
+      "name": "faqs",
+      "urls": [
+        "https://wknd.site/us/en/faqs.html"
+      ],
+      "representativeUrl": "https://wknd.site/us/en/faqs.html",
+      "description": "FAQ page: hero, accordion Q&A, need-more-help",
+      "blocks": [],
+      "urlPattern": "/us/en/faqs"
+    },
+    {
+      "name": "about-us",
+      "urls": [
+        "https://wknd.site/us/en/about-us.html"
+      ],
+      "representativeUrl": "https://wknd.site/us/en/about-us.html",
+      "description": "About Us page",
+      "blocks": [],
+      "urlPattern": "/us/en/about-us"
+    }
+  ]
+}
