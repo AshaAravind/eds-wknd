@@ -2,6 +2,7 @@
 /* global WebImporter */
 
 import cleanupTransformer from './transformers/wknd-cleanup.js';
+import { ARTICLE_META, enrichMetadata } from './wknd-metadata.js';
 
 const PAGE_TEMPLATE = {
   name: 'article-detail',
@@ -59,6 +60,10 @@ export default {
 
     const rawPath = new URL(params.originalURL).pathname.replace(/\/$/, '').replace(/\.html?$/, '');
     const path = WebImporter.FileUtils.sanitizePath(rawPath === '' ? '/index' : rawPath);
+
+    // add Category / Publication Date / Image so the query-index carries the
+    // fields the article-list block needs on publish.
+    enrichMetadata(main, document, path, ARTICLE_META);
 
     return [{
       element: main,
