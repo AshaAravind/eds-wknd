@@ -4,6 +4,7 @@
 import galleryParser from './parsers/adventure-gallery.js';
 import detailsParser from './parsers/adventure-details.js';
 import cleanupTransformer from './transformers/wknd-cleanup.js';
+import { ADVENTURE_META, enrichMetadata } from './wknd-metadata.js';
 
 const PAGE_TEMPLATE = {
   name: 'adventure-detail',
@@ -89,6 +90,10 @@ export default {
 
     const rawPath = new URL(params.originalURL).pathname.replace(/\/$/, '').replace(/\.html?$/, '');
     const path = WebImporter.FileUtils.sanitizePath(rawPath === '' ? '/index' : rawPath);
+
+    // add Category / Publication Date / Image so the query-index (and the
+    // adventure-list category filter) are complete on publish.
+    enrichMetadata(main, document, path, ADVENTURE_META);
 
     return [{
       element: main,

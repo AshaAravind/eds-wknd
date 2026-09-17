@@ -1,8 +1,10 @@
 version: 1
 
 indices:
-  # Magazine articles + adventure detail pages feed the dynamic listing blocks
-  # (article-list and adventure-list) which fetch /query-index.json at runtime.
+  # WKND magazine articles + adventure detail pages. Feeds /query-index.json,
+  # consumed by the article-list and adventure-list blocks (and the adventure
+  # category filter). Managed via the configuration service (admin tools),
+  # not a repo helix-query.yaml.
   default:
     include:
       - '/us/en/magazine/**'
@@ -24,12 +26,9 @@ indices:
       category:
         select: head > meta[name="category"]
         value: attribute(el, 'content')
-      tags:
-        select: head > meta[name="tags"]
-        value: attribute(el, 'content')
       date:
         select: head > meta[name="publication-date"]
-        value: dateValue(attribute(el, 'content'), 'MM-DD-YYYY')
+        value: attribute(el, 'content')
       lastModified:
         select: none
         value: parseTimestamp(headers('last-modified'), 'ddd, DD MMM YYYY hh:mm:ss GMT')

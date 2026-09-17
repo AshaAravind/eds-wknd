@@ -69,6 +69,47 @@ var CustomImportScript = (() => {
     }
   }
 
+  // tools/importer/wknd-metadata.js
+  var ARTICLE_META = {
+    "/us/en/magazine/guide-la-skateparks": { category: "surfing", date: "05-01-2019", image: "https://wknd.site/us/en/magazine/guide-la-skateparks/_jcr_content/root/container/container/contentfragment/par2/image_copy.coreimg.60.800.png/1660323783259/article-01-picture-01.png" },
+    "/us/en/magazine/ski-touring": { category: "skiing", date: "04-01-2019", image: "https://wknd.site/us/en/magazine/ski-touring/_jcr_content/root/container/container/contentfragment/par1/image.coreimg.60.800.jpeg/1660323789866/skitouring5sjoeberg.jpeg" },
+    "/us/en/magazine/arctic-surfing": { category: "surfing", date: "03-01-2019", image: "https://wknd.site/us/en/magazine/arctic-surfing/_jcr_content/root/container/container/contentfragment/par1/image.coreimg.60.800.jpeg/1660323789770/surfer-wave-02.jpeg" },
+    "/us/en/magazine/san-diego-surf": { category: "surfing", date: "02-01-2019", image: "https://wknd.site/us/en/magazine/san-diego-surf/_jcr_content/root/container/container/contentfragment/par1/image.coreimg.60.800.jpeg/1660323790169/adobestock-164735399.jpeg" },
+    "/us/en/magazine/western-australia": { category: "travel", date: "01-01-2019", image: "https://wknd.site/us/en/magazine/western-australia/_jcr_content/root/container/container/contentfragment/par2/image.coreimg.60.800.jpeg/1660323770369/adobe-waadobe-wa-b6a7083.jpeg" }
+  };
+  function enrichMetadata(main, document, path, map) {
+    const meta = map[path];
+    if (!meta) return;
+    const table = [...main.querySelectorAll("table")].find((t) => {
+      const firstCell = t.querySelector("tr th, tr td");
+      return firstCell && /^metadata$/i.test(firstCell.textContent.trim());
+    });
+    if (!table) return;
+    const hasRow = (key) => [...table.querySelectorAll("tr")].some((tr) => {
+      const c = tr.querySelector("td, th");
+      return c && c.textContent.trim().toLowerCase() === key.toLowerCase();
+    });
+    const addRow = (key, value) => {
+      if (!value || hasRow(key)) return;
+      const tr = document.createElement("tr");
+      const kCell = document.createElement("td");
+      kCell.textContent = key;
+      const vCell = document.createElement("td");
+      if (key === "Image") {
+        const img = document.createElement("img");
+        img.src = value;
+        vCell.append(img);
+      } else {
+        vCell.textContent = value;
+      }
+      tr.append(kCell, vCell);
+      table.append(tr);
+    };
+    addRow("Category", meta.category);
+    addRow("Publication Date", meta.date);
+    addRow("Image", meta.image);
+  }
+
   // tools/importer/import-article-detail.js
   var PAGE_TEMPLATE = {
     name: "article-detail",
@@ -111,6 +152,7 @@ var CustomImportScript = (() => {
       WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
       const rawPath = new URL(params.originalURL).pathname.replace(/\/$/, "").replace(/\.html?$/, "");
       const path = WebImporter.FileUtils.sanitizePath(rawPath === "" ? "/index" : rawPath);
+      enrichMetadata(main, document, path, ARTICLE_META);
       return [{
         element: main,
         path,
