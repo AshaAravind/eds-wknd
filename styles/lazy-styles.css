@@ -89,3 +89,50 @@ main .section.adventure-info h5 {
     margin-top: 8px;
   }
 }
+
+/*
+ * Article-detail: main content section (section style "article-main").
+ * The article header, body, and author bio render in a wide left column; the
+ * related-articles list ("up next") sits in a narrower right sidebar — matching
+ * the WKND source. Stacks to a single column on mobile.
+ */
+@media (width >= 900px) {
+  /*
+   * The grid container itself carries the centered content width (same 1200px /
+   * 32px container the hero and other sections use). Column split matches the
+   * source: ~66% article + 97px gutter + 291px sidebar.
+   */
+  main .section.article-main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 291px;
+    column-gap: 97px;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /*
+   * Reset the per-wrapper container constraints (max-width/auto-margin/padding
+   * from styles.css). Without this the wrappers re-center at 1200px inside their
+   * grid cell, so the article text renders as wide as the hero instead of filling
+   * only the left column.
+   */
+  main .section.article-main > div {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* article content (title, byline, body, author bio) fills the left column */
+  main .section.article-main > .default-content-wrapper,
+  main .section.article-main > .author-bio-wrapper {
+    grid-column: 1;
+  }
+
+  /* related-articles list occupies the right sidebar, aligned to the top row */
+  main .section.article-main > .cards-related-wrapper {
+    grid-column: 2;
+    grid-row: 1 / span 99;
+  }
+}

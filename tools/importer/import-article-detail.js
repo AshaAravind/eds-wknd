@@ -52,16 +52,12 @@ const PAGE_TEMPLATE = {
       id: 'rc2', name: 'breadcrumbs', selector: ['.breadcrumb'], style: null, blocks: ['breadcrumbs'], defaultContent: [],
     },
     {
-      id: 'rc3', name: 'article-header', selector: ['.title:nth-of-type(1)', 'main.aem-GridColumn--default--8 > .cmp-container > .title'], style: null, blocks: [], defaultContent: ['.title', '.byline'],
-    },
-    {
-      id: 'rc4', name: 'article-body', selector: ['.cmp-contentfragment--san-diego-surfspots', '.contentfragment'], style: null, blocks: [], defaultContent: ['.cmp-contentfragment--san-diego-surfspots'],
-    },
-    {
-      id: 'rc5', name: 'author-bio', selector: ['.cmp-experiencefragment--justin-barr', '.experiencefragment'], style: null, blocks: ['author-bio'], defaultContent: [],
-    },
-    {
-      id: 'rc6', name: 'sidebar', selector: ['.cmp-layoutcontainer--sidebar', 'aside.cmp-layoutcontainer--sidebar'], style: 'sidebar', blocks: ['cards-related'], defaultContent: ['.cmp-title--right'],
+      // Article header, body, author-bio and sidebar merged into one section so
+      // the article content and the related-articles sidebar can render as a
+      // 2-column layout (matching the source). Blocks still parse via
+      // PAGE_TEMPLATE.blocks; keeping them in one section (no separate entries)
+      // means no <hr> break splits the column pair apart.
+      id: 'rc3', name: 'article-main', selector: ['.title:nth-of-type(1)', 'main.aem-GridColumn--default--8 > .cmp-container > .title'], style: 'article-main', blocks: ['author-bio', 'cards-related'], defaultContent: ['.title', '.byline', '.cmp-contentfragment--san-diego-surfspots'],
     },
   ],
 };

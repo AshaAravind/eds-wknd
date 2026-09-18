@@ -27,4 +27,19 @@ export default function decorate(block) {
       && !c.classList.contains('author-bio-social'));
     if (textCell) textCell.classList.add('author-bio-info');
   }
+
+  // Social links import as text labels ("Facebook", "Twitter", …). Render them
+  // as icon-only buttons: tag each link with its platform (so CSS can draw the
+  // icon) and move the label to aria-label so it stays accessible but hidden.
+  const social = block.querySelector('.author-bio-social');
+  if (social) {
+    const platforms = ['facebook', 'twitter', 'instagram', 'linkedin', 'youtube', 'pinterest'];
+    social.querySelectorAll('a').forEach((link) => {
+      const label = link.textContent.trim();
+      const platform = platforms.find((p) => label.toLowerCase().includes(p));
+      if (platform) link.classList.add(`author-bio-social-${platform}`);
+      if (label) link.setAttribute('aria-label', label);
+      link.textContent = '';
+    });
+  }
 }
