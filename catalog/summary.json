@@ -1,0 +1,58 @@
+{
+  "analysis-summary": {
+    "status": "complete",
+    "metadata": {
+      "siteUrl": "https://wknd.site/us/en.html",
+      "siteName": "wknd.site",
+      "analysisDate": "2026-09-18",
+      "rootPageTitle": "WKND Adventures and Travel"
+    },
+    "metrics": {
+      "urlDiscoveryMethod": "crawl",
+      "totalPages": 64,
+      "localeCount": 7,
+      "locales": [
+        {
+          "locale": "us",
+          "pages": 27
+        },
+        {
+          "locale": "ca",
+          "pages": 30
+        },
+        {
+          "locale": "ch",
+          "pages": 3
+        },
+        {
+          "locale": "de",
+          "pages": 1
+        },
+        {
+          "locale": "fr",
+          "pages": 1
+        },
+        {
+          "locale": "es",
+          "pages": 1
+        },
+        {
+          "locale": "it",
+          "pages": 1
+        }
+      ],
+      "totalTemplates": 6,
+      "totalBlockTypes": 31,
+      "unknownBlockVariants": 7,
+      "edsBlockVariants": 24,
+      "pagesAnalyzed": 64,
+      "percentAnalyzed": 100,
+      "pagesPending": 0,
+      "pagesFailed": 0,
+      "blockDetectionCrashes": 0
+    },
+    "errors": {
+      "totalCount": 1
+    }
+  }
+}

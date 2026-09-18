@@ -1,0 +1,525 @@
+{
+  "analysis-urls-checklist": {
+    "captured": "2026-09-18T15:34:41.056Z",
+    "totalPages": 64,
+    "statusBreakdown": {
+      "marked": 0,
+      "analyzed": 64,
+      "failed": 0
+    },
+    "pages": {
+      "https://wknd.site/ca/en/magazine.html": {
+        "url": "https://wknd.site/ca/en/magazine.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:34:51.758Z",
+        "slug": "wknd_site_ca_en_magazine_html--504dde31",
+        "title": "Magazine",
+        "blockCount": 4
+      },
+      "https://wknd.site/ca/en/adventures.html": {
+        "url": "https://wknd.site/ca/en/adventures.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:34:51.602Z",
+        "slug": "wknd_site_ca_en_adventures_html--7a455a5e",
+        "title": "Adventures",
+        "blockCount": 2
+      },
+      "https://wknd.site/ca/en/faqs.html": {
+        "url": "https://wknd.site/ca/en/faqs.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:34:52.348Z",
+        "slug": "wknd_site_ca_en_faqs_html--863a2b0c",
+        "title": "FAQs",
+        "blockCount": 2
+      },
+      "https://wknd.site/ca/en/about-us.html": {
+        "url": "https://wknd.site/ca/en/about-us.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:34:54.495Z",
+        "slug": "wknd_site_ca_en_about-us_html--b9bd0d7b",
+        "title": "About Us",
+        "blockCount": 7
+      },
+      "https://wknd.site/ca/en/adventures/downhill-skiing-wyoming.html": {
+        "url": "https://wknd.site/ca/en/adventures/downhill-skiing-wyoming.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:34:56.209Z",
+        "slug": "wknd_site_ca_en_adventures_downhill-skiing-wyoming_html--8e7a04bd",
+        "title": "Downhill Skiing Wyoming",
+        "blockCount": 3
+      },
+      "https://wknd.site/ca/en/adventures/climbing-new-zealand.html": {
+        "url": "https://wknd.site/ca/en/adventures/climbing-new-zealand.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:02.058Z",
+        "slug": "wknd_site_ca_en_adventures_climbing-new-zealand_html--23218dc0",
+        "title": "Climbing New Zealand",
+        "blockCount": 3
+      },
+      "https://wknd.site/ca/en/adventures/yosemite-backpacking.html": {
+        "url": "https://wknd.site/ca/en/adventures/yosemite-backpacking.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:01.822Z",
+        "slug": "wknd_site_ca_en_adventures_yosemite-backpacking_html--2ca1ab0f",
+        "title": "Yosemite Backpacking",
+        "blockCount": 3
+      },
+      "https://wknd.site/ca/en/adventures/whistler-mountain-biking.html": {
+        "url": "https://wknd.site/ca/en/adventures/whistler-mountain-biking.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:02.432Z",
+        "slug": "wknd_site_ca_en_adventures_whistler-mountain-biking_html--457f1a78",
+        "title": "Whistler Mountain Biking",
+        "blockCount": 3
+      },
+      "https://wknd.site/ca/en/adventures/west-coast-cycling.html": {
+        "url": "https://wknd.site/ca/en/adventures/west-coast-cycling.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:04.315Z",
+        "slug": "wknd_site_ca_en_adventures_west-coast-cycling_html--c1cd098d",
+        "title": "West Coast Cycling",
+        "blockCount": 3
+      },
+      "https://wknd.site/ca/en/adventures/tahoe-skiing.html": {
+        "url": "https://wknd.site/ca/en/adventures/tahoe-skiing.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:05.830Z",
+        "slug": "wknd_site_ca_en_adventures_tahoe-skiing_html--b72a2731",
+        "title": "Tahoe Skiing",
+        "blockCount": 3
+      },
+      "https://wknd.site/ca/en/adventures/bali-surf-camp.html": {
+        "url": "https://wknd.site/ca/en/adventures/bali-surf-camp.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:11.467Z",
+        "slug": "wknd_site_ca_en_adventures_bali-surf-camp_html--678b1ddd",
+        "title": "Bali Surf Camp",
+        "blockCount": 3
+      },
+      "https://wknd.site/ca/en/adventures/beervana-portland.html": {
+        "url": "https://wknd.site/ca/en/adventures/beervana-portland.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:11.921Z",
+        "slug": "wknd_site_ca_en_adventures_beervana-portland_html--ddf822e6",
+        "title": "Beervana in Portland",
+        "blockCount": 3
+      },
+      "https://wknd.site/ca/en/adventures/colorado-rock-climbing.html": {
+        "url": "https://wknd.site/ca/en/adventures/colorado-rock-climbing.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:12.167Z",
+        "slug": "wknd_site_ca_en_adventures_colorado-rock-climbing_html--ba9a71ea",
+        "title": "Colorado Rock Climbing",
+        "blockCount": 3
+      },
+      "https://wknd.site/ca/en/adventures/cycling-southern-utah.html": {
+        "url": "https://wknd.site/ca/en/adventures/cycling-southern-utah.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:13.996Z",
+        "slug": "wknd_site_ca_en_adventures_cycling-southern-utah_html--a7eaa407",
+        "title": "Cycling Southern Utah",
+        "blockCount": 3
+      },
+      "https://wknd.site/ca/en/adventures/cycling-tuscany.html": {
+        "url": "https://wknd.site/ca/en/adventures/cycling-tuscany.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:15.511Z",
+        "slug": "wknd_site_ca_en_adventures_cycling-tuscany_html--3219c3bf",
+        "title": "Cycling Tuscany",
+        "blockCount": 3
+      },
+      "https://wknd.site/ca/en/adventures/gastronomic-marais-tour.html": {
+        "url": "https://wknd.site/ca/en/adventures/gastronomic-marais-tour.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:21.155Z",
+        "slug": "wknd_site_ca_en_adventures_gastronomic-marais-tour_html--2d3bec3d",
+        "title": "Gastronomic Marais Tour",
+        "blockCount": 3
+      },
+      "https://wknd.site/ca/en/adventures/napa-wine-tasting.html": {
+        "url": "https://wknd.site/ca/en/adventures/napa-wine-tasting.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:21.478Z",
+        "slug": "wknd_site_ca_en_adventures_napa-wine-tasting_html--d22cea1f",
+        "title": "Napa Wine Tasting",
+        "blockCount": 3
+      },
+      "https://wknd.site/ca/en/adventures/riverside-camping-australia.html": {
+        "url": "https://wknd.site/ca/en/adventures/riverside-camping-australia.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:21.871Z",
+        "slug": "wknd_site_ca_en_adventures_riverside-camping-australia_html--b621776a",
+        "title": "Riverside Camping",
+        "blockCount": 3
+      },
+      "https://wknd.site/ca/en/adventures/ski-touring-mont-blanc.html": {
+        "url": "https://wknd.site/ca/en/adventures/ski-touring-mont-blanc.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:23.767Z",
+        "slug": "wknd_site_ca_en_adventures_ski-touring-mont-blanc_html--7d366af7",
+        "title": "Ski Touring Mont Blanc",
+        "blockCount": 3
+      },
+      "https://wknd.site/ca/en/adventures/surf-camp-costa-rica.html": {
+        "url": "https://wknd.site/ca/en/adventures/surf-camp-costa-rica.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:25.134Z",
+        "slug": "wknd_site_ca_en_adventures_surf-camp-costa-rica_html--0f15714d",
+        "title": "Surf Camp in Costa Rica",
+        "blockCount": 3
+      },
+      "https://wknd.site/ca/en/magazine/san-diego-surf.html": {
+        "url": "https://wknd.site/ca/en/magazine/san-diego-surf.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:32.557Z",
+        "slug": "wknd_site_ca_en_magazine_san-diego-surf_html--3550c5e8",
+        "title": "San Diego Surf Spots",
+        "blockCount": 7
+      },
+      "https://wknd.site/ca/en/magazine/western-australia.html": {
+        "url": "https://wknd.site/ca/en/magazine/western-australia.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:33.251Z",
+        "slug": "wknd_site_ca_en_magazine_western-australia_html--6ad76b5e",
+        "title": "Western Australia",
+        "blockCount": 6
+      },
+      "https://wknd.site/ca/en/magazine/guide-la-skateparks.html": {
+        "url": "https://wknd.site/ca/en/magazine/guide-la-skateparks.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:32.948Z",
+        "slug": "wknd_site_ca_en_magazine_guide-la-skateparks_html--13006f5d",
+        "title": "Ultimate Guide to LA Skateparks",
+        "blockCount": 5
+      },
+      "https://wknd.site/ca/en/magazine/ski-touring.html": {
+        "url": "https://wknd.site/ca/en/magazine/ski-touring.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:35.358Z",
+        "slug": "wknd_site_ca_en_magazine_ski-touring_html--fbda622a",
+        "title": "Ski Touring",
+        "blockCount": 7
+      },
+      "https://wknd.site/ca/en/magazine/arctic-surfing.html": {
+        "url": "https://wknd.site/ca/en/magazine/arctic-surfing.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:37.061Z",
+        "slug": "wknd_site_ca_en_magazine_arctic-surfing_html--6cb56981",
+        "title": "Arctic Surfing",
+        "blockCount": 6
+      },
+      "https://wknd.site/ca/en/magazine/members-only.html": {
+        "url": "https://wknd.site/ca/en/magazine/members-only.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:41.731Z",
+        "slug": "wknd_site_ca_en_magazine_members-only_html--c8e9e4dd",
+        "title": "Members Only",
+        "blockCount": 1
+      },
+      "https://wknd.site/ca/en/magazine/members-only/alaskan-adventure.html": {
+        "url": "https://wknd.site/ca/en/magazine/members-only/alaskan-adventure.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:44.785Z",
+        "slug": "wknd_site_ca_en_magazine_members-only_alaskan-adventure_html--df129cf6",
+        "title": "Alaskan Adventure",
+        "blockCount": 7
+      },
+      "https://wknd.site/ca/en/magazine/members-only/fly-fishing-the-amazon.html": {
+        "url": "https://wknd.site/ca/en/magazine/members-only/fly-fishing-the-amazon.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:45.065Z",
+        "slug": "wknd_site_ca_en_magazine_members-only_fly-fishing-the-amazon_html--617a9329",
+        "title": "Fly Fishing the Amazon",
+        "blockCount": 6
+      },
+      "https://wknd.site/us/en/magazine.html": {
+        "url": "https://wknd.site/us/en/magazine.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:45.848Z",
+        "slug": "wknd_site_us_en_magazine_html--17b58a0b",
+        "title": "Magazine",
+        "blockCount": 4
+      },
+      "https://wknd.site/us/en/adventures.html": {
+        "url": "https://wknd.site/us/en/adventures.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:47.487Z",
+        "slug": "wknd_site_us_en_adventures_html--6fbce216",
+        "title": "Adventures",
+        "blockCount": 2
+      },
+      "https://wknd.site/us/en/faqs.html": {
+        "url": "https://wknd.site/us/en/faqs.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:51.723Z",
+        "slug": "wknd_site_us_en_faqs_html--1afb5043",
+        "title": "FAQs",
+        "blockCount": 2
+      },
+      "https://wknd.site/us/en/about-us.html": {
+        "url": "https://wknd.site/us/en/about-us.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:55.329Z",
+        "slug": "wknd_site_us_en_about-us_html--c258e453",
+        "title": "About Us",
+        "blockCount": 7
+      },
+      "https://wknd.site/us/en/adventures/downhill-skiing-wyoming.html": {
+        "url": "https://wknd.site/us/en/adventures/downhill-skiing-wyoming.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:55.089Z",
+        "slug": "wknd_site_us_en_adventures_downhill-skiing-wyoming_html--2bfaf893",
+        "title": "Downhill Skiing Wyoming",
+        "blockCount": 3
+      },
+      "https://wknd.site/us/en/adventures/climbing-new-zealand.html": {
+        "url": "https://wknd.site/us/en/adventures/climbing-new-zealand.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:56.390Z",
+        "slug": "wknd_site_us_en_adventures_climbing-new-zealand_html--9caa0a92",
+        "title": "Climbing New Zealand",
+        "blockCount": 3
+      },
+      "https://wknd.site/us/en/adventures/yosemite-backpacking.html": {
+        "url": "https://wknd.site/us/en/adventures/yosemite-backpacking.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:35:57.505Z",
+        "slug": "wknd_site_us_en_adventures_yosemite-backpacking_html--1f18735b",
+        "title": "Yosemite Backpacking",
+        "blockCount": 3
+      },
+      "https://wknd.site/us/en/adventures/whistler-mountain-biking.html": {
+        "url": "https://wknd.site/us/en/adventures/whistler-mountain-biking.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:02.098Z",
+        "slug": "wknd_site_us_en_adventures_whistler-mountain-biking_html--4a38866b",
+        "title": "Whistler Mountain Biking",
+        "blockCount": 3
+      },
+      "https://wknd.site/us/en/adventures/west-coast-cycling.html": {
+        "url": "https://wknd.site/us/en/adventures/west-coast-cycling.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:05.137Z",
+        "slug": "wknd_site_us_en_adventures_west-coast-cycling_html--f4ac7a72",
+        "title": "West Coast Cycling",
+        "blockCount": 3
+      },
+      "https://wknd.site/us/en/adventures/tahoe-skiing.html": {
+        "url": "https://wknd.site/us/en/adventures/tahoe-skiing.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:05.320Z",
+        "slug": "wknd_site_us_en_adventures_tahoe-skiing_html--6b8fe4b0",
+        "title": "Tahoe Skiing",
+        "blockCount": 3
+      },
+      "https://wknd.site/us/en/adventures/bali-surf-camp.html": {
+        "url": "https://wknd.site/us/en/adventures/bali-surf-camp.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:06.252Z",
+        "slug": "wknd_site_us_en_adventures_bali-surf-camp_html--2e38a9c1",
+        "title": "Bali Surf Camp",
+        "blockCount": 3
+      },
+      "https://wknd.site/us/en/adventures/beervana-portland.html": {
+        "url": "https://wknd.site/us/en/adventures/beervana-portland.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:07.671Z",
+        "slug": "wknd_site_us_en_adventures_beervana-portland_html--0539e503",
+        "title": "Beervana in Portland",
+        "blockCount": 3
+      },
+      "https://wknd.site/us/en/adventures/colorado-rock-climbing.html": {
+        "url": "https://wknd.site/us/en/adventures/colorado-rock-climbing.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:12.250Z",
+        "slug": "wknd_site_us_en_adventures_colorado-rock-climbing_html--f78265a4",
+        "title": "Colorado Rock Climbing",
+        "blockCount": 3
+      },
+      "https://wknd.site/us/en/adventures/cycling-southern-utah.html": {
+        "url": "https://wknd.site/us/en/adventures/cycling-southern-utah.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:15.117Z",
+        "slug": "wknd_site_us_en_adventures_cycling-southern-utah_html--8648ab5a",
+        "title": "Cycling Southern Utah",
+        "blockCount": 3
+      },
+      "https://wknd.site/us/en/adventures/cycling-tuscany.html": {
+        "url": "https://wknd.site/us/en/adventures/cycling-tuscany.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:15.392Z",
+        "slug": "wknd_site_us_en_adventures_cycling-tuscany_html--09782ca4",
+        "title": "Cycling Tuscany",
+        "blockCount": 3
+      },
+      "https://wknd.site/us/en/adventures/gastronomic-marais-tour.html": {
+        "url": "https://wknd.site/us/en/adventures/gastronomic-marais-tour.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:16.267Z",
+        "slug": "wknd_site_us_en_adventures_gastronomic-marais-tour_html--850c7841",
+        "title": "Gastronomic Marais Tour",
+        "blockCount": 3
+      },
+      "https://wknd.site/us/en/adventures/napa-wine-tasting.html": {
+        "url": "https://wknd.site/us/en/adventures/napa-wine-tasting.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:17.607Z",
+        "slug": "wknd_site_us_en_adventures_napa-wine-tasting_html--a2e48fd5",
+        "title": "Napa Wine Tasting",
+        "blockCount": 3
+      },
+      "https://wknd.site/us/en/adventures/riverside-camping-australia.html": {
+        "url": "https://wknd.site/us/en/adventures/riverside-camping-australia.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:22.228Z",
+        "slug": "wknd_site_us_en_adventures_riverside-camping-australia_html--68edd41a",
+        "title": "Riverside Camping",
+        "blockCount": 3
+      },
+      "https://wknd.site/us/en/adventures/ski-touring-mont-blanc.html": {
+        "url": "https://wknd.site/us/en/adventures/ski-touring-mont-blanc.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:25.363Z",
+        "slug": "wknd_site_us_en_adventures_ski-touring-mont-blanc_html--ef585c81",
+        "title": "Ski Touring Mont Blanc",
+        "blockCount": 3
+      },
+      "https://wknd.site/us/en/adventures/surf-camp-costa-rica.html": {
+        "url": "https://wknd.site/us/en/adventures/surf-camp-costa-rica.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:25.496Z",
+        "slug": "wknd_site_us_en_adventures_surf-camp-costa-rica_html--de076791",
+        "title": "Surf Camp in Costa Rica",
+        "blockCount": 3
+      },
+      "https://wknd.site/us/en/magazine/san-diego-surf.html": {
+        "url": "https://wknd.site/us/en/magazine/san-diego-surf.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:27.706Z",
+        "slug": "wknd_site_us_en_magazine_san-diego-surf_html--efb2a09c",
+        "title": "San Diego Surf Spots",
+        "blockCount": 7
+      },
+      "https://wknd.site/us/en/magazine/western-australia.html": {
+        "url": "https://wknd.site/us/en/magazine/western-australia.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:29.361Z",
+        "slug": "wknd_site_us_en_magazine_western-australia_html--77a25244",
+        "title": "Western Australia",
+        "blockCount": 6
+      },
+      "https://wknd.site/us/en/magazine/guide-la-skateparks.html": {
+        "url": "https://wknd.site/us/en/magazine/guide-la-skateparks.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:33.403Z",
+        "slug": "wknd_site_us_en_magazine_guide-la-skateparks_html--d457f548",
+        "title": "Ultimate Guide to LA Skateparks",
+        "blockCount": 5
+      },
+      "https://wknd.site/us/en/magazine/ski-touring.html": {
+        "url": "https://wknd.site/us/en/magazine/ski-touring.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:37.359Z",
+        "slug": "wknd_site_us_en_magazine_ski-touring_html--b1aaea2d",
+        "title": "Ski Touring",
+        "blockCount": 7
+      },
+      "https://wknd.site/us/en/magazine/arctic-surfing.html": {
+        "url": "https://wknd.site/us/en/magazine/arctic-surfing.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:37.243Z",
+        "slug": "wknd_site_us_en_magazine_arctic-surfing_html--7ce71719",
+        "title": "Arctic Surfing",
+        "blockCount": 6
+      },
+      "https://wknd.site/us/en.html": {
+        "url": "https://wknd.site/us/en.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:39.083Z",
+        "slug": "wknd_site_us_en_html--c76865e0",
+        "title": "WKND Adventures and Travel",
+        "blockCount": 7
+      },
+      "https://wknd.site/us/es.html": {
+        "url": "https://wknd.site/us/es.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:39.015Z",
+        "slug": "wknd_site_us_es_html--2e12e1e5",
+        "title": "Español",
+        "blockCount": 1
+      },
+      "https://wknd.site/ca/en.html": {
+        "url": "https://wknd.site/ca/en.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:44.509Z",
+        "slug": "wknd_site_ca_en_html--75e40e45",
+        "title": "WKND Adventures and Travel",
+        "blockCount": 7
+      },
+      "https://wknd.site/ca/fr.html": {
+        "url": "https://wknd.site/ca/fr.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:46.837Z",
+        "slug": "wknd_site_ca_fr_html--c54edba1",
+        "title": "Français",
+        "blockCount": 1
+      },
+      "https://wknd.site/ch/de.html": {
+        "url": "https://wknd.site/ch/de.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:46.902Z",
+        "slug": "wknd_site_ch_de_html--a9abbc3f",
+        "title": "Deutsch",
+        "blockCount": 1
+      },
+      "https://wknd.site/ch/fr.html": {
+        "url": "https://wknd.site/ch/fr.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:48.693Z",
+        "slug": "wknd_site_ch_fr_html--f1fccf96",
+        "title": "Français",
+        "blockCount": 1
+      },
+      "https://wknd.site/ch/it.html": {
+        "url": "https://wknd.site/ch/it.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:48.719Z",
+        "slug": "wknd_site_ch_it_html--6d0297e1",
+        "title": "Italiano",
+        "blockCount": 1
+      },
+      "https://wknd.site/de/de.html": {
+        "url": "https://wknd.site/de/de.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:53.653Z",
+        "slug": "wknd_site_de_de_html--049288fd",
+        "title": "Deutsch",
+        "blockCount": 1
+      },
+      "https://wknd.site/fr/fr.html": {
+        "url": "https://wknd.site/fr/fr.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:56.283Z",
+        "slug": "wknd_site_fr_fr_html--a5c37db0",
+        "title": "Français",
+        "blockCount": 1
+      },
+      "https://wknd.site/es/es.html": {
+        "url": "https://wknd.site/es/es.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:56.463Z",
+        "slug": "wknd_site_es_es_html--0f82d69e",
+        "title": "Español",
+        "blockCount": 1
+      },
+      "https://wknd.site/it/it.html": {
+        "url": "https://wknd.site/it/it.html",
+        "status": "analyzed",
+        "analyzedAt": "2026-09-18T15:36:58.002Z",
+        "slug": "wknd_site_it_it_html--d974d394",
+        "title": "Italiano",
+        "blockCount": 1
+      }
+    }
+  }
+}

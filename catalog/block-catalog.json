@@ -1,0 +1,524 @@
+{
+  "block-catalog": {
+    "schemaVersion": 2,
+    "captured": "2026-09-18T15:39:46.693Z",
+    "totalBlockVariants": 31,
+    "totalBlocksProcessed": 225,
+    "newVariantsCreated": 29,
+    "variantsReused": 196,
+    "similarityThreshold": 0.7,
+    "completionStatus": {
+      "analyzed": 64,
+      "failed": 0
+    },
+    "blockVariants": {
+      "footer-global": {
+        "id": "footer-global",
+        "name": "footer",
+        "type": "footer",
+        "canonicalModel": "configuration",
+        "pagesFound": 1,
+        "description": "Block variant: footer",
+        "screenshots": [
+          ".pages/_global/footer.jpg"
+        ]
+      },
+      "header-global": {
+        "id": "header-global",
+        "name": "header",
+        "type": "header",
+        "canonicalModel": "configuration",
+        "pagesFound": 1,
+        "description": "Block variant: header",
+        "screenshots": [
+          ".pages/_global/header.jpg"
+        ]
+      },
+      "v_04d141a53172": {
+        "id": "v_04d141a53172",
+        "name": "hero",
+        "type": "hero",
+        "canonicalModel": "standalone",
+        "pagesFound": 2,
+        "description": "heading + 3 CTAs + image",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_about-us_html--b9bd0d7b/blocks/30adc149.jpg",
+          ".pages/wknd_site_us_en_about-us_html--c258e453/blocks/6f668be4.jpg"
+        ]
+      },
+      "v_3811f488627e": {
+        "id": "v_3811f488627e",
+        "name": "unknown",
+        "type": "unknown",
+        "canonicalModel": "standalone",
+        "pagesFound": 2,
+        "description": "heading + 3 CTAs + image",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_about-us_html--b9bd0d7b/blocks/1af58de8.jpg",
+          ".pages/wknd_site_us_en_about-us_html--c258e453/blocks/7d6ae65b.jpg"
+        ]
+      },
+      "v_4d46829f22d9": {
+        "id": "v_4d46829f22d9",
+        "name": "breadcrumbs",
+        "type": "breadcrumbs",
+        "canonicalModel": "standalone",
+        "pagesFound": 44,
+        "description": "list",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_adventures_bali-surf-camp_html--678b1ddd/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_ca_en_adventures_beervana-portland_html--ddf822e6/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_ca_en_adventures_climbing-new-zealand_html--23218dc0/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_ca_en_adventures_colorado-rock-climbing_html--ba9a71ea/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_ca_en_adventures_cycling-southern-utah_html--a7eaa407/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_ca_en_adventures_cycling-tuscany_html--3219c3bf/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_ca_en_adventures_downhill-skiing-wyoming_html--8e7a04bd/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_ca_en_adventures_gastronomic-marais-tour_html--2d3bec3d/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_ca_en_adventures_napa-wine-tasting_html--d22cea1f/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_ca_en_adventures_riverside-camping-australia_html--b621776a/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_ca_en_adventures_ski-touring-mont-blanc_html--7d366af7/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_ca_en_adventures_surf-camp-costa-rica_html--0f15714d/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_ca_en_adventures_tahoe-skiing_html--b72a2731/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_ca_en_adventures_west-coast-cycling_html--c1cd098d/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_ca_en_adventures_whistler-mountain-biking_html--457f1a78/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_ca_en_adventures_yosemite-backpacking_html--2ca1ab0f/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_ca_en_magazine_arctic-surfing_html--6cb56981/blocks/2499580e.jpg",
+          ".pages/wknd_site_ca_en_magazine_guide-la-skateparks_html--13006f5d/blocks/2499580e.jpg",
+          ".pages/wknd_site_ca_en_magazine_members-only_alaskan-adventure_html--df129cf6/blocks/2499580e.jpg",
+          ".pages/wknd_site_ca_en_magazine_members-only_fly-fishing-the-amazon_html--617a9329/blocks/2499580e.jpg",
+          ".pages/wknd_site_ca_en_magazine_san-diego-surf_html--3550c5e8/blocks/2499580e.jpg",
+          ".pages/wknd_site_ca_en_magazine_ski-touring_html--fbda622a/blocks/2499580e.jpg",
+          ".pages/wknd_site_ca_en_magazine_western-australia_html--6ad76b5e/blocks/2499580e.jpg",
+          ".pages/wknd_site_us_en_adventures_bali-surf-camp_html--2e38a9c1/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_us_en_adventures_beervana-portland_html--0539e503/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_us_en_adventures_climbing-new-zealand_html--9caa0a92/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_us_en_adventures_colorado-rock-climbing_html--f78265a4/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_us_en_adventures_cycling-southern-utah_html--8648ab5a/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_us_en_adventures_cycling-tuscany_html--09782ca4/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_us_en_adventures_downhill-skiing-wyoming_html--2bfaf893/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_us_en_adventures_gastronomic-marais-tour_html--850c7841/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_us_en_adventures_napa-wine-tasting_html--a2e48fd5/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_us_en_adventures_riverside-camping-australia_html--68edd41a/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_us_en_adventures_ski-touring-mont-blanc_html--ef585c81/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_us_en_adventures_surf-camp-costa-rica_html--de076791/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_us_en_adventures_tahoe-skiing_html--6b8fe4b0/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_us_en_adventures_west-coast-cycling_html--f4ac7a72/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_us_en_adventures_whistler-mountain-biking_html--4a38866b/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_us_en_adventures_yosemite-backpacking_html--1f18735b/blocks/1796d5bc.jpg",
+          ".pages/wknd_site_us_en_magazine_arctic-surfing_html--7ce71719/blocks/2499580e.jpg",
+          ".pages/wknd_site_us_en_magazine_guide-la-skateparks_html--d457f548/blocks/2499580e.jpg",
+          ".pages/wknd_site_us_en_magazine_san-diego-surf_html--efb2a09c/blocks/2499580e.jpg",
+          ".pages/wknd_site_us_en_magazine_ski-touring_html--b1aaea2d/blocks/2499580e.jpg",
+          ".pages/wknd_site_us_en_magazine_western-australia_html--77a25244/blocks/2499580e.jpg"
+        ]
+      },
+      "v_85f1e746e380": {
+        "id": "v_85f1e746e380",
+        "name": "carousel",
+        "type": "carousel",
+        "canonicalModel": "standalone",
+        "pagesFound": 14,
+        "description": "2 CTAs + image + list",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_adventures_bali-surf-camp_html--678b1ddd/blocks/4c672112.jpg",
+          ".pages/wknd_site_ca_en_adventures_colorado-rock-climbing_html--ba9a71ea/blocks/4c672112.jpg",
+          ".pages/wknd_site_ca_en_adventures_cycling-southern-utah_html--a7eaa407/blocks/4c672112.jpg",
+          ".pages/wknd_site_ca_en_adventures_gastronomic-marais-tour_html--2d3bec3d/blocks/4c672112.jpg",
+          ".pages/wknd_site_ca_en_adventures_tahoe-skiing_html--b72a2731/blocks/4c672112.jpg",
+          ".pages/wknd_site_ca_en_adventures_west-coast-cycling_html--c1cd098d/blocks/4c672112.jpg",
+          ".pages/wknd_site_ca_en_adventures_yosemite-backpacking_html--2ca1ab0f/blocks/4c672112.jpg",
+          ".pages/wknd_site_us_en_adventures_bali-surf-camp_html--2e38a9c1/blocks/4c672112.jpg",
+          ".pages/wknd_site_us_en_adventures_colorado-rock-climbing_html--f78265a4/blocks/4c672112.jpg",
+          ".pages/wknd_site_us_en_adventures_cycling-southern-utah_html--8648ab5a/blocks/4c672112.jpg",
+          ".pages/wknd_site_us_en_adventures_gastronomic-marais-tour_html--850c7841/blocks/4c672112.jpg",
+          ".pages/wknd_site_us_en_adventures_tahoe-skiing_html--6b8fe4b0/blocks/4c672112.jpg",
+          ".pages/wknd_site_us_en_adventures_west-coast-cycling_html--f4ac7a72/blocks/4c672112.jpg",
+          ".pages/wknd_site_us_en_adventures_yosemite-backpacking_html--1f18735b/blocks/4c672112.jpg"
+        ]
+      },
+      "v_ce821482035f": {
+        "id": "v_ce821482035f",
+        "name": "tabs",
+        "type": "tabs",
+        "canonicalModel": "standalone",
+        "pagesFound": 16,
+        "description": "heading + text + image + list",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_adventures_bali-surf-camp_html--678b1ddd/blocks/3ed66aec.jpg",
+          ".pages/wknd_site_ca_en_adventures_colorado-rock-climbing_html--ba9a71ea/blocks/6e1bf559.jpg",
+          ".pages/wknd_site_ca_en_adventures_cycling-southern-utah_html--a7eaa407/blocks/64deb870.jpg",
+          ".pages/wknd_site_ca_en_adventures_gastronomic-marais-tour_html--2d3bec3d/blocks/2cc45fb9.jpg",
+          ".pages/wknd_site_ca_en_adventures_napa-wine-tasting_html--d22cea1f/blocks/2f00e970.jpg",
+          ".pages/wknd_site_ca_en_adventures_tahoe-skiing_html--b72a2731/blocks/500da7a3.jpg",
+          ".pages/wknd_site_ca_en_adventures_west-coast-cycling_html--c1cd098d/blocks/1234b1e1.jpg",
+          ".pages/wknd_site_ca_en_adventures_yosemite-backpacking_html--2ca1ab0f/blocks/2f00e970.jpg",
+          ".pages/wknd_site_us_en_adventures_bali-surf-camp_html--2e38a9c1/blocks/2fc58f02.jpg",
+          ".pages/wknd_site_us_en_adventures_colorado-rock-climbing_html--f78265a4/blocks/5117736b.jpg",
+          ".pages/wknd_site_us_en_adventures_cycling-southern-utah_html--8648ab5a/blocks/32dac9e7.jpg",
+          ".pages/wknd_site_us_en_adventures_gastronomic-marais-tour_html--850c7841/blocks/69e5fc0c.jpg",
+          ".pages/wknd_site_us_en_adventures_napa-wine-tasting_html--a2e48fd5/blocks/2f00e970.jpg",
+          ".pages/wknd_site_us_en_adventures_tahoe-skiing_html--6b8fe4b0/blocks/4786666.jpg",
+          ".pages/wknd_site_us_en_adventures_west-coast-cycling_html--f4ac7a72/blocks/75204372.jpg",
+          ".pages/wknd_site_us_en_adventures_yosemite-backpacking_html--1f18735b/blocks/2f00e970.jpg"
+        ]
+      },
+      "v_85f1e746e380-1": {
+        "id": "v_85f1e746e380-1",
+        "name": "carousel",
+        "type": "carousel",
+        "canonicalModel": "standalone",
+        "pagesFound": 4,
+        "description": "2 CTAs + 2 images + list",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_adventures_beervana-portland_html--ddf822e6/blocks/4c672112.jpg",
+          ".pages/wknd_site_ca_en_adventures_napa-wine-tasting_html--d22cea1f/blocks/4c672112.jpg",
+          ".pages/wknd_site_us_en_adventures_beervana-portland_html--0539e503/blocks/4c672112.jpg",
+          ".pages/wknd_site_us_en_adventures_napa-wine-tasting_html--a2e48fd5/blocks/4c672112.jpg"
+        ]
+      },
+      "v_8ab7ece34e9a": {
+        "id": "v_8ab7ece34e9a",
+        "name": "tabs",
+        "type": "tabs",
+        "canonicalModel": "standalone",
+        "pagesFound": 2,
+        "description": "heading + text + 2 images + list",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_adventures_beervana-portland_html--ddf822e6/blocks/2f00e970.jpg",
+          ".pages/wknd_site_us_en_adventures_beervana-portland_html--0539e503/blocks/2f00e970.jpg"
+        ]
+      },
+      "v_85f1e746e380-2": {
+        "id": "v_85f1e746e380-2",
+        "name": "carousel",
+        "type": "carousel",
+        "canonicalModel": "standalone",
+        "pagesFound": 14,
+        "description": "2 CTAs + 3 images + list",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_adventures_climbing-new-zealand_html--23218dc0/blocks/4c672112.jpg",
+          ".pages/wknd_site_ca_en_adventures_cycling-tuscany_html--3219c3bf/blocks/4c672112.jpg",
+          ".pages/wknd_site_ca_en_adventures_downhill-skiing-wyoming_html--8e7a04bd/blocks/4c672112.jpg",
+          ".pages/wknd_site_ca_en_adventures_riverside-camping-australia_html--b621776a/blocks/4c672112.jpg",
+          ".pages/wknd_site_ca_en_adventures_ski-touring-mont-blanc_html--7d366af7/blocks/4c672112.jpg",
+          ".pages/wknd_site_ca_en_adventures_surf-camp-costa-rica_html--0f15714d/blocks/4c672112.jpg",
+          ".pages/wknd_site_ca_en_adventures_whistler-mountain-biking_html--457f1a78/blocks/4c672112.jpg",
+          ".pages/wknd_site_us_en_adventures_climbing-new-zealand_html--9caa0a92/blocks/4c672112.jpg",
+          ".pages/wknd_site_us_en_adventures_cycling-tuscany_html--09782ca4/blocks/4c672112.jpg",
+          ".pages/wknd_site_us_en_adventures_downhill-skiing-wyoming_html--2bfaf893/blocks/4c672112.jpg",
+          ".pages/wknd_site_us_en_adventures_riverside-camping-australia_html--68edd41a/blocks/4c672112.jpg",
+          ".pages/wknd_site_us_en_adventures_ski-touring-mont-blanc_html--ef585c81/blocks/4c672112.jpg",
+          ".pages/wknd_site_us_en_adventures_surf-camp-costa-rica_html--de076791/blocks/4c672112.jpg",
+          ".pages/wknd_site_us_en_adventures_whistler-mountain-biking_html--4a38866b/blocks/4c672112.jpg"
+        ]
+      },
+      "v_8ab7ece34e9a-1": {
+        "id": "v_8ab7ece34e9a-1",
+        "name": "tabs",
+        "type": "tabs",
+        "canonicalModel": "standalone",
+        "pagesFound": 4,
+        "description": "heading + text + 5 images + list",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_adventures_climbing-new-zealand_html--23218dc0/blocks/2f00e970.jpg",
+          ".pages/wknd_site_ca_en_adventures_surf-camp-costa-rica_html--0f15714d/blocks/6734835d.jpg",
+          ".pages/wknd_site_us_en_adventures_climbing-new-zealand_html--9caa0a92/blocks/2f00e970.jpg",
+          ".pages/wknd_site_us_en_adventures_surf-camp-costa-rica_html--de076791/blocks/1c9ad4c9.jpg"
+        ]
+      },
+      "v_8ab7ece34e9a-2": {
+        "id": "v_8ab7ece34e9a-2",
+        "name": "tabs",
+        "type": "tabs",
+        "canonicalModel": "standalone",
+        "pagesFound": 4,
+        "description": "heading + text + 3 images + list",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_adventures_cycling-tuscany_html--3219c3bf/blocks/2f00e970.jpg",
+          ".pages/wknd_site_ca_en_adventures_downhill-skiing-wyoming_html--8e7a04bd/blocks/2f00e970.jpg",
+          ".pages/wknd_site_us_en_adventures_cycling-tuscany_html--09782ca4/blocks/2f00e970.jpg",
+          ".pages/wknd_site_us_en_adventures_downhill-skiing-wyoming_html--2bfaf893/blocks/2f00e970.jpg"
+        ]
+      },
+      "v_ce80ccd0f1fa": {
+        "id": "v_ce80ccd0f1fa",
+        "name": "hero",
+        "type": "hero",
+        "canonicalModel": "standalone",
+        "pagesFound": 4,
+        "description": "heading + text + image",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_adventures_html--7a455a5e/blocks/780af56e.jpg",
+          ".pages/wknd_site_ca_en_magazine_html--504dde31/blocks/2e2212c6.jpg",
+          ".pages/wknd_site_us_en_adventures_html--6fbce216/blocks/780af56e.jpg",
+          ".pages/wknd_site_us_en_magazine_html--17b58a0b/blocks/2e2212c6.jpg"
+        ]
+      },
+      "v_8ab7ece34e9a-3": {
+        "id": "v_8ab7ece34e9a-3",
+        "name": "tabs",
+        "type": "tabs",
+        "canonicalModel": "standalone",
+        "pagesFound": 2,
+        "description": "32 images + list",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_adventures_html--7a455a5e/blocks/2f00e970.jpg",
+          ".pages/wknd_site_us_en_adventures_html--6fbce216/blocks/2f00e970.jpg"
+        ]
+      },
+      "v_e0f5a3e4d7c8": {
+        "id": "v_e0f5a3e4d7c8",
+        "name": "tabs",
+        "type": "tabs",
+        "canonicalModel": "standalone",
+        "pagesFound": 2,
+        "description": "heading + text + 6 images + list",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_adventures_riverside-camping-australia_html--b621776a/blocks/5198f85.jpg",
+          ".pages/wknd_site_us_en_adventures_riverside-camping-australia_html--68edd41a/blocks/78798e42.jpg"
+        ]
+      },
+      "v_8ab7ece34e9a-4": {
+        "id": "v_8ab7ece34e9a-4",
+        "name": "tabs",
+        "type": "tabs",
+        "canonicalModel": "standalone",
+        "pagesFound": 4,
+        "description": "heading + text + 7 images + list",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_adventures_ski-touring-mont-blanc_html--7d366af7/blocks/2f00e970.jpg",
+          ".pages/wknd_site_ca_en_adventures_whistler-mountain-biking_html--457f1a78/blocks/2f00e970.jpg",
+          ".pages/wknd_site_us_en_adventures_ski-touring-mont-blanc_html--ef585c81/blocks/2f00e970.jpg",
+          ".pages/wknd_site_us_en_adventures_whistler-mountain-biking_html--4a38866b/blocks/2f00e970.jpg"
+        ]
+      },
+      "v_64d7a45c1296": {
+        "id": "v_64d7a45c1296",
+        "name": "hero",
+        "type": "hero",
+        "canonicalModel": "standalone",
+        "pagesFound": 14,
+        "description": "image",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_faqs_html--863a2b0c/blocks/218140d2.jpg",
+          ".pages/wknd_site_ca_en_magazine_arctic-surfing_html--6cb56981/blocks/15efbb5e.jpg",
+          ".pages/wknd_site_ca_en_magazine_guide-la-skateparks_html--13006f5d/blocks/15efbb5e.jpg",
+          ".pages/wknd_site_ca_en_magazine_members-only_alaskan-adventure_html--df129cf6/blocks/15efbb5e.jpg",
+          ".pages/wknd_site_ca_en_magazine_members-only_fly-fishing-the-amazon_html--617a9329/blocks/15efbb5e.jpg",
+          ".pages/wknd_site_ca_en_magazine_san-diego-surf_html--3550c5e8/blocks/15efbb5e.jpg",
+          ".pages/wknd_site_ca_en_magazine_ski-touring_html--fbda622a/blocks/15efbb5e.jpg",
+          ".pages/wknd_site_ca_en_magazine_western-australia_html--6ad76b5e/blocks/15efbb5e.jpg",
+          ".pages/wknd_site_us_en_faqs_html--1afb5043/blocks/218140d2.jpg",
+          ".pages/wknd_site_us_en_magazine_arctic-surfing_html--7ce71719/blocks/15efbb5e.jpg",
+          ".pages/wknd_site_us_en_magazine_guide-la-skateparks_html--d457f548/blocks/15efbb5e.jpg",
+          ".pages/wknd_site_us_en_magazine_san-diego-surf_html--efb2a09c/blocks/15efbb5e.jpg",
+          ".pages/wknd_site_us_en_magazine_ski-touring_html--b1aaea2d/blocks/15efbb5e.jpg",
+          ".pages/wknd_site_us_en_magazine_western-australia_html--77a25244/blocks/15efbb5e.jpg"
+        ]
+      },
+      "v_4ecd3661fdd5": {
+        "id": "v_4ecd3661fdd5",
+        "name": "accordion",
+        "type": "accordion",
+        "canonicalModel": "standalone",
+        "pagesFound": 2,
+        "description": "heading + text + 7 CTAs",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_faqs_html--863a2b0c/blocks/34814720.jpg",
+          ".pages/wknd_site_us_en_faqs_html--1afb5043/blocks/34814720.jpg"
+        ]
+      },
+      "v_85f1e746e380-3": {
+        "id": "v_85f1e746e380-3",
+        "name": "carousel",
+        "type": "carousel",
+        "canonicalModel": "standalone",
+        "pagesFound": 2,
+        "description": "heading + text + 2 CTAs + 3 images + list",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_html--75e40e45/blocks/4c672112.jpg",
+          ".pages/wknd_site_us_en_html--c76865e0/blocks/4c672112.jpg"
+        ]
+      },
+      "v_dc85ed9612bf": {
+        "id": "v_dc85ed9612bf",
+        "name": "hero",
+        "type": "hero",
+        "canonicalModel": "standalone",
+        "pagesFound": 11,
+        "description": "heading + image",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_html--75e40e45/blocks/46d372ec.jpg",
+          ".pages/wknd_site_ca_fr_html--c54edba1/blocks/1e5528c6.jpg",
+          ".pages/wknd_site_ch_de_html--a9abbc3f/blocks/1e5528c6.jpg",
+          ".pages/wknd_site_ch_fr_html--f1fccf96/blocks/1e5528c6.jpg",
+          ".pages/wknd_site_ch_it_html--6d0297e1/blocks/1e5528c6.jpg",
+          ".pages/wknd_site_de_de_html--049288fd/blocks/1e5528c6.jpg",
+          ".pages/wknd_site_es_es_html--0f82d69e/blocks/1e5528c6.jpg",
+          ".pages/wknd_site_fr_fr_html--a5c37db0/blocks/1e5528c6.jpg",
+          ".pages/wknd_site_it_it_html--d974d394/blocks/1e5528c6.jpg",
+          ".pages/wknd_site_us_en_html--c76865e0/blocks/78b5b3.jpg",
+          ".pages/wknd_site_us_es_html--2e12e1e5/blocks/1e5528c6.jpg"
+        ]
+      },
+      "v_21e396a26423": {
+        "id": "v_21e396a26423",
+        "name": "unknown",
+        "type": "unknown",
+        "canonicalModel": "standalone",
+        "pagesFound": 4,
+        "description": "heading + text + image",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_html--75e40e45/blocks/2e2212c6.jpg",
+          ".pages/wknd_site_ca_en_magazine_html--504dde31/blocks/438a4227.jpg",
+          ".pages/wknd_site_us_en_html--c76865e0/blocks/2e2212c6.jpg",
+          ".pages/wknd_site_us_en_magazine_html--17b58a0b/blocks/31888cd5.jpg"
+        ]
+      },
+      "v_6743ad78580a": {
+        "id": "v_6743ad78580a",
+        "name": "cards",
+        "type": "cards",
+        "canonicalModel": "standalone",
+        "pagesFound": 2,
+        "description": "4 images + list",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_html--75e40e45/blocks/2f34cf28.jpg",
+          ".pages/wknd_site_us_en_html--c76865e0/blocks/23f41a69.jpg"
+        ]
+      },
+      "v_053e57b817f5": {
+        "id": "v_053e57b817f5",
+        "name": "unknown",
+        "type": "unknown",
+        "canonicalModel": "standalone",
+        "pagesFound": 2,
+        "description": "1 CTAs",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_html--75e40e45/blocks/2f34cf47.jpg",
+          ".pages/wknd_site_us_en_html--c76865e0/blocks/23f41a4a.jpg"
+        ]
+      },
+      "v_f2228ac5d8a1": {
+        "id": "v_f2228ac5d8a1",
+        "name": "unknown",
+        "type": "unknown",
+        "canonicalModel": "standalone",
+        "pagesFound": 2,
+        "description": "heading + 1 CTAs + 4 images + list",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_html--75e40e45/blocks/42d321b1.jpg",
+          ".pages/wknd_site_us_en_html--c76865e0/blocks/79d056a8.jpg"
+        ]
+      },
+      "v_b7118a52fdcc": {
+        "id": "v_b7118a52fdcc",
+        "name": "quote",
+        "type": "quote",
+        "canonicalModel": "standalone",
+        "pagesFound": 2,
+        "description": "heading + image",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_magazine_arctic-surfing_html--6cb56981/blocks/4017f8a4.jpg",
+          ".pages/wknd_site_us_en_magazine_arctic-surfing_html--7ce71719/blocks/4017f8a4.jpg"
+        ]
+      },
+      "v_148aad2fc127": {
+        "id": "v_148aad2fc127",
+        "name": "unknown",
+        "type": "unknown",
+        "canonicalModel": "standalone",
+        "pagesFound": 9,
+        "description": "heading + image",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_magazine_html--504dde31/blocks/438a4246.jpg",
+          ".pages/wknd_site_ca_en_magazine_arctic-surfing_html--6cb56981/blocks/4017f866.jpg",
+          ".pages/wknd_site_ca_en_magazine_guide-la-skateparks_html--13006f5d/blocks/3d18e165.jpg",
+          ".pages/wknd_site_ca_en_magazine_members-only_alaskan-adventure_html--df129cf6/blocks/4017f866.jpg",
+          ".pages/wknd_site_ca_en_magazine_western-australia_html--6ad76b5e/blocks/4017f866.jpg",
+          ".pages/wknd_site_us_en_magazine_html--17b58a0b/blocks/31888cf4.jpg",
+          ".pages/wknd_site_us_en_magazine_arctic-surfing_html--7ce71719/blocks/4017f866.jpg",
+          ".pages/wknd_site_us_en_magazine_guide-la-skateparks_html--d457f548/blocks/3d18e165.jpg",
+          ".pages/wknd_site_us_en_magazine_western-australia_html--77a25244/blocks/4017f866.jpg"
+        ]
+      },
+      "v_0eb9e8c9f80f": {
+        "id": "v_0eb9e8c9f80f",
+        "name": "unknown",
+        "type": "unknown",
+        "canonicalModel": "standalone",
+        "pagesFound": 10,
+        "description": "image",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_magazine_arctic-surfing_html--6cb56981/blocks/4017f7ea.jpg",
+          ".pages/wknd_site_ca_en_magazine_guide-la-skateparks_html--13006f5d/blocks/4017f866.jpg",
+          ".pages/wknd_site_ca_en_magazine_members-only_alaskan-adventure_html--df129cf6/blocks/4017f8a4.jpg",
+          ".pages/wknd_site_ca_en_magazine_members-only_fly-fishing-the-amazon_html--617a9329/blocks/4017f8a4.jpg",
+          ".pages/wknd_site_ca_en_magazine_san-diego-surf_html--3550c5e8/blocks/4017f8a4.jpg",
+          ".pages/wknd_site_ca_en_magazine_ski-touring_html--fbda622a/blocks/4017f866.jpg",
+          ".pages/wknd_site_us_en_magazine_arctic-surfing_html--7ce71719/blocks/4017f7ea.jpg",
+          ".pages/wknd_site_us_en_magazine_guide-la-skateparks_html--d457f548/blocks/4017f866.jpg",
+          ".pages/wknd_site_us_en_magazine_san-diego-surf_html--efb2a09c/blocks/4017f8a4.jpg",
+          ".pages/wknd_site_us_en_magazine_ski-touring_html--b1aaea2d/blocks/4017f866.jpg"
+        ]
+      },
+      "v_ea9fb06fced2": {
+        "id": "v_ea9fb06fced2",
+        "name": "unknown",
+        "type": "unknown",
+        "canonicalModel": "standalone",
+        "pagesFound": 12,
+        "description": "heading + text + 3 CTAs + image",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_magazine_arctic-surfing_html--6cb56981/blocks/e59d5c9.jpg",
+          ".pages/wknd_site_ca_en_magazine_guide-la-skateparks_html--13006f5d/blocks/e59d5c9.jpg",
+          ".pages/wknd_site_ca_en_magazine_members-only_alaskan-adventure_html--df129cf6/blocks/e59d5c9.jpg",
+          ".pages/wknd_site_ca_en_magazine_members-only_fly-fishing-the-amazon_html--617a9329/blocks/e59d5c9.jpg",
+          ".pages/wknd_site_ca_en_magazine_san-diego-surf_html--3550c5e8/blocks/e59d5c9.jpg",
+          ".pages/wknd_site_ca_en_magazine_ski-touring_html--fbda622a/blocks/e59d5c9.jpg",
+          ".pages/wknd_site_ca_en_magazine_western-australia_html--6ad76b5e/blocks/e59d5c9.jpg",
+          ".pages/wknd_site_us_en_magazine_arctic-surfing_html--7ce71719/blocks/e59d5c9.jpg",
+          ".pages/wknd_site_us_en_magazine_guide-la-skateparks_html--d457f548/blocks/e59d5c9.jpg",
+          ".pages/wknd_site_us_en_magazine_san-diego-surf_html--efb2a09c/blocks/e59d5c9.jpg",
+          ".pages/wknd_site_us_en_magazine_ski-touring_html--b1aaea2d/blocks/e59d5c9.jpg",
+          ".pages/wknd_site_us_en_magazine_western-australia_html--77a25244/blocks/e59d5c9.jpg"
+        ]
+      },
+      "v_096172ab7f4e": {
+        "id": "v_096172ab7f4e",
+        "name": "cards",
+        "type": "cards",
+        "canonicalModel": "standalone",
+        "pagesFound": 2,
+        "description": "5 images + list",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_magazine_html--504dde31/blocks/71161d61.jpg",
+          ".pages/wknd_site_us_en_magazine_html--17b58a0b/blocks/71161d61.jpg"
+        ]
+      },
+      "v_9f1b9f67bda6": {
+        "id": "v_9f1b9f67bda6",
+        "name": "hero",
+        "type": "hero",
+        "canonicalModel": "standalone",
+        "pagesFound": 1,
+        "description": "heading + 2 images + list",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_magazine_members-only_html--c8e9e4dd/blocks/1cf4529c.jpg"
+        ]
+      },
+      "v_b7118a52fdcc-1": {
+        "id": "v_b7118a52fdcc-1",
+        "name": "quote",
+        "type": "quote",
+        "canonicalModel": "standalone",
+        "pagesFound": 2,
+        "description": "text + image",
+        "screenshots": [
+          ".pages/wknd_site_ca_en_magazine_ski-touring_html--fbda622a/blocks/4017f8a4.jpg",
+          ".pages/wknd_site_us_en_magazine_ski-touring_html--b1aaea2d/blocks/4017f8a4.jpg"
+        ]
+      }
+    }
+  }
+}
