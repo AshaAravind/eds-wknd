@@ -9,21 +9,32 @@
  * @param {Element} block The breadcrumbs block element
  */
 export default function decorate(block) {
-  // collect crumbs in document order: each anchor becomes a link crumb,
-  // any trailing plain text (no anchor) becomes the current-page crumb.
+  // collect crumbs in document order. Authors express the trail either as a
+  // single cell holding a <ul> of crumbs (linked crumbs + a trailing plain-text
+  // current page) or as one crumb per row. A crumb is a link when it contains an
+  // anchor; otherwise it is plain text (the current page).
   const crumbs = [];
-  block.querySelectorAll(':scope > div').forEach((row) => {
-    const cell = row.querySelector(':scope > div') || row;
-    const anchors = [...cell.querySelectorAll('a')];
-    if (anchors.length) {
-      anchors.forEach((a) => {
-        crumbs.push({ label: a.textContent.trim(), href: a.getAttribute('href') });
-      });
+  const pushCrumb = (node) => {
+    const anchor = node.querySelector('a');
+    if (anchor) {
+      crumbs.push({ label: anchor.textContent.trim(), href: anchor.getAttribute('href') });
     } else {
-      const text = cell.textContent.trim();
+      const text = node.textContent.trim();
       if (text) crumbs.push({ label: text, href: null });
     }
-  });
+  };
+
+  const listItems = block.querySelectorAll(':scope li');
+  if (listItems.length) {
+    // authored as a <ul>/<ol> of crumbs
+    listItems.forEach(pushCrumb);
+  } else {
+    // authored as one crumb per row
+    block.querySelectorAll(':scope > div').forEach((row) => {
+      const cell = row.querySelector(':scope > div') || row;
+      pushCrumb(cell);
+    });
+  }
 
   const nav = document.createElement('nav');
   nav.setAttribute('aria-label', 'Breadcrumb');

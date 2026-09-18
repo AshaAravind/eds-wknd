@@ -1,3 +1,17 @@
+/* Carousel — WKND "mini" variant.
+   Full-bleed image band with prev/next arrows and dot indicators BELOW the image.
+   Values extracted from source computed styles (wknd.site bali-surf-camp,
+   .carousel.cmp-carousel--mini): image band 400px tall, object-fit cover,
+   no gradient scrim, no text overlay; controls sit under the image with
+   centered solid-dark dots and plain dark chevron arrows. */
+
+/* full-bleed: escape the section's 1200px / 32px-padded wrapper */
+.carousel-wrapper {
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 .carousel .carousel-slides-container {
   position: relative;
 }
@@ -23,135 +37,104 @@
 .carousel .carousel-slide {
   flex: 0 0 100%;
   scroll-snap-align: start;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
   position: relative;
   width: 100%;
-  min-height: min(60vw, 640px);
+}
+
+/* image band — fixed 400px tall, cover, full width (source: 400px @780 and @1280) */
+.carousel .carousel-slide .carousel-slide-image {
+  width: 100%;
 }
 
 .carousel .carousel-slide .carousel-slide-image picture {
-  position: absolute;
-  inset: 0;
+  display: block;
 }
 
 .carousel .carousel-slide .carousel-slide-image picture > img {
-  height: 100%;
+  display: block;
   width: 100%;
+  height: 260px;
   object-fit: cover;
+  border-radius: 0;
 }
 
-/* dark gradient scrim so overlay text stays readable */
-.carousel .carousel-slide .carousel-slide-image::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgb(0 0 0 / 60%) 0%, rgb(0 0 0 / 10%) 45%, rgb(0 0 0 / 0%) 70%);
-}
-
+/* the mini variant is image-only — no scrim, no overlay text */
 .carousel .carousel-slide .carousel-slide-content {
-  z-index: 1;
-  position: relative;
-  margin: 32px 24px 56px;
-  padding: 0;
-  max-width: 640px;
-  color: #fff;
+  display: none;
 }
 
-.carousel .carousel-slide .carousel-slide-content h1,
-.carousel .carousel-slide .carousel-slide-content h2,
-.carousel .carousel-slide .carousel-slide-content h3 {
-  color: #fff;
-  margin-top: 0;
-}
-
-.carousel .carousel-slide .carousel-slide-content p {
-  color: #fff;
-}
-
-.carousel .carousel-slide .carousel-slide-content .button-container a,
-.carousel .carousel-slide .carousel-slide-content a.button {
-  margin-top: 8px;
-}
-
-/* slide indicators (dots) overlaid at the bottom */
+/* slide indicators (dots) — centered, BELOW the image (source margin-top 9px) */
 .carousel .carousel-slide-indicators {
-  position: absolute;
-  bottom: 20px;
-  left: 0;
-  right: 0;
-  z-index: 2;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 6px 12px;
-  padding: 12px;
+  align-items: center;
+  gap: 0;
+  margin: 9px 0 0;
+  padding: 0;
   line-height: 0;
 }
 
+.carousel .carousel-slide-indicator {
+  margin: 0 7px;
+}
+
 .carousel .carousel-slide-indicator button {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   margin: 0;
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background-color: rgb(255 255 255 / 55%);
+  background-color: rgb(0 0 0 / 40%);
   transition: background-color 0.2s;
   cursor: pointer;
 }
 
+/* active / hover dot — solid dark (source active dot: rgb(0 0 0 / 80%)) */
 .carousel .carousel-slide-indicator button:disabled,
 .carousel .carousel-slide-indicator button:hover,
 .carousel .carousel-slide-indicator button:focus-visible {
-  background-color: var(--accent-color);
+  background-color: rgb(0 0 0 / 80%);
 }
 
+/* navigation arrows — plain dark chevrons at the bottom-right, below the image,
+   no circular background (source: black glyphs, ~20px, no button chrome) */
 .carousel .carousel-navigation-buttons {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 12px;
-  right: 12px;
+  right: 24px;
+  bottom: -34px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 8px;
   z-index: 2;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 .carousel .carousel-navigation-buttons button {
   position: relative;
-  width: 44px;
-  height: 44px;
+  width: 26px;
+  height: 24px;
   margin: 0;
   border: 0;
-  border-radius: 50%;
   padding: 0;
-  background-color: rgb(0 0 0 / 30%);
-  transition: background-color 0.2s;
+  background-color: transparent;
   cursor: pointer;
-}
-
-.carousel .carousel-navigation-buttons button:hover,
-.carousel .carousel-navigation-buttons button:focus-visible {
-  background-color: var(--accent-color);
 }
 
 .carousel .carousel-navigation-buttons button::after {
   display: block;
   content: '';
-  border: 2px solid #fff;
+  border: 2px solid var(--text-color);
   border-bottom: 0;
   border-left: 0;
-  height: 12px;
-  width: 12px;
+  height: 10px;
+  width: 10px;
   position: absolute;
   top: 50%;
   left: calc(50% + 2px);
   transform: translate(-50%, -50%) rotate(-135deg);
+  transition: border-color 0.2s;
 }
 
 .carousel .carousel-navigation-buttons button.slide-next::after {
@@ -159,34 +142,13 @@
   left: calc(50% - 2px);
 }
 
+.carousel .carousel-navigation-buttons button:hover::after,
+.carousel .carousel-navigation-buttons button:focus-visible::after {
+  border-color: var(--accent-color);
+}
+
 @media (width >= 600px) {
-  .carousel .carousel-navigation-buttons {
-    left: 24px;
-    right: 24px;
+  .carousel .carousel-slide .carousel-slide-image picture > img {
+    height: 400px;
   }
-
-  .carousel .carousel-slide .carousel-slide-content {
-    margin: 48px 64px 72px;
-  }
-}
-
-@media (width >= 900px) {
-  .carousel .carousel-slide {
-    min-height: min(46vw, 620px);
-  }
-}
-
-/* Option: minimal-dark-withimg — image-forward slider with no text overlay.
-   Structurally identical to the base carousel; kept as explicit option hooks
-   so authored instances render consistently and future styling can target them. */
-.carousel.minimal-dark-withimg .carousel-slide,
-.carousel.minimal-dark-withimg-2 .carousel-slide,
-.carousel.minimal-dark-withimg-3 .carousel-slide {
-  justify-content: flex-end;
-}
-
-.carousel.minimal-dark-withimg .carousel-slide .carousel-slide-content:empty,
-.carousel.minimal-dark-withimg-2 .carousel-slide .carousel-slide-content:empty,
-.carousel.minimal-dark-withimg-3 .carousel-slide .carousel-slide-content:empty {
-  display: none;
 }
