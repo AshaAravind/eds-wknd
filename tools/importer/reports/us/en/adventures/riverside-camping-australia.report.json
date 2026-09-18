@@ -2,11 +2,12 @@
   "status": "success",
   "url": "https://wknd.site/us/en/adventures/riverside-camping-australia.html",
   "path": "us/en/adventures/riverside-camping-australia",
-  "timestamp": "2026-09-16T17:01:35.317Z",
+  "timestamp": "2026-09-18T17:16:00.077Z",
   "title": "Riverside Camping",
   "template": "adventure-detail",
   "blocks": [
+    "breadcrumbs",
     "carousel",
-    "columns"
+    "tabs"
   ]
 }
