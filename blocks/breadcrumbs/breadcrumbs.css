@@ -1,0 +1,37 @@
+.breadcrumbs .breadcrumbs-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.breadcrumbs .breadcrumbs-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: var(--body-font-size-s, 0.85rem);
+}
+
+.breadcrumbs .breadcrumbs-item:not(:first-child)::before {
+  content: "\25B6";
+  font-size: 0.7em;
+  line-height: 1;
+}
+
+.breadcrumbs .breadcrumbs-item a {
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.breadcrumbs .breadcrumbs-item a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumbs .breadcrumbs-item [aria-current="page"] {
+  font-weight: 400;
+}

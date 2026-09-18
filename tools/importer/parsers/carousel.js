@@ -3,16 +3,20 @@
 /**
  * Parser for variant: carousel
  * Base block: carousel
- * Source: https://wknd.site/us/en.html (.cmp-carousel--hero / .cmp-carousel)
- * Generated: 2026-09-16
+ * Source (hero): https://wknd.site/us/en.html (.carousel.cmp-carousel--hero / .cmp-carousel)
+ * Source (mini): https://wknd.site/us/en/adventures/bali-surf-camp.html (.carousel.cmp-carousel--mini / .carousel.panelcontainer)
+ * Generated: 2026-09-18
  *
  * Block library structure (Carousel): 2 columns, multiple rows.
+ *  - Row 1: block name only.
  *  - Row per slide: cell 1 = image (mandatory, no other content),
- *    cell 2 = text content (title / description / CTA).
+ *    cell 2 = text content (title / description / CTA), optional.
  *
- * Source: each slide is a `.cmp-carousel__item` containing a hero teaser
- * (`.cmp-teaser`) with `.cmp-teaser__title`, `.cmp-teaser__description`,
+ * Source: each slide is a `.cmp-carousel__item`. The hero variant contains a
+ * `.cmp-teaser` with `.cmp-teaser__title`, `.cmp-teaser__description`,
  * `.cmp-teaser__action-link`, and an image in `.cmp-teaser__image img`.
+ * The mini variant contains only a plain image in `.cmp-image img` (no text).
+ * Navigation controls (actions/indicators) are ignored.
  */
 export default function parse(element, { document }) {
   // Each slide is a carousel item. Fall back to teaser items if item class differs.

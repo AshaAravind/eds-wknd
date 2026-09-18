@@ -41,43 +41,86 @@ var CustomImportScript = (() => {
     default: () => import_adventure_detail_default
   });
 
-  // tools/importer/parsers/adventure-gallery.js
-  function parse(element, { document }) {
-    const slides = Array.from(element.querySelectorAll(".cmp-carousel__item"));
+  // tools/importer/parsers/breadcrumbs.js
+  function parse(element, { document: document2 }) {
+    const items = Array.from(element.querySelectorAll(".cmp-breadcrumb__item, li"));
+    const list = document2.createElement("ul");
+    items.forEach((item) => {
+      const link = item.querySelector("a");
+      const li = document2.createElement("li");
+      if (link) {
+        const label = (link.textContent || "").trim();
+        if (label) link.textContent = label;
+        li.append(link);
+      } else {
+        const label = (item.textContent || "").trim();
+        if (!label) return;
+        li.textContent = label;
+      }
+      list.append(li);
+    });
+    if (!list.children.length) {
+      element.replaceWith(...element.childNodes);
+      return;
+    }
+    const cells = [];
+    cells.push([list]);
+    const block = WebImporter.Blocks.createBlock(document2, { name: "breadcrumbs", cells });
+    element.replaceWith(block);
+  }
+
+  // tools/importer/parsers/carousel.js
+  function parse2(element, { document: document2 }) {
+    let slides = Array.from(element.querySelectorAll(".cmp-carousel__item"));
+    if (!slides.length) {
+      slides = Array.from(element.querySelectorAll('.cmp-teaser, [class*="__item"]'));
+    }
     const cells = [];
     slides.forEach((slide) => {
-      const image = slide.querySelector("picture, .cmp-image img, img");
-      if (image) cells.push([image]);
+      const image = slide.querySelector("picture, .cmp-teaser__image img, .cmp-image img, img");
+      const contentCell = [];
+      const heading = slide.querySelector('.cmp-teaser__title, h1, h2, h3, [class*="title"]');
+      if (heading) contentCell.push(heading);
+      const description = slide.querySelector('.cmp-teaser__description, p, [class*="description"]');
+      if (description) contentCell.push(description);
+      const ctaLinks = Array.from(slide.querySelectorAll(".cmp-teaser__action-link, .cmp-teaser__action-container a, a.button"));
+      ctaLinks.forEach((cta) => contentCell.push(cta));
+      if (image || contentCell.length) {
+        cells.push([image || "", contentCell]);
+      }
     });
     if (!cells.length) {
       element.replaceWith(...element.childNodes);
       return;
     }
-    const block = WebImporter.Blocks.createBlock(document, { name: "carousel", cells });
+    const block = WebImporter.Blocks.createBlock(document2, { name: "carousel", cells });
     element.replaceWith(block);
   }
 
-  // tools/importer/parsers/adventure-details.js
-  function parse2(element, { document }) {
-    const items = Array.from(element.querySelectorAll(".cmp-contentfragment__element"));
-    const rows = [["Columns"]];
-    items.forEach((item) => {
-      const term = item.querySelector(".cmp-contentfragment__element-title, dt");
-      const value = item.querySelector(".cmp-contentfragment__element-value, dd");
-      const labelCell = document.createElement("div");
-      labelCell.textContent = term ? term.textContent.trim() : "";
-      const valueCell = document.createElement("div");
-      valueCell.textContent = value ? value.textContent.trim() : "";
-      if (labelCell.textContent || valueCell.textContent) {
-        rows.push([labelCell, valueCell]);
+  // tools/importer/parsers/tabs.js
+  function parse3(element, { document: document2 }) {
+    const labels = Array.from(element.querySelectorAll(".cmp-tabs__tab, .cmp-tabs__tablist > li"));
+    const panels = Array.from(element.querySelectorAll(".cmp-tabs__tabpanel"));
+    const cells = [];
+    panels.forEach((panel, i) => {
+      const labelEl = labels[i];
+      const labelText = labelEl ? (labelEl.textContent || "").trim() : ((panel.querySelector(".cmp-contentfragment__title, h1, h2, h3, h4") || {}).textContent || "").trim();
+      const contentSource = panel.querySelector(".cmp-contentfragment__elements") || panel;
+      const contentCell = [];
+      contentSource.querySelectorAll("p, ul, ol, img, picture, h1, h2, h3, h4, h5, h6").forEach((node) => {
+        if (node.tagName === "IMG" && node.closest("picture")) return;
+        contentCell.push(node);
+      });
+      if (labelText || contentCell.length) {
+        cells.push([labelText || "", contentCell]);
       }
     });
-    if (rows.length < 2) {
+    if (!cells.length) {
       element.replaceWith(...element.childNodes);
       return;
     }
-    const table = WebImporter.DOMUtils.createTable(rows, document);
-    element.replaceWith(table);
+    const block = WebImporter.Blocks.createBlock(document2, { name: "tabs", cells });
+    element.replaceWith(block);
   }
 
   // tools/importer/transformers/wknd-cleanup.js
@@ -108,137 +151,182 @@ var CustomImportScript = (() => {
     }
   }
 
-  // tools/importer/wknd-metadata.js
-  var ADVENTURE_META = {
-    "/us/en/adventures/bali-surf-camp": { category: "surfing", date: "01-01-2019", image: "https://wknd.site/us/en/adventures/bali-surf-camp/_jcr_content/root/container/carousel/image.coreimg.60.800.jpeg/1660323792187/adobestock-175749320.jpeg" },
-    "/us/en/adventures/beervana-portland": { category: "travel", date: "01-02-2019", image: "https://wknd.site/us/en/adventures/beervana-portland/_jcr_content/root/container/carousel/image.coreimg.60.800.jpeg/1660323790531/adobestock-200192344.jpeg" },
-    "/us/en/adventures/climbing-new-zealand": { category: "climbing", date: "01-03-2019", image: "https://wknd.site/us/en/adventures/climbing-new-zealand/_jcr_content/root/container/carousel/item_1571266094599.coreimg.60.800.jpeg/1660323785724/sport-climbing.jpeg" },
-    "/us/en/adventures/colorado-rock-climbing": { category: "climbing", date: "01-04-2019", image: "https://wknd.site/us/en/adventures/colorado-rock-climbing/_jcr_content/root/container/carousel/image.coreimg.60.800.jpeg/1660323789363/adobestock-201222633.jpeg" },
-    "/us/en/adventures/cycling-southern-utah": { category: "cycling", date: "01-05-2019", image: "https://wknd.site/us/en/adventures/cycling-southern-utah/_jcr_content/root/container/carousel/image.coreimg.60.800.jpeg/1660323777766/adobestock-185324648.jpeg" },
-    "/us/en/adventures/cycling-tuscany": { category: "cycling, travel", date: "01-06-2019", image: "https://wknd.site/us/en/adventures/cycling-tuscany/_jcr_content/root/container/carousel/image.coreimg.60.800.jpeg/1660323789294/adobestock-59459597.jpeg" },
-    "/us/en/adventures/downhill-skiing-wyoming": { category: "skiing", date: "01-07-2019", image: "https://wknd.site/us/en/adventures/downhill-skiing-wyoming/_jcr_content/root/container/carousel/image.coreimg.jpeg/1660323784078/adobestock-185234795.jpeg" },
-    "/us/en/adventures/gastronomic-marais-tour": { category: "travel", date: "01-08-2019", image: "https://wknd.site/us/en/adventures/gastronomic-marais-tour/_jcr_content/root/container/carousel/image.coreimg.jpeg/1660323786247/adobestock-294203896.jpeg" },
-    "/us/en/adventures/napa-wine-tasting": { category: "travel", date: "01-09-2019", image: "https://wknd.site/us/en/adventures/napa-wine-tasting/_jcr_content/root/container/carousel/image.coreimg.jpeg/1660323791204/adobestock-280313729.jpeg" },
-    "/us/en/adventures/riverside-camping-australia": { category: "travel", date: "01-10-2019", image: "https://wknd.site/us/en/adventures/riverside-camping-australia/_jcr_content/root/container/carousel/image.coreimg.jpeg/1660323783461/adobe-waadobe-wa-mg-2466.jpeg" },
-    "/us/en/adventures/ski-touring-mont-blanc": { category: "skiing", date: "01-11-2019", image: "https://wknd.site/us/en/adventures/ski-touring-mont-blanc/_jcr_content/root/container/carousel/item_1571168419252.coreimg.jpeg/1660323789507/adobestock-238230356.jpeg" },
-    "/us/en/adventures/surf-camp-costa-rica": { category: "surfing", date: "01-12-2019", image: "https://wknd.site/us/en/adventures/surf-camp-costa-rica/_jcr_content/root/container/carousel/image.coreimg.jpeg/1660323786122/adobestock-278302117.jpeg" },
-    "/us/en/adventures/tahoe-skiing": { category: "skiing", date: "01-13-2019", image: "https://wknd.site/us/en/adventures/tahoe-skiing/_jcr_content/root/container/carousel/image.coreimg.jpeg/1660323785476/adobestock-184591344.jpeg" },
-    "/us/en/adventures/west-coast-cycling": { category: "cycling", date: "01-14-2019", image: "https://wknd.site/us/en/adventures/west-coast-cycling/_jcr_content/root/container/carousel/image.coreimg.jpeg/1660323786740/adobestock-151584995.jpeg" },
-    "/us/en/adventures/whistler-mountain-biking": { category: "cycling", date: "01-15-2019", image: "https://wknd.site/us/en/adventures/whistler-mountain-biking/_jcr_content/root/container/carousel/image.coreimg.jpeg/1660323789625/adobestock-122615840.jpeg" },
-    "/us/en/adventures/yosemite-backpacking": { category: "travel", date: "01-16-2019", image: "https://wknd.site/us/en/adventures/yosemite-backpacking/_jcr_content/root/container/carousel/image.coreimg.jpeg/1660323790695/adobestock-231698835.jpeg" }
-  };
-  function enrichMetadata(main, document, path, map) {
-    const meta = map[path];
-    if (!meta) return;
-    const table = [...main.querySelectorAll("table")].find((t) => {
-      const firstCell = t.querySelector("tr th, tr td");
-      return firstCell && /^metadata$/i.test(firstCell.textContent.trim());
-    });
-    if (!table) return;
-    const hasRow = (key) => [...table.querySelectorAll("tr")].some((tr) => {
-      const c = tr.querySelector("td, th");
-      return c && c.textContent.trim().toLowerCase() === key.toLowerCase();
-    });
-    const addRow = (key, value) => {
-      if (!value || hasRow(key)) return;
-      const tr = document.createElement("tr");
-      const kCell = document.createElement("td");
-      kCell.textContent = key;
-      const vCell = document.createElement("td");
-      if (key === "Image") {
-        const img = document.createElement("img");
-        img.src = value;
-        vCell.append(img);
-      } else {
-        vCell.textContent = value;
+  // tools/importer/transformers/wknd-sections.js
+  var SECTION_MARKER_ATTR = "data-excat-section-id";
+  function querySection(root, selectors) {
+    for (const sel of selectors) {
+      const el = root.querySelector(sel);
+      if (el) return el;
+    }
+    return null;
+  }
+  function transform2(hookName, element, payload) {
+    const sections = payload.template && payload.template.sections || [];
+    if (hookName === "beforeTransform") {
+      for (let i = sections.length - 1; i >= 0; i -= 1) {
+        const section = sections[i];
+        if (i === 0 && !section.style) continue;
+        const sectionEl = querySection(element, section.selector);
+        if (!sectionEl) continue;
+        const hr = document.createElement("hr");
+        if (section.style) hr.setAttribute(SECTION_MARKER_ATTR, section.id);
+        sectionEl.before(hr);
       }
-      tr.append(kCell, vCell);
-      table.append(tr);
-    };
-    addRow("Category", meta.category);
-    addRow("Publication Date", meta.date);
-    addRow("Image", meta.image);
+    }
+    if (hookName === "afterTransform") {
+      for (let i = sections.length - 1; i >= 0; i -= 1) {
+        const section = sections[i];
+        if (!section.style) continue;
+        const marker = element.querySelector(`[${SECTION_MARKER_ATTR}="${section.id}"]`);
+        const anchor = marker || querySection(element, section.selector);
+        if (!anchor) continue;
+        const metadataBlock = WebImporter.Blocks.createBlock(document, {
+          name: "Section Metadata",
+          cells: { style: section.style }
+        });
+        anchor.after(metadataBlock);
+        if (marker) {
+          marker.removeAttribute(SECTION_MARKER_ATTR);
+          if (i === 0) marker.remove();
+        }
+      }
+    }
   }
 
   // tools/importer/import-adventure-detail.js
+  var parsers = {
+    breadcrumbs: parse,
+    carousel: parse2,
+    tabs: parse3
+  };
   var PAGE_TEMPLATE = {
     name: "adventure-detail",
+    description: "Detail page with full-width hero carousel, left metadata sidebar, and tabbed body content",
     urls: [
-      "https://wknd.site/us/en/adventures/climbing-new-zealand.html",
-      "https://wknd.site/us/en/adventures/bali-surf-camp.html",
-      "https://wknd.site/us/en/adventures/beervana-portland.html",
-      "https://wknd.site/us/en/adventures/colorado-rock-climbing.html",
-      "https://wknd.site/us/en/adventures/cycling-southern-utah.html",
-      "https://wknd.site/us/en/adventures/cycling-tuscany.html",
-      "https://wknd.site/us/en/adventures/downhill-skiing-wyoming.html",
-      "https://wknd.site/us/en/adventures/gastronomic-marais-tour.html",
-      "https://wknd.site/us/en/adventures/napa-wine-tasting.html",
-      "https://wknd.site/us/en/adventures/riverside-camping-australia.html",
-      "https://wknd.site/us/en/adventures/ski-touring-mont-blanc.html",
-      "https://wknd.site/us/en/adventures/surf-camp-costa-rica.html",
-      "https://wknd.site/us/en/adventures/tahoe-skiing.html",
-      "https://wknd.site/us/en/adventures/west-coast-cycling.html",
-      "https://wknd.site/us/en/adventures/whistler-mountain-biking.html",
-      "https://wknd.site/us/en/adventures/yosemite-backpacking.html"
+      "https://wknd.site/us/en/adventures/bali-surf-camp.html"
     ],
     blocks: [
-      { name: "carousel", instances: [".carousel.cmp-carousel--mini"] },
-      { name: "columns", instances: [".cmp-contentfragment--elements"] }
+      {
+        name: "breadcrumbs",
+        instances: [".breadcrumb.cmp-breadcrumb--fixed", ".breadcrumb"]
+      },
+      {
+        name: "carousel",
+        instances: [".carousel.cmp-carousel--mini", ".carousel.panelcontainer"]
+      },
+      {
+        name: "tabs",
+        instances: [".tabs.panelcontainer", ".tabs"]
+      }
+    ],
+    sections: [
+      {
+        id: "rc1",
+        name: "breadcrumbs",
+        selector: [".breadcrumb.cmp-breadcrumb--fixed", ".breadcrumb"],
+        style: null,
+        blocks: ["breadcrumbs"],
+        defaultContent: []
+      },
+      {
+        id: "rc2",
+        name: "hero-carousel",
+        selector: [".carousel.cmp-carousel--mini", ".carousel.panelcontainer"],
+        style: null,
+        blocks: ["carousel"],
+        defaultContent: []
+      },
+      {
+        id: "rc3",
+        name: "title-metadata-share",
+        selector: [".cmp-layout-container--fixed", "main.cmp-layout-container--fixed"],
+        style: null,
+        blocks: [],
+        defaultContent: [".title.cmp-title--underline", ".contentfragment.cmp-contentfragment--elements", ".text.cmp-text--font-xsmall"]
+      },
+      {
+        id: "rc4",
+        name: "tabs",
+        selector: [".tabs.panelcontainer", ".tabs"],
+        style: null,
+        blocks: ["tabs"],
+        defaultContent: []
+      }
     ]
   };
-  var transformers = [transform];
+  var transformers = [
+    transform,
+    ...PAGE_TEMPLATE.sections && PAGE_TEMPLATE.sections.length > 1 ? [transform2] : []
+  ];
   function executeTransformers(hookName, element, payload) {
-    transformers.forEach((fn) => {
+    const enhancedPayload = __spreadProps(__spreadValues({}, payload), { template: PAGE_TEMPLATE });
+    transformers.forEach((transformerFn) => {
       try {
-        fn.call(null, hookName, element, __spreadProps(__spreadValues({}, payload), { template: PAGE_TEMPLATE }));
+        transformerFn.call(null, hookName, element, enhancedPayload);
       } catch (e) {
         console.error(`Transformer failed at ${hookName}:`, e);
       }
     });
   }
+  function findBlocksOnPage(document2, template) {
+    const pageBlocks = [];
+    const seen = /* @__PURE__ */ new Set();
+    template.blocks.forEach((blockDef) => {
+      blockDef.instances.forEach((selector) => {
+        document2.querySelectorAll(selector).forEach((element) => {
+          if (seen.has(element)) return;
+          seen.add(element);
+          pageBlocks.push({
+            name: blockDef.name,
+            selector,
+            element,
+            section: blockDef.section || null
+          });
+        });
+      });
+    });
+    return pageBlocks;
+  }
   var import_adventure_detail_default = {
     transform: (payload) => {
-      const { document, url, params } = payload;
-      const main = document.body;
+      const {
+        document: document2,
+        url,
+        html,
+        params
+      } = payload;
+      const main = document2.body;
       executeTransformers("beforeTransform", main, payload);
-      WebImporter.DOMUtils.remove(main, [
-        "nav.cmp-breadcrumb",
-        ".breadcrumb",
-        ".cmp-tabs__tablist",
-        ".cmp-contentfragment__title",
-        ".sharing"
-      ]);
-      document.querySelectorAll(".carousel.cmp-carousel--mini").forEach((el) => {
-        if (el.parentNode) {
+      const pageBlocks = findBlocksOnPage(document2, PAGE_TEMPLATE);
+      pageBlocks.forEach((block) => {
+        if (!block.element.parentNode) return;
+        const parser = parsers[block.name];
+        if (parser) {
           try {
-            parse(el, { document, url, params });
+            parser(block.element, { document: document2, url, params });
           } catch (e) {
-            console.error("gallery parse failed", e);
+            console.error(`Failed to parse ${block.name} (${block.selector}):`, e);
           }
-        }
-      });
-      document.querySelectorAll(".cmp-contentfragment--elements").forEach((el) => {
-        if (el.parentNode) {
-          try {
-            parse2(el, { document, url, params });
-          } catch (e) {
-            console.error("adventure-details parse failed", e);
-          }
+        } else {
+          console.warn(`No parser found for block: ${block.name}`);
         }
       });
       executeTransformers("afterTransform", main, payload);
-      const hr = document.createElement("hr");
+      const hr = document2.createElement("hr");
       main.appendChild(hr);
-      WebImporter.rules.createMetadata(main, document);
-      WebImporter.rules.transformBackgroundImages(main, document);
+      WebImporter.rules.createMetadata(main, document2);
+      WebImporter.rules.transformBackgroundImages(main, document2);
       WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
       const rawPath = new URL(params.originalURL).pathname.replace(/\/$/, "").replace(/\.html?$/, "");
       const path = WebImporter.FileUtils.sanitizePath(rawPath === "" ? "/index" : rawPath);
-      enrichMetadata(main, document, path, ADVENTURE_META);
       return [{
         element: main,
         path,
-        report: { title: document.title, template: PAGE_TEMPLATE.name, blocks: ["carousel", "columns"] }
+        report: {
+          title: document2.title,
+          template: PAGE_TEMPLATE.name,
+          blocks: pageBlocks.map((b) => b.name)
+        }
       }];
     }
   };

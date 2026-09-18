@@ -6,6 +6,8 @@
  * Removes non-authorable AEM WCM site chrome (experience-fragment header/footer,
  * mobile nav, tracking iframe) and strips leftover non-authorable elements.
  * All selectors verified against migration-work/cleaned.html.
+ * Template-agnostic: reused across every WKND template (content-landing,
+ * adventure-detail, adventures-landing, faqs, home, article-detail).
  */
 const TransformHook = { beforeTransform: 'beforeTransform', afterTransform: 'afterTransform' };
 

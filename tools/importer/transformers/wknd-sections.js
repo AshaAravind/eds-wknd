@@ -6,12 +6,13 @@
  * Inserts <hr> before each non-first section and a Section Metadata block for
  * each styled section, driven by payload.template.sections from page-templates.json.
  *
- * Section selectors come directly from page-templates.json (page analysis):
- *   1 hero-carousel   .carousel.cmp-carousel--hero   (style null)
- *   2 featured-article .teaser.cmp-teaser--featured   (style grey)
- *   3 recent-articles  .cmp-image-list                (style null)
- *   4 next-adventures  .teaser                        (style null)
- *   5 adventures        .cmp-image-list               (style null)
+ * Template-agnostic: section selectors and styles come entirely from
+ * payload.template.sections (page-templates.json), so this file is reused across
+ * every WKND template. Examples of section sets it drives:
+ *   home:            hero-carousel / featured-article(grey) / recent-articles /
+ *                    next-adventures / adventures
+ *   adventure-detail: breadcrumbs / hero-carousel / title-metadata-share / tabs
+ *                    (all style null -> 3 <hr> breaks, 0 Section Metadata blocks)
  *
  * Breaks are inserted in beforeTransform (while every section element still exists,
  * before block parsers replace them); metadata is inserted in afterTransform anchored

@@ -175,3 +175,18 @@
     min-height: min(46vw, 620px);
   }
 }
+
+/* Option: minimal-dark-withimg — image-forward slider with no text overlay.
+   Structurally identical to the base carousel; kept as explicit option hooks
+   so authored instances render consistently and future styling can target them. */
+.carousel.minimal-dark-withimg .carousel-slide,
+.carousel.minimal-dark-withimg-2 .carousel-slide,
+.carousel.minimal-dark-withimg-3 .carousel-slide {
+  justify-content: flex-end;
+}
+
+.carousel.minimal-dark-withimg .carousel-slide .carousel-slide-content:empty,
+.carousel.minimal-dark-withimg-2 .carousel-slide .carousel-slide-content:empty,
+.carousel.minimal-dark-withimg-3 .carousel-slide .carousel-slide-content:empty {
+  display: none;
+}

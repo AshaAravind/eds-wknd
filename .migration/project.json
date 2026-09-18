@@ -2,10 +2,13 @@
   "type": "da",
   "sites": {
     "eds-wknd": {
+      "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json",
       "previewOrg": "ashaaravind",
       "previewSite": "eds-wknd",
-      "contentHostUrl": "https://content.da.live/ashaaravind/eds-wknd/",
-      "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json"
+      "contentHostUrl": "https://content.da.live/ashaaravind/eds-wknd/"
     }
-  }
+  },
+  "features": [
+    "site-planning"
+  ]
 }

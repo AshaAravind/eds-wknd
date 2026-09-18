@@ -90,10 +90,24 @@ function createSlide(row, slideIndex, carouselId) {
   return slide;
 }
 
+// Known layout options that may be authored onto the block. These variants
+// share the base carousel structure; the tokens are recognised (and tolerated
+// when absent) so option-specific styling can hook off block.classList.
+const OPTION_CLASSES = [
+  'minimal-dark-withimg',
+  'minimal-dark-withimg-2',
+  'minimal-dark-withimg-3',
+];
+
 let carouselId = 0;
 export default async function decorate(block) {
   carouselId += 1;
   block.setAttribute('id', `carousel-${carouselId}`);
+
+  // preserve any authored option tokens; unknown tokens are left untouched
+  const activeOptions = [...block.classList].filter((c) => OPTION_CLASSES.includes(c));
+  activeOptions.forEach((option) => block.classList.add(option));
+
   const rows = block.querySelectorAll(':scope > div');
   const isSingleSlide = rows.length < 2;
 

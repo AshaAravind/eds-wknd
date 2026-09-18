@@ -1,0 +1,31 @@
+{
+  "variantName": "tabs",
+  "baseBlock": "tabs",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "minimal",
+    "hasBackgroundImage": false,
+    "hasGrid": false,
+    "imagePattern": "large",
+    "structure": "heading + text + image + list"
+  },
+  "contentPattern": "One row per tab: first cell is the tab label, the row content becomes the tab panel (text, images, lists).",
+  "usage": "Groups related content into selectable tabbed panels (e.g. Overview / Itinerary / What to Bring).",
+  "options": [],
+  "memberVariantIds": [
+    "v_ce821482035f",
+    "v_8ab7ece34e9a-1",
+    "v_8ab7ece34e9a-2",
+    "v_8ab7ece34e9a-4",
+    "v_8ab7ece34e9a",
+    "v_e0f5a3e4d7c8"
+  ],
+  "usageTracking": {
+    "pagesUsing": [
+      "/us/en/adventures/bali-surf-camp"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-18T16:01:16.886859Z"
+  }
+}
