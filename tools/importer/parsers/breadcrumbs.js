@@ -4,6 +4,7 @@
  * Parser for variant: breadcrumbs
  * Base block: breadcrumbs (custom — no library convention, inferred from source HTML)
  * Source: https://wknd.site/us/en/adventures/bali-surf-camp.html (.breadcrumb.cmp-breadcrumb--fixed / .breadcrumb)
+ *   Also reused for article-detail (.breadcrumb → e.g. Magazine → San Diego Surf Spots).
  * Generated: 2026-09-18
  *
  * Source structure: <nav class="cmp-breadcrumb"> containing

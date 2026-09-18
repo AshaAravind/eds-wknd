@@ -1,0 +1,20 @@
+{
+  "variantName": "cards-related",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "minimal",
+    "hasBackgroundImage": false,
+    "hasGrid": false,
+    "imagePattern": "noimg",
+    "structure": "list of title + date"
+  },
+  "contentPattern": "One row per related article: first cell is the article title (link), second cell is the publish date. No images.",
+  "usage": "Curated related-articles / 'up next' list in a magazine article sidebar.",
+  "options": [],
+  "memberVariantIds": [
+    "v_0eb9e8c9f80f",
+    "v_148aad2fc127"
+  ]
+}

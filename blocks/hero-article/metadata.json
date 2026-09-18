@@ -1,0 +1,19 @@
+{
+  "variantName": "hero-article",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "minimal",
+    "hasBackgroundImage": false,
+    "hasGrid": false,
+    "imagePattern": "large",
+    "structure": "image"
+  },
+  "contentPattern": "Single full-width lead image; no heading or overlay text.",
+  "usage": "Edge-to-edge lead banner image at the top of a magazine article.",
+  "options": [],
+  "memberVariantIds": [
+    "v_64d7a45c1296"
+  ]
+}

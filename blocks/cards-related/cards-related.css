@@ -1,0 +1,38 @@
+.cards-related ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-related .cards-related-item {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--light-color);
+}
+
+.cards-related .cards-related-item:first-child {
+  padding-top: 0;
+}
+
+.cards-related .cards-related-title {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+}
+
+.cards-related .cards-related-title a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.cards-related .cards-related-title a:hover {
+  text-decoration: underline;
+}
+
+.cards-related .cards-related-date {
+  margin-top: 4px;
+  color: #696969;
+  font-size: var(--body-font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}

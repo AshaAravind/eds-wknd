@@ -270,7 +270,118 @@
       ],
       "coverageGaps": [],
       "description": "Long-form article page with hero image, title and byline, rich body with inline images and headings, related-links sidebar, and author bio",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "hero-article",
+          "instances": [
+            "main.cmp-layout-container--fixed > .cmp-container > .aem-Grid > .image",
+            ".cmp-layout-container--fixed > .cmp-container > .aem-Grid > .image.aem-GridColumn--default--12"
+          ]
+        },
+        {
+          "name": "breadcrumbs",
+          "instances": [
+            ".breadcrumb"
+          ]
+        },
+        {
+          "name": "author-bio",
+          "instances": [
+            ".cmp-experiencefragment--justin-barr",
+            ".experiencefragment"
+          ]
+        },
+        {
+          "name": "cards-related",
+          "instances": [
+            ".list.cmp-list--upnext",
+            ".cmp-list--upnext"
+          ]
+        }
+      ],
+      "representativeUrl": "https://wknd.site/us/en/magazine/san-diego-surf.html",
+      "sections": [
+        {
+          "id": "rc1",
+          "name": "hero-article",
+          "selector": [
+            "main.cmp-layout-container--fixed > .cmp-container > .aem-Grid > .image",
+            ".cmp-layout-container--fixed > .cmp-container > .aem-Grid > .image.aem-GridColumn--default--12"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-article"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc2",
+          "name": "breadcrumbs",
+          "selector": [
+            ".breadcrumb"
+          ],
+          "style": null,
+          "blocks": [
+            "breadcrumbs"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc3",
+          "name": "article-header",
+          "selector": [
+            ".title:nth-of-type(1)",
+            "main.aem-GridColumn--default--8 > .cmp-container > .title"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            ".title",
+            ".byline"
+          ]
+        },
+        {
+          "id": "rc4",
+          "name": "article-body",
+          "selector": [
+            ".cmp-contentfragment--san-diego-surfspots",
+            ".contentfragment"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            ".cmp-contentfragment--san-diego-surfspots"
+          ]
+        },
+        {
+          "id": "rc5",
+          "name": "author-bio",
+          "selector": [
+            ".cmp-experiencefragment--justin-barr",
+            ".experiencefragment"
+          ],
+          "style": null,
+          "blocks": [
+            "author-bio"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc6",
+          "name": "sidebar",
+          "selector": [
+            ".cmp-layoutcontainer--sidebar",
+            "aside.cmp-layoutcontainer--sidebar"
+          ],
+          "style": "sidebar",
+          "blocks": [
+            "cards-related"
+          ],
+          "defaultContent": [
+            ".cmp-title--right"
+          ]
+        }
+      ]
     }
   ]
 }

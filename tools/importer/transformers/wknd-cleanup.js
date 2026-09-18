@@ -43,6 +43,19 @@ export default function transform(hookName, element, payload) {
       'iframe',
       'noscript',
       'link',
+      // Non-authorable social-share chrome in the article sidebar. The authorable
+      // sidebar content is the .cmp-list--upnext "up next" cards block; the share
+      // label + widget are site UI, not something an author would create.
+      // Scoped to the sidebar so the site-wide cleanup can't touch authorable
+      // titles elsewhere. Found in cleaned.html:
+      //   line 363 <div class="title cmp-title--black ...">SHARE THIS STORY</div>
+      //   line 368 <div class="sharing"> (empty FB div + empty Pinterest <a> -> stray [](url))
+      '.cmp-layoutcontainer--sidebar .title.cmp-title--black',
+      '.cmp-layoutcontainer--sidebar .sharing',
+      // Hidden decorative separators (sidebar line 374, footer line 490). These emit a
+      // stray thematic break in the import. Targets the classed cmp-separator wrapper
+      // only — NOT bare <hr> — so the section transformer's inserted <hr> breaks survive.
+      '.cmp-separator--hidden',
     ]);
 
     // Strip AEM data-layer / accessibility tracking attributes left on nodes.

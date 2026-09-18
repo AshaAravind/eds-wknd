@@ -1,0 +1,36 @@
+/* full-bleed: escape the section's max-width/padded wrapper */
+.hero-article-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-article {
+  width: 100%;
+}
+
+.hero-article .hero-article-image {
+  width: 100%;
+}
+
+.hero-article picture {
+  display: block;
+}
+
+.hero-article img {
+  display: block;
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+
+@media (width >= 600px) {
+  .hero-article img {
+    height: 420px;
+  }
+}
+
+@media (width >= 900px) {
+  .hero-article img {
+    height: 480px;
+  }
+}
