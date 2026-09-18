@@ -1,3 +1,17 @@
+/*
+ * Author Bio Block
+ * Article author credit: circular avatar, author name + role, and a row of
+ * dark square social icon buttons. A thin divider line sits above the block.
+ * Values extracted from source computed styles (wknd.site article page).
+ */
+
+/* thin divider line above the block */
+.author-bio {
+  border-top: 1px solid rgb(235 235 235);
+  padding-top: 32px;
+}
+
+/* row: avatar + text on the left, social buttons pushed to the far right */
 .author-bio > div {
   display: flex;
   flex-wrap: wrap;
@@ -10,8 +24,8 @@
 }
 
 .author-bio .author-bio-avatar img {
-  width: 64px;
-  height: 64px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -24,38 +38,48 @@
 .author-bio .author-bio-info h3,
 .author-bio .author-bio-info h4 {
   margin: 0;
-  font-size: var(--heading-font-size-s);
+  font-family: var(--heading-font-family);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 36px;
+  color: var(--text-color);
+  text-transform: none;
 }
 
 .author-bio .author-bio-info p {
   margin: 4px 0 0;
-  color: #696969;
-  font-size: var(--body-font-size-xs);
+  font-family: var(--body-font-family);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 30px;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: normal;
+  color: rgb(105 105 105);
 }
 
-/* social links row — align to the far right on wider viewports */
+/* social links row — dark square icon buttons, sitting flush against each other */
 .author-bio .author-bio-social {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0;
 }
 
 .author-bio .author-bio-social a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   background-color: var(--dark-color);
-  color: #fff;
+  color: rgb(235 235 235);
+  border-radius: 0;
 }
 
 .author-bio .author-bio-social a:hover {
   background-color: var(--accent-color);
   color: var(--text-color);
+  text-decoration: none;
 }
 
 @media (width >= 600px) {
