@@ -59,7 +59,7 @@ const PAGE_TEMPLATE = {
       id: 'rc3',
       name: 'title-metadata-share',
       selector: ['.cmp-layout-container--fixed', 'main.cmp-layout-container--fixed'],
-      style: null,
+      style: 'adventure-info',
       blocks: [],
       defaultContent: ['.title.cmp-title--underline', '.contentfragment.cmp-contentfragment--elements', '.text.cmp-text--font-xsmall'],
     },

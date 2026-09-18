@@ -26,6 +26,11 @@ export default function transform(hookName, element, payload) {
       '#destination_publishing_iframe_wkndsite_0',
       '#toggleNav',
       '#mobileNav',
+      // Content-fragment internal title (visually hidden on source). The visible page
+      // title comes from the separate .cmp-title--underline heading; importing this
+      // too produces a duplicate "Bali Surf Camp" heading. Found in cleaned.html:
+      //   <h3 class="cmp-contentfragment__title">Bali Surf Camp</h3>
+      '.cmp-contentfragment__title',
     ]);
   }
 

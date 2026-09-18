@@ -132,7 +132,12 @@ var CustomImportScript = (() => {
         "footer.cmp-experiencefragment--footer",
         "#destination_publishing_iframe_wkndsite_0",
         "#toggleNav",
-        "#mobileNav"
+        "#mobileNav",
+        // Content-fragment internal title (visually hidden on source). The visible page
+        // title comes from the separate .cmp-title--underline heading; importing this
+        // too produces a duplicate "Bali Surf Camp" heading. Found in cleaned.html:
+        //   <h3 class="cmp-contentfragment__title">Bali Surf Camp</h3>
+        ".cmp-contentfragment__title"
       ]);
     }
     if (hookName === TransformHook.afterTransform) {
@@ -240,7 +245,7 @@ var CustomImportScript = (() => {
         id: "rc3",
         name: "title-metadata-share",
         selector: [".cmp-layout-container--fixed", "main.cmp-layout-container--fixed"],
-        style: null,
+        style: "adventure-info",
         blocks: [],
         defaultContent: [".title.cmp-title--underline", ".contentfragment.cmp-contentfragment--elements", ".text.cmp-text--font-xsmall"]
       },

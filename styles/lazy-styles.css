@@ -1,1 +1,77 @@
 /* add global styles that can be loaded post LCP here */
+
+/*
+ * Adventure-detail: title + metadata section (section style "adventure-info").
+ * Reproduces the WKND source treatment — page title with a yellow underline bar,
+ * and the adventure attributes styled as a metadata list with uppercase gray
+ * labels, bold values, and left divider lines. At desktop the attribute list
+ * floats into a left sidebar; it stacks on mobile.
+ */
+
+/* title underline bar (source: 84px yellow bar under the H1) */
+main .section.adventure-info h1 {
+  margin-bottom: 0.5em;
+  padding-bottom: 18px;
+  position: relative;
+}
+
+main .section.adventure-info h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 84px;
+  height: 3px;
+  background-color: var(--accent-color);
+}
+
+/* adventure attribute list — uppercase label + value pairs with divider lines */
+main .section.adventure-info ul {
+  margin: 24px 0;
+  padding: 0;
+  list-style: none;
+}
+
+main .section.adventure-info ul > li {
+  margin: 0 0 20px;
+  padding: 4px 0 4px 16px;
+  border-left: 2px solid var(--light-color);
+}
+
+main .section.adventure-info ul > li p {
+  margin: 0;
+}
+
+/* first paragraph in each item = the label */
+main .section.adventure-info ul > li p:first-child {
+  color: #696969;
+  font-size: var(--body-font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* second paragraph = the value */
+main .section.adventure-info ul > li p:last-child {
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+/* "Share this Adventure" heading */
+main .section.adventure-info h5 {
+  margin-top: 32px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* desktop: metadata attributes become a left sidebar */
+@media (width >= 900px) {
+  main .section.adventure-info ul {
+    float: left;
+    width: 260px;
+    margin-right: 40px;
+  }
+
+  main .section.adventure-info h5 {
+    clear: left;
+  }
+}

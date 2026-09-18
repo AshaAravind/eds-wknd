@@ -112,7 +112,7 @@
             ".cmp-layout-container--fixed",
             "main.cmp-layout-container--fixed"
           ],
-          "style": null,
+          "style": "adventure-info",
           "blocks": [],
           "defaultContent": [
             ".title.cmp-title--underline",
