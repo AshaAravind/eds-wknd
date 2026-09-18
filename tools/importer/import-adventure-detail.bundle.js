@@ -242,20 +242,16 @@ var CustomImportScript = (() => {
         defaultContent: []
       },
       {
+        // Title + metadata + tabs share one section so the metadata sidebar and
+        // tab content can render as a 2-column layout (matching the source). The
+        // tabs block still parses via PAGE_TEMPLATE.blocks; keeping it in this
+        // section (no separate entry) means no <hr> break splits them apart.
         id: "rc3",
-        name: "title-metadata-share",
+        name: "title-metadata-tabs",
         selector: [".cmp-layout-container--fixed", "main.cmp-layout-container--fixed"],
         style: "adventure-info",
-        blocks: [],
-        defaultContent: [".title.cmp-title--underline", ".contentfragment.cmp-contentfragment--elements", ".text.cmp-text--font-xsmall"]
-      },
-      {
-        id: "rc4",
-        name: "tabs",
-        selector: [".tabs.panelcontainer", ".tabs"],
-        style: null,
         blocks: ["tabs"],
-        defaultContent: []
+        defaultContent: [".title.cmp-title--underline", ".contentfragment.cmp-contentfragment--elements", ".text.cmp-text--font-xsmall"]
       }
     ]
   };

@@ -107,31 +107,20 @@
         },
         {
           "id": "rc3",
-          "name": "title-metadata-share",
+          "name": "title-metadata-tabs",
           "selector": [
             ".cmp-layout-container--fixed",
             "main.cmp-layout-container--fixed"
           ],
           "style": "adventure-info",
-          "blocks": [],
+          "blocks": [
+            "tabs"
+          ],
           "defaultContent": [
             ".title.cmp-title--underline",
             ".contentfragment.cmp-contentfragment--elements",
             ".text.cmp-text--font-xsmall"
           ]
-        },
-        {
-          "id": "rc4",
-          "name": "tabs",
-          "selector": [
-            ".tabs.panelcontainer",
-            ".tabs"
-          ],
-          "style": null,
-          "blocks": [
-            "tabs"
-          ],
-          "defaultContent": []
         }
       ]
     },

@@ -63,15 +63,29 @@ main .section.adventure-info h5 {
   letter-spacing: 0.04em;
 }
 
-/* desktop: metadata attributes become a left sidebar */
+/*
+ * Desktop: two-column layout. The default-content wrapper (title, metadata list,
+ * share heading) sits in a fixed-width left sidebar; the tabs wrapper takes the
+ * remaining width on the right. The H1 title still reads at the top of the left
+ * column, matching the source where the metadata sidebar aligns with the tabs.
+ */
 @media (width >= 900px) {
-  main .section.adventure-info ul {
-    float: left;
-    width: 260px;
-    margin-right: 40px;
+  main .section.adventure-info > .default-content-wrapper,
+  main .section.adventure-info > .tabs-wrapper {
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
   }
 
-  main .section.adventure-info h5 {
-    clear: left;
+  main .section.adventure-info > .default-content-wrapper {
+    width: 280px;
+    padding-right: 40px;
+  }
+
+  main .section.adventure-info > .tabs-wrapper {
+    width: calc(100% - 284px);
+
+    /* align the tab bar with the metadata list (below the title's baseline) */
+    margin-top: 8px;
   }
 }
