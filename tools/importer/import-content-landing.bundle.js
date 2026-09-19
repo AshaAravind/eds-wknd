@@ -35,55 +35,84 @@ var CustomImportScript = (() => {
   };
   var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-  // tools/importer/import-about-us.js
-  var import_about_us_exports = {};
-  __export(import_about_us_exports, {
-    default: () => import_about_us_default
+  // tools/importer/import-content-landing.js
+  var import_content_landing_exports = {};
+  __export(import_content_landing_exports, {
+    default: () => import_content_landing_default
   });
 
-  // tools/importer/parsers/profile-cards.js
-  function parseProfiles(cardEls, { document: document2 }) {
-    if (!cardEls.length) return;
-    const rows = [["Cards (profiles)"]];
-    cardEls.forEach((card) => {
-      const imageCell = document2.createElement("div");
-      const img = card.querySelector("img.cmp-image__image, picture, img");
-      if (img) imageCell.append(img.closest("picture") || img);
-      const bodyCell = document2.createElement("div");
-      const name = card.querySelector(".title h3, h3");
-      const role = card.querySelector("h5");
-      if (name) {
-        const h = document2.createElement("h3");
-        h.textContent = name.textContent.trim();
-        bodyCell.append(h);
-      }
-      if (role) {
-        const p = document2.createElement("p");
-        p.textContent = role.textContent.trim();
-        bodyCell.append(p);
-      }
-      const links = [...card.querySelectorAll("a.cmp-button, .buildingblock a")];
-      if (links.length) {
-        const social = document2.createElement("p");
-        links.forEach((a) => {
-          const label = a.querySelector(".cmp-button__icon");
-          let type = "Link";
-          if (label) {
-            const cls = [...label.classList].find((c) => c.includes("--")) || "";
-            type = cls.split("--").pop() || "Link";
-          }
-          const link = document2.createElement("a");
-          link.href = a.getAttribute("href") || "#";
-          link.textContent = type.charAt(0).toUpperCase() + type.slice(1);
-          social.append(link, document2.createTextNode(" "));
-        });
-        bodyCell.append(social);
-      }
-      rows.push([imageCell, bodyCell]);
-    });
-    const table = WebImporter.DOMUtils.createTable(rows, document2);
-    cardEls[0].replaceWith(table);
-    cardEls.slice(1).forEach((el) => el.remove());
+  // tools/importer/parsers/teaser.js
+  function parse(element, { document: document2 }) {
+    const image = element.querySelector("picture, .cmp-teaser__image img, .cmp-image img, img");
+    const contentCell = [];
+    const content = element.querySelector('.cmp-teaser__content, [class*="__content"]');
+    if (content) {
+      Array.from(content.children).forEach((child) => {
+        if (child.querySelector && child.querySelector("img, picture")) return;
+        if (child.tagName === "IMG" || child.tagName === "PICTURE") return;
+        contentCell.push(child);
+      });
+    } else {
+      const eyebrow = element.querySelector('.cmp-teaser__pretitle, [class*="pretitle"], [class*="eyebrow"]');
+      if (eyebrow) contentCell.push(eyebrow);
+      const heading = element.querySelector('.cmp-teaser__title, h1, h2, h3, [class*="title"]');
+      if (heading) contentCell.push(heading);
+      const description = element.querySelector('.cmp-teaser__description, [class*="description"]');
+      if (description) contentCell.push(description);
+      const ctaLinks = Array.from(element.querySelectorAll(".cmp-teaser__action-link, a.button"));
+      ctaLinks.forEach((cta) => contentCell.push(cta));
+    }
+    if (!image && !contentCell.length) {
+      element.replaceWith(...element.childNodes);
+      return;
+    }
+    const cells = [[image || "", contentCell]];
+    const isSecure = element.classList.contains("cmp-teaser--secure") || element.querySelector(".cmp-teaser--secure");
+    const name = isSecure ? "teaser (members-only)" : "teaser";
+    const block = WebImporter.Blocks.createBlock(document2, { name, cells });
+    element.replaceWith(block);
+  }
+
+  // tools/importer/parsers/teaser-members.js
+  function parse2(element, { document: document2 }) {
+    const content = element.querySelector(".cmp-teaser__content") || element;
+    const title = content.querySelector(".cmp-teaser__title, h1, h2, h3");
+    const description = content.querySelector(".cmp-teaser__description");
+    const action = content.querySelector(".cmp-teaser__action-link, a");
+    const contentCell = document2.createElement("div");
+    if (title) {
+      const h = document2.createElement("h3");
+      h.textContent = title.textContent.trim();
+      contentCell.append(h);
+    }
+    if (description) {
+      const p = document2.createElement("p");
+      p.textContent = description.textContent.trim();
+      contentCell.append(p);
+    }
+    const label = action ? action.textContent.trim() : "Read More";
+    const cta = document2.createElement("p");
+    const link = document2.createElement("a");
+    link.href = "#";
+    link.textContent = label;
+    cta.append(link);
+    contentCell.append(cta);
+    const imageCell = document2.createElement("div");
+    const pic = element.querySelector("picture, img");
+    if (pic) imageCell.append(pic.closest("picture") || pic);
+    const cells = [["Teaser (members-only)"], [imageCell, contentCell]];
+    const table = WebImporter.DOMUtils.createTable(cells, document2);
+    element.replaceWith(table);
+  }
+
+  // tools/importer/parsers/article-list-all.js
+  function parse3(element, { document: document2 }) {
+    const cells = [
+      ["Article List"],
+      ["path", "/us/en/magazine/"]
+    ];
+    const table = WebImporter.DOMUtils.createTable(cells, document2);
+    element.replaceWith(table);
   }
 
   // tools/importer/transformers/wknd-cleanup.js
@@ -174,18 +203,36 @@ var CustomImportScript = (() => {
     }
   }
 
-  // tools/importer/import-about-us.js
+  // tools/importer/import-content-landing.js
   var PAGE_TEMPLATE = {
     name: "content-landing",
-    urls: ["https://wknd.site/us/en/about-us.html"],
+    description: "Content landing page with featured-article split panel and a grid of teaser cards",
+    urls: [
+      "https://wknd.site/us/en/magazine.html"
+    ],
+    blocks: [
+      {
+        name: "teaser",
+        instances: [".teaser.cmp-teaser--featured", ".teaser.cmp-teaser--secure", ".teaser.cmp-teaser--list"]
+      },
+      {
+        name: "article-list",
+        instances: [".image-list.list", ".cmp-image-list"]
+      }
+    ],
     sections: [
       {
         id: "rc1",
-        name: "about-content",
+        name: "magazine-content",
         selector: ["main.cmp-layout-container--fixed", ".cmp-layout-container--fixed"],
         style: "content-landing",
-        blocks: ["cards"],
-        defaultContent: [".title", ".text"]
+        blocks: ["teaser", "article-list"],
+        defaultContent: [
+          ".title:not(.cmp-title--underline)",
+          ".title.cmp-title--underline",
+          ".text",
+          ".separator"
+        ]
       }
     ]
   };
@@ -195,50 +242,47 @@ var CustomImportScript = (() => {
     ...PAGE_TEMPLATE.sections && (PAGE_TEMPLATE.sections.length > 1 || hasStyledSection) ? [transform2] : []
   ];
   function executeTransformers(hookName, element, payload) {
-    transformers.forEach((fn) => {
+    transformers.forEach((transformerFn) => {
       try {
-        fn.call(null, hookName, element, __spreadProps(__spreadValues({}, payload), { template: PAGE_TEMPLATE }));
+        transformerFn.call(null, hookName, element, __spreadProps(__spreadValues({}, payload), { template: PAGE_TEMPLATE }));
       } catch (e) {
         console.error(`Transformer failed at ${hookName}:`, e);
       }
     });
   }
-  var import_about_us_default = {
+  var import_content_landing_default = {
     transform: (payload) => {
-      const { document: document2, url, params } = payload;
+      const {
+        document: document2,
+        url,
+        html,
+        params
+      } = payload;
       const main = document2.body;
       executeTransformers("beforeTransform", main, payload);
-      const cards = [...document2.querySelectorAll(".cmp-experience-fragment--contributor")];
-      const groups = [];
-      cards.forEach((card) => {
-        let node = card;
-        let heading = null;
-        while (node && !heading) {
-          let prev = node.previousElementSibling;
-          while (prev) {
-            const h2 = prev.matches && prev.matches("h2") ? prev : prev.querySelector ? prev.querySelector("h2") : null;
-            if (h2) {
-              heading = h2.textContent.trim();
-              break;
-            }
-            prev = prev.previousElementSibling;
-          }
-          node = node.parentElement;
-        }
-        const key = heading || "group";
-        let group = groups.find((g) => g.key === key);
-        if (!group) {
-          group = { key, els: [] };
-          groups.push(group);
-        }
-        group.els.push(card);
-      });
-      groups.forEach((group) => {
-        if (group.els.every((el) => el.parentNode)) {
+      document2.querySelectorAll(".teaser.cmp-teaser--featured, .teaser.cmp-teaser--list").forEach((el) => {
+        if (el.parentNode) {
           try {
-            parseProfiles(group.els, { document: document2 });
+            parse(el, { document: document2, url, params });
           } catch (e) {
-            console.error("profile-cards parse failed", e);
+            console.error("teaser parse failed", e);
+          }
+        }
+      });
+      const list = document2.querySelector(".image-list.list, .cmp-image-list");
+      if (list && list.parentNode) {
+        try {
+          parse3(list, { document: document2, url, params });
+        } catch (e) {
+          console.error("article-list parse failed", e);
+        }
+      }
+      document2.querySelectorAll(".teaser.cmp-teaser--secure").forEach((el) => {
+        if (el.parentNode) {
+          try {
+            parse2(el, { document: document2, url, params });
+          } catch (e) {
+            console.error("teaser-members parse failed", e);
           }
         }
       });
@@ -253,9 +297,13 @@ var CustomImportScript = (() => {
       return [{
         element: main,
         path,
-        report: { title: document2.title, template: PAGE_TEMPLATE.name, blocks: ["cards (profiles)"] }
+        report: {
+          title: document2.title,
+          template: PAGE_TEMPLATE.name,
+          blocks: ["teaser", "article-list", "teaser-members"]
+        }
       }];
     }
   };
-  return __toCommonJS(import_about_us_exports);
+  return __toCommonJS(import_content_landing_exports);
 })();

@@ -2,9 +2,9 @@
   "status": "success",
   "url": "https://wknd.site/us/en/magazine.html",
   "path": "us/en/magazine",
-  "timestamp": "2026-09-16T12:03:32.735Z",
+  "timestamp": "2026-09-19T10:33:54.443Z",
   "title": "Magazine",
-  "template": "magazine-landing",
+  "template": "content-landing",
   "blocks": [
     "teaser",
     "article-list",

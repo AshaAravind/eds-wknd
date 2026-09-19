@@ -136,3 +136,26 @@ main .section.adventure-info h5 {
     grid-row: 1 / span 99;
   }
 }
+
+/*
+ * Content-landing (magazine/about-us): section headings ("All Articles",
+ * "Members Only") carry a short yellow underline accent, matching the WKND
+ * source .cmp-title--underline treatment (84px x 2px yellow bar below the H2).
+ * Scoped to default-content headings so the featured teaser title and the
+ * article card titles (inside blocks) are unaffected.
+ */
+main .section.content-landing .default-content-wrapper h2 {
+  position: relative;
+  margin-bottom: 0.5em;
+  padding-bottom: 18px;
+}
+
+main .section.content-landing .default-content-wrapper h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 84px;
+  height: 2px;
+  background-color: var(--accent-color);
+}

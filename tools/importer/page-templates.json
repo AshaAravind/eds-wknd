@@ -14,7 +14,51 @@
       ],
       "coverageGaps": [],
       "description": "Content landing page with featured-article split panel and a grid of teaser cards",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "teaser",
+          "instances": [
+            ".teaser.cmp-teaser--featured",
+            ".teaser.cmp-teaser--secure",
+            ".teaser.cmp-teaser--list"
+          ]
+        },
+        {
+          "name": "article-list",
+          "instances": [
+            ".image-list.list",
+            ".cmp-image-list"
+          ]
+        },
+        {
+          "name": "cards",
+          "instances": [
+            ".experiencefragment.cmp-experience-fragment--contributor"
+          ]
+        }
+      ],
+      "representativeUrl": "https://wknd.site/us/en/magazine.html",
+      "sections": [
+        {
+          "id": "rc1",
+          "name": "magazine-content",
+          "selector": [
+            "main.cmp-layout-container--fixed",
+            ".cmp-layout-container--fixed"
+          ],
+          "style": "content-landing",
+          "blocks": [
+            "teaser",
+            "article-list"
+          ],
+          "defaultContent": [
+            ".title:not(.cmp-title--underline)",
+            ".title.cmp-title--underline",
+            ".text",
+            ".separator"
+          ]
+        }
+      ]
     },
     {
       "name": "adventure-detail",
