@@ -152,3 +152,89 @@
     height: 400px;
   }
 }
+
+/* ============================================================
+   HERO variant (.carousel.carousel-hero) — homepage full-bleed
+   slider. Each slide is a full-bleed background image with a
+   white content card (heading + description + CTA) overlaid on
+   the lower portion of the image. Scoped to .carousel-hero so
+   the image-only "mini" gallery (adventure-detail) is untouched.
+   Values extracted from wknd.site .cmp-carousel--hero.
+   ============================================================ */
+
+/* full-bleed image — 16:9 on mobile, fixed 640px on desktop (source) */
+.carousel.carousel-hero .carousel-slide .carousel-slide-image picture > img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* content card — shown (overrides the mini variant's display:none),
+   white background, heading + description + CTA (source colors/spacing) */
+.carousel.carousel-hero .carousel-slide .carousel-slide-content {
+  display: block;
+  padding: 18px 14px;
+  background-color: var(--background-color);
+}
+
+.carousel.carousel-hero .carousel-slide-content h2 {
+  margin: 0;
+  font-size: 36px;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+.carousel.carousel-hero .carousel-slide-content p {
+  margin: 0;
+  font-size: var(--body-font-size-m);
+  line-height: 1.75;
+  color: var(--text-color);
+}
+
+/* CTA — the authored plain <p><a> is NOT auto-buttonized, so style it
+   here as the source's yellow button (source: #ffea00 bg, 14px 35px,
+   uppercase 14px/600, no radius) */
+.carousel.carousel-hero .carousel-slide-content p:last-child {
+  margin-top: 18px;
+}
+
+.carousel.carousel-hero .carousel-slide-content p:last-child a:any-link {
+  display: inline-block;
+  padding: 14px 35px;
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  border: 2px solid var(--accent-color);
+  border-radius: 0;
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.carousel.carousel-hero .carousel-slide-content p:last-child a:hover,
+.carousel.carousel-hero .carousel-slide-content p:last-child a:focus-visible {
+  background-color: var(--text-color);
+  border-color: var(--text-color);
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+@media (width >= 900px) {
+  .carousel.carousel-hero .carousel-slide .carousel-slide-image picture > img {
+    height: 640px;
+    aspect-ratio: auto;
+  }
+
+  /* white card centered and pulled up to overlay the image bottom */
+  .carousel.carousel-hero .carousel-slide .carousel-slide-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: -180px auto 0;
+    padding: 18px 28px;
+  }
+}

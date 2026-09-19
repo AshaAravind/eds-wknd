@@ -95,7 +95,9 @@ var CustomImportScript = (() => {
       return;
     }
     const cells = [[image || "", contentCell]];
-    const block = WebImporter.Blocks.createBlock(document2, { name: "teaser", cells });
+    const isSecure = element.classList.contains("cmp-teaser--secure") || element.querySelector(".cmp-teaser--secure");
+    const name = isSecure ? "teaser (members-only)" : "teaser";
+    const block = WebImporter.Blocks.createBlock(document2, { name, cells });
     element.replaceWith(block);
   }
 
@@ -111,10 +113,15 @@ var CustomImportScript = (() => {
 
   // tools/importer/parsers/adventure-list.js
   function parse4(element, { document: document2 }) {
-    const cells = [
-      ["path", "/us/en/adventures/"],
-      ["limit", "4"]
-    ];
+    const tabLabels = Array.from(
+      element.querySelectorAll('.cmp-tabs__tab, [role="tab"]')
+    ).map((tab) => tab.textContent.trim()).filter(Boolean);
+    const cells = [["path", "/us/en/adventures/"]];
+    if (tabLabels.length) {
+      cells.push(["filters", tabLabels.join(", ")]);
+    } else {
+      cells.push(["limit", "4"]);
+    }
     const block = WebImporter.Blocks.createBlock(document2, { name: "adventure-list", cells });
     element.replaceWith(block);
   }
@@ -128,7 +135,12 @@ var CustomImportScript = (() => {
         "footer.cmp-experiencefragment--footer",
         "#destination_publishing_iframe_wkndsite_0",
         "#toggleNav",
-        "#mobileNav"
+        "#mobileNav",
+        // Content-fragment internal title (visually hidden on source). The visible page
+        // title comes from the separate .cmp-title--underline heading; importing this
+        // too produces a duplicate "Bali Surf Camp" heading. Found in cleaned.html:
+        //   <h3 class="cmp-contentfragment__title">Bali Surf Camp</h3>
+        ".cmp-contentfragment__title"
       ]);
     }
     if (hookName === TransformHook.afterTransform) {
@@ -136,7 +148,20 @@ var CustomImportScript = (() => {
         "meta",
         "iframe",
         "noscript",
-        "link"
+        "link",
+        // Non-authorable social-share chrome in the article sidebar. The authorable
+        // sidebar content is the .cmp-list--upnext "up next" cards block; the share
+        // label + widget are site UI, not something an author would create.
+        // Scoped to the sidebar so the site-wide cleanup can't touch authorable
+        // titles elsewhere. Found in cleaned.html:
+        //   line 363 <div class="title cmp-title--black ...">SHARE THIS STORY</div>
+        //   line 368 <div class="sharing"> (empty FB div + empty Pinterest <a> -> stray [](url))
+        ".cmp-layoutcontainer--sidebar .title.cmp-title--black",
+        ".cmp-layoutcontainer--sidebar .sharing",
+        // Hidden decorative separators (sidebar line 374, footer line 490). These emit a
+        // stray thematic break in the import. Targets the classed cmp-separator wrapper
+        // only — NOT bare <hr> — so the section transformer's inserted <hr> breaks survive.
+        ".cmp-separator--hidden"
       ]);
       element.querySelectorAll("*").forEach((el) => {
         el.removeAttribute("data-cmp-data-layer");

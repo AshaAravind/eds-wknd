@@ -86,6 +86,32 @@
   text-decoration: none;
 }
 
+/* ---- Hero variant (Next Adventure): full-width image on top, white
+   content below with a larger description. No eyebrow, no grey panel. ---- */
+.teaser.teaser-hero > div {
+  grid-template-columns: 1fr;
+}
+
+.teaser.teaser-hero .teaser-image img {
+  aspect-ratio: 2 / 1;
+}
+
+.teaser.teaser-hero .teaser-content {
+  justify-content: flex-start;
+  padding: 18px 28px 24px;
+  background-color: transparent;
+}
+
+.teaser.teaser-hero .teaser-content h2,
+.teaser.teaser-hero .teaser-content h3 {
+  margin: 0;
+}
+
+.teaser.teaser-hero .teaser-content p {
+  font-size: var(--body-font-size-m);
+  line-height: 1.75;
+}
+
 /* ---- Members-only variant: compact card, image on top, inert CTA ---- */
 .teaser.members-only > div {
   grid-template-columns: 1fr;
@@ -148,11 +174,11 @@
 
 @media (width >= 900px) {
   /* featured: wider image on the left, grey content panel on the right */
-  .teaser:not(.members-only) > div {
+  .teaser:not(.members-only, .teaser-hero) > div {
     grid-template-columns: 1.6fr 1fr;
   }
 
-  .teaser:not(.members-only) .teaser-content {
+  .teaser:not(.members-only, .teaser-hero) .teaser-content {
     padding: 60px 36px;
   }
 }
