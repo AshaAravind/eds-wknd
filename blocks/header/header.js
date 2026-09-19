@@ -162,6 +162,9 @@ export default async function decorate(block) {
     search.innerHTML = `<form role="search" action="/search">
         <label class="nav-search-label" for="nav-search-input">Search</label>
         <input id="nav-search-input" type="search" name="q" placeholder="Search" aria-label="Search">
+        <button type="submit" class="nav-search-submit" aria-label="Search">
+          <img src="/icons/search.svg" alt="" width="20" height="20">
+        </button>
       </form>`;
 
     // 2. Locale selector — a toggle button showing the current locale that opens
