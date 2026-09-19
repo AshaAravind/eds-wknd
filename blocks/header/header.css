@@ -151,10 +151,14 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
   }
 }
 
-/* brand — WKND logo image (serif wordmark styling is a text fallback) */
+/* brand — WKND logo on a black background panel */
 header .nav-brand {
   grid-area: brand;
   flex-basis: 128px;
+  display: flex;
+  align-items: center;
+  background-color: var(--dark-color);
+  padding: 12px 20px;
   font-family: var(--heading-font-family);
   font-size: var(--heading-font-size-m);
   font-weight: 700;
@@ -163,13 +167,15 @@ header .nav-brand {
 }
 
 header .nav-brand a:any-link {
-  color: var(--text-color);
+  color: #fff;
   text-decoration: none;
 }
 
+/* logo is the dark SVG variant; invert to white so it shows on the black panel */
 header nav .nav-brand img {
   width: 128px;
   height: auto;
+  filter: brightness(0) invert(1);
 }
 
 /* sections */
@@ -222,6 +228,9 @@ header nav .nav-sections ul > li > ul > li {
     display: block;
     visibility: visible;
     white-space: nowrap;
+
+    /* grow into the available space so the links can right-align */
+    flex: 1 1 auto;
   }
 
   header nav[aria-expanded='true'] .nav-sections {
@@ -258,6 +267,9 @@ header nav .nav-sections ul > li > ul > li {
     display: flex;
     gap: 24px;
     margin: 0;
+
+    /* right-align the nav links within the sections area */
+    justify-content: flex-end;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li {

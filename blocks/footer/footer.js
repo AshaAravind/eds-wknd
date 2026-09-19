@@ -16,6 +16,22 @@ export default async function decorate(block) {
   const footer = document.createElement('div');
   while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
 
+  // Render the WKND logo from the code asset (site chrome, not authored
+  // content). Injected here rather than as an <img> in the footer fragment —
+  // a content <img> pointing at a code path is rewritten to about:error by
+  // the EDS content-image pipeline. footer.css inverts it to white.
+  const brandAnchor = footer.querySelector('div:first-child a');
+  if (brandAnchor && !brandAnchor.querySelector('img')) {
+    const label = brandAnchor.textContent.trim() || 'WKND';
+    brandAnchor.textContent = '';
+    const logo = document.createElement('img');
+    logo.src = '/icons/wknd-logo.svg';
+    logo.alt = label;
+    logo.width = 128;
+    logo.height = 48;
+    brandAnchor.append(logo);
+  }
+
   // "Follow Us" social links import as text labels ("Facebook", "Twitter", …).
   // Render them as icon-only buttons — tag each with its platform so CSS can draw
   // the glyph, and move the label to aria-label so it stays accessible but hidden.
