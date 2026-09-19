@@ -244,7 +244,36 @@
       ],
       "coverageGaps": [],
       "description": "FAQ page with title, hero image, intro paragraph, accordion list, and a contact sidebar",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "accordion",
+          "instances": [
+            ".accordion.panelcontainer",
+            ".cmp-accordion"
+          ]
+        }
+      ],
+      "representativeUrl": "https://wknd.site/us/en/faqs.html",
+      "sections": [
+        {
+          "id": "rc1",
+          "name": "faqs-content",
+          "selector": [
+            "main.cmp-layout-container--fixed",
+            ".cmp-layout-container--fixed"
+          ],
+          "style": "faqs",
+          "blocks": [
+            "accordion"
+          ],
+          "defaultContent": [
+            ".title",
+            ".image",
+            ".text",
+            ".separator"
+          ]
+        }
+      ]
     },
     {
       "name": "home",

@@ -159,3 +159,65 @@ main .section.content-landing .default-content-wrapper h2::after {
   height: 2px;
   background-color: var(--accent-color);
 }
+
+/*
+ * FAQs: the page title ("FAQs") carries the same yellow underline accent
+ * (84px x 2px yellow bar below the H1) as the source .cmp-title--underline.
+ * Scoped to the H1 in default content so the accordion item titles and the
+ * "Need more help?" heading are unaffected.
+ */
+main .section.faqs .default-content-wrapper h1 {
+  position: relative;
+  margin-bottom: 0.5em;
+  padding-bottom: 18px;
+}
+
+main .section.faqs .default-content-wrapper h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 84px;
+  height: 2px;
+  background-color: var(--accent-color);
+}
+
+/*
+ * FAQs 2-column layout (desktop): the source places the main content
+ * (title + hero image + intro + accordion) in a wide left column and the
+ * "Need more help?" contact block in a ~291px right sidebar pinned to the top.
+ * The section holds three wrappers in order:
+ *   1. .default-content-wrapper  (title + hero + intro)  → left
+ *   2. .accordion-wrapper        (FAQ accordion)         → left
+ *   3. .default-content-wrapper  (contact — last child)  → right sidebar
+ */
+@media (width >= 900px) {
+  main .section.faqs {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 291px;
+    column-gap: 97px;
+    align-items: start;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 32px;
+  }
+
+  /* reset the per-wrapper 1200px container so wrappers fill their grid cell */
+  main .section.faqs > div {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* main content (title/hero/intro + accordion) fills the left column */
+  main .section.faqs > .default-content-wrapper:first-child,
+  main .section.faqs > .accordion-wrapper {
+    grid-column: 1;
+  }
+
+  /* contact block (the last default-content-wrapper) → right sidebar, top row */
+  main .section.faqs > .default-content-wrapper:last-child {
+    grid-column: 2;
+    grid-row: 1 / span 99;
+  }
+}
