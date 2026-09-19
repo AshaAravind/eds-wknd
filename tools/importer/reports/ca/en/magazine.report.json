@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "url": "https://wknd.site/ca/en/magazine.html",
+  "path": "ca/en/magazine",
+  "timestamp": "2026-09-19T11:01:44.113Z",
+  "title": "Magazine",
+  "template": "content-landing",
+  "blocks": [
+    "teaser",
+    "article-list",
+    "teaser-members"
+  ]
+}

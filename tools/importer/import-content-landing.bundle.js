@@ -106,10 +106,19 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/article-list-all.js
-  function parse3(element, { document: document2 }) {
+  function parse3(element, { document: document2, url, params } = {}) {
+    let listPath = "/us/en/magazine/";
+    const src = params && params.originalURL || url;
+    if (src) {
+      try {
+        const raw = new URL(src).pathname.replace(/\/$/, "").replace(/\.html?$/, "");
+        if (raw) listPath = `${raw}/`;
+      } catch (e) {
+      }
+    }
     const cells = [
       ["Article List"],
-      ["path", "/us/en/magazine/"]
+      ["path", listPath]
     ];
     const table = WebImporter.DOMUtils.createTable(cells, document2);
     element.replaceWith(table);
