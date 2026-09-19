@@ -35,17 +35,29 @@ header nav[aria-expanded='true'] {
     position: relative;
   }
 
+  /* two-row header (matches source): a thin locale utility row on top, then the
+     logo + nav + search main row below. The locale toggle is pinned to the
+     top-right utility position; the main flex row holds brand/sections/search. */
   header nav {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 0 32px;
+    position: relative;
     max-width: 1264px;
-    padding: 0 32px;
+    height: auto;
+    padding: 40px 32px 24px;
   }
 
   header nav[aria-expanded='true'] {
     min-height: 0;
     overflow: visible;
+  }
+
+  /* tools row now effectively holds only the search box */
+  header nav .nav-tools {
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -412,6 +424,15 @@ header nav .nav-locale-list a:any-link {
 }
 
 @media (width >= 900px) {
+  /* two-row header: pin the locale toggle to the top-right utility row,
+     above the logo + nav + search main row (matches the source layout).
+     .nav-locale stays the positioning context for its dropdown panel. */
+  header nav .nav-locale {
+    position: absolute;
+    top: 10px;
+    right: 32px;
+  }
+
   /* collapse the locale list into a dropdown panel on desktop */
   header nav .nav-locale-list {
     display: none;
