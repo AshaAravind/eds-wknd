@@ -127,6 +127,32 @@ export default {
 
     const main = document.body;
 
+    // Capture the adventure Category from the content fragment BEFORE parsing
+    // consumes it. Maps the Activity value to a WKND filter category so the
+    // adventures-landing filter grid works (query-index category column).
+    let adventureCategory = '';
+    (() => {
+      let activity = '';
+      // The content-fragment metadata is normalised to <li><p>label</p><p>value</p></li>
+      // (and/or a <dt>Activity</dt><dd>value</dd> pair). Match either shape.
+      main.querySelectorAll('li, dl > div').forEach((item) => {
+        const ps = item.querySelectorAll('p, dt, dd');
+        if (ps.length >= 2 && ps[0].textContent.trim().toLowerCase() === 'activity') {
+          activity = ps[1].textContent.trim();
+        }
+      });
+      if (!activity) {
+        const dt = [...main.querySelectorAll('dt')].find((d) => d.textContent.trim().toLowerCase() === 'activity');
+        if (dt && dt.nextElementSibling) activity = dt.nextElementSibling.textContent.trim();
+      }
+      const a = activity.toLowerCase();
+      if (/climb/.test(a)) adventureCategory = 'climbing';
+      else if (/cycl|bike|biking/.test(a)) adventureCategory = 'cycling';
+      else if (/ski/.test(a)) adventureCategory = 'skiing';
+      else if (/surf/.test(a)) adventureCategory = 'surfing';
+      else adventureCategory = 'travel';
+    })();
+
     // 1. beforeTransform cleanup
     executeTransformers('beforeTransform', main, payload);
 
@@ -154,7 +180,30 @@ export default {
     // 5. WebImporter built-in rules
     const hr = document.createElement('hr');
     main.appendChild(hr);
-    WebImporter.rules.createMetadata(main, document);
+    const metaBlock = WebImporter.rules.createMetadata(main, document);
+    // Append a Category row so query-index picks it up (drives the
+    // adventures-landing filter grid). createMetadata may return the block
+    // element (a <table>) or a cells object depending on version — handle a DOM
+    // element robustly; fall back to querying the serialized block in `main`.
+    if (adventureCategory) {
+      const addRow = (tableEl) => {
+        const tr = document.createElement('tr');
+        const k = document.createElement('td');
+        k.textContent = 'Category';
+        const v = document.createElement('td');
+        v.textContent = adventureCategory;
+        tr.append(k, v);
+        (tableEl.querySelector('tbody') || tableEl).append(tr);
+      };
+      let table = (metaBlock && typeof metaBlock.querySelector === 'function') ? metaBlock : null;
+      if (!table) {
+        const tables = main.querySelectorAll('table');
+        table = [...tables].find((t) => /metadata/i.test(t.textContent.slice(0, 20)))
+          || tables[tables.length - 1] || null;
+      }
+      if (table) addRow(table);
+    }
+
     WebImporter.rules.transformBackgroundImages(main, document);
     WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
 

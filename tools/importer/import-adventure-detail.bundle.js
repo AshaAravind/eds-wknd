@@ -145,7 +145,20 @@ var CustomImportScript = (() => {
         "meta",
         "iframe",
         "noscript",
-        "link"
+        "link",
+        // Non-authorable social-share chrome in the article sidebar. The authorable
+        // sidebar content is the .cmp-list--upnext "up next" cards block; the share
+        // label + widget are site UI, not something an author would create.
+        // Scoped to the sidebar so the site-wide cleanup can't touch authorable
+        // titles elsewhere. Found in cleaned.html:
+        //   line 363 <div class="title cmp-title--black ...">SHARE THIS STORY</div>
+        //   line 368 <div class="sharing"> (empty FB div + empty Pinterest <a> -> stray [](url))
+        ".cmp-layoutcontainer--sidebar .title.cmp-title--black",
+        ".cmp-layoutcontainer--sidebar .sharing",
+        // Hidden decorative separators (sidebar line 374, footer line 490). These emit a
+        // stray thematic break in the import. Targets the classed cmp-separator wrapper
+        // only — NOT bare <hr> — so the section transformer's inserted <hr> breaks survive.
+        ".cmp-separator--hidden"
       ]);
       element.querySelectorAll("*").forEach((el) => {
         el.removeAttribute("data-cmp-data-layer");
@@ -297,6 +310,26 @@ var CustomImportScript = (() => {
         params
       } = payload;
       const main = document2.body;
+      let adventureCategory = "";
+      (() => {
+        let activity = "";
+        main.querySelectorAll("li, dl > div").forEach((item) => {
+          const ps = item.querySelectorAll("p, dt, dd");
+          if (ps.length >= 2 && ps[0].textContent.trim().toLowerCase() === "activity") {
+            activity = ps[1].textContent.trim();
+          }
+        });
+        if (!activity) {
+          const dt = [...main.querySelectorAll("dt")].find((d) => d.textContent.trim().toLowerCase() === "activity");
+          if (dt && dt.nextElementSibling) activity = dt.nextElementSibling.textContent.trim();
+        }
+        const a = activity.toLowerCase();
+        if (/climb/.test(a)) adventureCategory = "climbing";
+        else if (/cycl|bike|biking/.test(a)) adventureCategory = "cycling";
+        else if (/ski/.test(a)) adventureCategory = "skiing";
+        else if (/surf/.test(a)) adventureCategory = "surfing";
+        else adventureCategory = "travel";
+      })();
       executeTransformers("beforeTransform", main, payload);
       const pageBlocks = findBlocksOnPage(document2, PAGE_TEMPLATE);
       pageBlocks.forEach((block) => {
@@ -315,7 +348,24 @@ var CustomImportScript = (() => {
       executeTransformers("afterTransform", main, payload);
       const hr = document2.createElement("hr");
       main.appendChild(hr);
-      WebImporter.rules.createMetadata(main, document2);
+      const metaBlock = WebImporter.rules.createMetadata(main, document2);
+      if (adventureCategory) {
+        const addRow = (tableEl) => {
+          const tr = document2.createElement("tr");
+          const k = document2.createElement("td");
+          k.textContent = "Category";
+          const v = document2.createElement("td");
+          v.textContent = adventureCategory;
+          tr.append(k, v);
+          (tableEl.querySelector("tbody") || tableEl).append(tr);
+        };
+        let table = metaBlock && typeof metaBlock.querySelector === "function" ? metaBlock : null;
+        if (!table) {
+          const tables = main.querySelectorAll("table");
+          table = [...tables].find((t) => /metadata/i.test(t.textContent.slice(0, 20))) || tables[tables.length - 1] || null;
+        }
+        if (table) addRow(table);
+      }
       WebImporter.rules.transformBackgroundImages(main, document2);
       WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
       const rawPath = new URL(params.originalURL).pathname.replace(/\/$/, "").replace(/\.html?$/, "");

@@ -62,3 +62,49 @@
     min-height: 460px;
   }
 }
+
+/*
+ * Option: landing — WKND landing-page hero.
+ * Instead of white text overlaid on a dark scrim, the content sits in a white
+ * card (dark text) floating over the lower-left of the image. Scoped to
+ * .hero.landing so the base hero (homepage / detail heroes) is unaffected.
+ * Values from source computed styles (wknd.site adventures .cmp-teaser--hero):
+ * image 640px cover, white panel flush to the image bottom, Asar dark title.
+ */
+.hero.landing {
+  padding: 0;
+  min-height: 320px;
+}
+
+/* no scrim for the landing variant — the white card provides contrast */
+.hero.landing::before {
+  content: none;
+}
+
+.hero.landing .hero-content {
+  box-sizing: border-box;
+  margin: 0 24px;
+  padding: 32px 28px;
+  max-width: 900px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.hero.landing .hero-content h1,
+.hero.landing .hero-content h2,
+.hero.landing .hero-content h3,
+.hero.landing .hero-content p {
+  color: var(--text-color);
+}
+
+@media (width >= 900px) {
+  .hero.landing {
+    padding: 0;
+    min-height: 480px;
+  }
+
+  .hero.landing .hero-content {
+    margin: 0 44px;
+    max-width: 640px;
+  }
+}

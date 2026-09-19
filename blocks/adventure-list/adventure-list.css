@@ -1,35 +1,36 @@
+/* Filter tab bar — WKND image-list tabs: horizontal row, no border/underline */
 .adventure-list .adventure-list-filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
-  margin-bottom: 32px;
-  border-bottom: 1px solid #dadada;
+  margin: 18px 0 32px;
+  padding: 0;
 }
 
 .adventure-list .adventure-list-filter {
   margin: 0;
   border: 0;
-  border-bottom: 3px solid transparent;
+  border-radius: 0;
   background: transparent;
-  padding: 10px 16px;
+  padding: 8px 16px;
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-xs);
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-weight: 400;
+  line-height: 21px;
   text-transform: uppercase;
-  color: var(--dark-color);
+  color: var(--text-color);
   cursor: pointer;
-  transition: color 0.2s, border-color 0.2s;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .adventure-list .adventure-list-filter:hover,
 .adventure-list .adventure-list-filter:focus-visible {
-  color: var(--text-color);
+  color: var(--dark-color);
 }
 
+/* active tab: solid dark background, white text (WKND selected tab) */
 .adventure-list .adventure-list-filter.active {
-  color: var(--text-color);
-  border-bottom-color: var(--accent-color);
+  background-color: var(--dark-color);
+  color: var(--background-color);
 }
 
 .adventure-list .adventure-list-items {
@@ -38,11 +39,14 @@
   padding: 0;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 32px;
+  gap: 32px 14px;
 }
 
 .adventure-list .adventure-list-items > li {
   margin: 0;
+
+  /* allow grid track to shrink below the nowrap description's min-content width */
+  min-width: 0;
 }
 
 .adventure-list .adventure-list-items > li[hidden] {
@@ -63,7 +67,7 @@
 
 .adventure-list .adventure-list-card-image img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 13 / 10;
   object-fit: cover;
   transition: transform 0.4s ease;
 }
@@ -74,16 +78,21 @@
 }
 
 .adventure-list .adventure-list-card-body {
-  padding: 16px 0 0;
+  padding: 0;
 }
 
+/* title: uppercase, semibold, dark, body font (not heading font) */
 .adventure-list .adventure-list-card-body h3 {
-  margin: 0 0 8px;
-  font-size: var(--heading-font-size-s);
+  margin: 16px 0 0;
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-m);
+  font-weight: 600;
+  line-height: 27px;
+  text-transform: uppercase;
 }
 
 .adventure-list .adventure-list-card-title {
-  color: var(--link-color);
+  color: var(--text-color);
   text-decoration: none;
 }
 
@@ -92,16 +101,16 @@
   text-decoration: underline;
 }
 
+/* description: uppercase, gray, single-line with ellipsis */
 .adventure-list .adventure-list-card-description {
-  margin: 0;
-  color: var(--text-color);
-  font-size: var(--body-font-size-s);
-
-  /* clamp long descriptions to keep the grid tidy */
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
+  margin: 16px 0 0;
+  color: rgb(105 105 105);
+  font-size: var(--body-font-size-xs);
+  line-height: 21px;
+  text-transform: uppercase;
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (width >= 600px) {

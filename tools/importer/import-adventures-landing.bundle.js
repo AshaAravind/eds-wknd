@@ -41,45 +41,49 @@ var CustomImportScript = (() => {
     default: () => import_adventures_landing_default
   });
 
-  // tools/importer/parsers/teaser.js
-  function parse(element, { document }) {
-    const image = element.querySelector("picture, .cmp-teaser__image img, .cmp-image img, img");
-    const contentCell = [];
-    const content = element.querySelector('.cmp-teaser__content, [class*="__content"]');
-    if (content) {
-      Array.from(content.children).forEach((child) => {
-        if (child.querySelector && child.querySelector("img, picture")) return;
-        if (child.tagName === "IMG" || child.tagName === "PICTURE") return;
-        contentCell.push(child);
-      });
-    } else {
-      const eyebrow = element.querySelector('.cmp-teaser__pretitle, [class*="pretitle"], [class*="eyebrow"]');
-      if (eyebrow) contentCell.push(eyebrow);
-      const heading = element.querySelector('.cmp-teaser__title, h1, h2, h3, [class*="title"]');
-      if (heading) contentCell.push(heading);
-      const description = element.querySelector('.cmp-teaser__description, [class*="description"]');
-      if (description) contentCell.push(description);
-      const ctaLinks = Array.from(element.querySelectorAll(".cmp-teaser__action-link, a.button"));
-      ctaLinks.forEach((cta) => contentCell.push(cta));
-    }
-    if (!image && !contentCell.length) {
+  // tools/importer/parsers/hero.js
+  function parse(element, { document: document2 }) {
+    const bgImage = element.querySelector(
+      ".cmp-teaser__image img, .cmp-image__image, img"
+    );
+    const heading = element.querySelector(
+      '.cmp-teaser__title, h1, h2, [class*="title"]'
+    );
+    const descriptionWrapper = element.querySelector(
+      '.cmp-teaser__description, [class*="description"]'
+    );
+    const description = descriptionWrapper ? descriptionWrapper.querySelector("p") || descriptionWrapper : element.querySelector("p");
+    const ctaLinks = Array.from(
+      element.querySelectorAll(".cmp-teaser__action-link, .cmp-teaser__action-container a, a.button")
+    );
+    if (!heading && !description && !bgImage) {
       element.replaceWith(...element.childNodes);
       return;
     }
-    const cells = [[image || "", contentCell]];
-    const block = WebImporter.Blocks.createBlock(document, { name: "teaser", cells });
+    const cells = [];
+    if (bgImage) cells.push([bgImage]);
+    const contentCell = [];
+    if (heading) contentCell.push(heading);
+    if (description) contentCell.push(description);
+    contentCell.push(...ctaLinks);
+    cells.push([contentCell]);
+    const block = WebImporter.Blocks.createBlock(document2, { name: "hero (landing)", cells });
     element.replaceWith(block);
   }
 
-  // tools/importer/parsers/adventure-list-filtered.js
-  function parse2(element, { document }) {
-    const cells = [
-      ["Adventure List"],
-      ["path", "/us/en/adventures/"],
-      ["filters", "All, Climbing, Cycling, Skiing, Surfing, Travel"]
-    ];
-    const table = WebImporter.DOMUtils.createTable(cells, document);
-    element.replaceWith(table);
+  // tools/importer/parsers/adventure-list.js
+  function parse2(element, { document: document2 }) {
+    const tabLabels = Array.from(
+      element.querySelectorAll('.cmp-tabs__tab, [role="tab"]')
+    ).map((tab) => tab.textContent.trim()).filter(Boolean);
+    const cells = [["path", "/us/en/adventures/"]];
+    if (tabLabels.length) {
+      cells.push(["filters", tabLabels.join(", ")]);
+    } else {
+      cells.push(["limit", "4"]);
+    }
+    const block = WebImporter.Blocks.createBlock(document2, { name: "adventure-list", cells });
+    element.replaceWith(block);
   }
 
   // tools/importer/transformers/wknd-cleanup.js
@@ -91,7 +95,12 @@ var CustomImportScript = (() => {
         "footer.cmp-experiencefragment--footer",
         "#destination_publishing_iframe_wkndsite_0",
         "#toggleNav",
-        "#mobileNav"
+        "#mobileNav",
+        // Content-fragment internal title (visually hidden on source). The visible page
+        // title comes from the separate .cmp-title--underline heading; importing this
+        // too produces a duplicate "Bali Surf Camp" heading. Found in cleaned.html:
+        //   <h3 class="cmp-contentfragment__title">Bali Surf Camp</h3>
+        ".cmp-contentfragment__title"
       ]);
     }
     if (hookName === TransformHook.afterTransform) {
@@ -99,7 +108,20 @@ var CustomImportScript = (() => {
         "meta",
         "iframe",
         "noscript",
-        "link"
+        "link",
+        // Non-authorable social-share chrome in the article sidebar. The authorable
+        // sidebar content is the .cmp-list--upnext "up next" cards block; the share
+        // label + widget are site UI, not something an author would create.
+        // Scoped to the sidebar so the site-wide cleanup can't touch authorable
+        // titles elsewhere. Found in cleaned.html:
+        //   line 363 <div class="title cmp-title--black ...">SHARE THIS STORY</div>
+        //   line 368 <div class="sharing"> (empty FB div + empty Pinterest <a> -> stray [](url))
+        ".cmp-layoutcontainer--sidebar .title.cmp-title--black",
+        ".cmp-layoutcontainer--sidebar .sharing",
+        // Hidden decorative separators (sidebar line 374, footer line 490). These emit a
+        // stray thematic break in the import. Targets the classed cmp-separator wrapper
+        // only — NOT bare <hr> — so the section transformer's inserted <hr> breaks survive.
+        ".cmp-separator--hidden"
       ]);
       element.querySelectorAll("*").forEach((el) => {
         el.removeAttribute("data-cmp-data-layer");
@@ -110,66 +132,169 @@ var CustomImportScript = (() => {
     }
   }
 
+  // tools/importer/transformers/wknd-sections.js
+  var SECTION_MARKER_ATTR = "data-excat-section-id";
+  function querySection(root, selectors) {
+    for (const sel of selectors) {
+      const el = root.querySelector(sel);
+      if (el) return el;
+    }
+    return null;
+  }
+  function transform2(hookName, element, payload) {
+    const sections = payload.template && payload.template.sections || [];
+    if (hookName === "beforeTransform") {
+      for (let i = sections.length - 1; i >= 0; i -= 1) {
+        const section = sections[i];
+        if (i === 0 && !section.style) continue;
+        const sectionEl = querySection(element, section.selector);
+        if (!sectionEl) continue;
+        const hr = document.createElement("hr");
+        if (section.style) hr.setAttribute(SECTION_MARKER_ATTR, section.id);
+        sectionEl.before(hr);
+      }
+    }
+    if (hookName === "afterTransform") {
+      for (let i = sections.length - 1; i >= 0; i -= 1) {
+        const section = sections[i];
+        if (!section.style) continue;
+        const marker = element.querySelector(`[${SECTION_MARKER_ATTR}="${section.id}"]`);
+        const anchor = marker || querySection(element, section.selector);
+        if (!anchor) continue;
+        const metadataBlock = WebImporter.Blocks.createBlock(document, {
+          name: "Section Metadata",
+          cells: { style: section.style }
+        });
+        anchor.after(metadataBlock);
+        if (marker) {
+          marker.removeAttribute(SECTION_MARKER_ATTR);
+          if (i === 0) marker.remove();
+        }
+      }
+    }
+  }
+
   // tools/importer/import-adventures-landing.js
+  var parsers = {
+    hero: parse,
+    "adventure-list": parse2
+  };
   var PAGE_TEMPLATE = {
     name: "adventures-landing",
-    urls: ["https://wknd.site/us/en/adventures.html"],
+    description: "Adventures landing page: intro hero banner and a filterable grid of adventure cards",
+    urls: [
+      "https://wknd.site/us/en/adventures.html"
+    ],
     blocks: [
-      { name: "teaser", instances: [".teaser.cmp-teaser--hero"] },
-      { name: "adventure-list", instances: [".cmp-image-list"] }
+      {
+        name: "hero",
+        instances: [".teaser.cmp-teaser--hero"]
+      },
+      {
+        name: "adventure-list",
+        instances: [".tabs.panelcontainer", ".cmp-tabs"]
+      }
+    ],
+    sections: [
+      {
+        id: "rc1",
+        name: "page-title",
+        selector: [".title:not(.cmp-title--underline):not(.cmp-title--right)", "main.cmp-layout-container--fixed:nth-of-type(1) .title"],
+        style: null,
+        blocks: [],
+        defaultContent: [".title"]
+      },
+      {
+        id: "rc2",
+        name: "hero",
+        selector: [".teaser.cmp-teaser--hero"],
+        style: null,
+        blocks: ["hero"],
+        defaultContent: []
+      },
+      {
+        id: "rc3",
+        name: "current-adventures",
+        selector: ["main.cmp-layout-container--fixed:nth-of-type(2)", ".tabs.panelcontainer"],
+        style: null,
+        blocks: ["adventure-list"],
+        defaultContent: [".title.cmp-title--underline"]
+      }
     ]
   };
-  var transformers = [transform];
+  var transformers = [
+    transform,
+    ...PAGE_TEMPLATE.sections && PAGE_TEMPLATE.sections.length > 1 ? [transform2] : []
+  ];
   function executeTransformers(hookName, element, payload) {
-    transformers.forEach((fn) => {
+    const enhancedPayload = __spreadProps(__spreadValues({}, payload), { template: PAGE_TEMPLATE });
+    transformers.forEach((transformerFn) => {
       try {
-        fn.call(null, hookName, element, __spreadProps(__spreadValues({}, payload), { template: PAGE_TEMPLATE }));
+        transformerFn.call(null, hookName, element, enhancedPayload);
       } catch (e) {
         console.error(`Transformer failed at ${hookName}:`, e);
       }
     });
   }
+  function findBlocksOnPage(document2, template) {
+    const pageBlocks = [];
+    const seen = /* @__PURE__ */ new Set();
+    template.blocks.forEach((blockDef) => {
+      blockDef.instances.forEach((selector) => {
+        document2.querySelectorAll(selector).forEach((element) => {
+          if (seen.has(element)) return;
+          seen.add(element);
+          pageBlocks.push({
+            name: blockDef.name,
+            selector,
+            element,
+            section: blockDef.section || null
+          });
+        });
+      });
+    });
+    return pageBlocks;
+  }
   var import_adventures_landing_default = {
     transform: (payload) => {
-      const { document, url, params } = payload;
-      const main = document.body;
+      const {
+        document: document2,
+        url,
+        html,
+        params
+      } = payload;
+      const main = document2.body;
       executeTransformers("beforeTransform", main, payload);
-      document.querySelectorAll(".teaser.cmp-teaser--hero").forEach((el) => {
-        if (el.parentNode) {
+      const pageBlocks = findBlocksOnPage(document2, PAGE_TEMPLATE);
+      pageBlocks.forEach((block) => {
+        if (!block.element.parentNode) return;
+        const parser = parsers[block.name];
+        if (parser) {
           try {
-            parse(el, { document, url, params });
+            parser(block.element, { document: document2, url, params });
           } catch (e) {
-            console.error("teaser parse failed", e);
+            console.error(`Failed to parse ${block.name} (${block.selector}):`, e);
           }
+        } else {
+          console.warn(`No parser found for block: ${block.name}`);
         }
-      });
-      const lists = [...document.querySelectorAll(".cmp-image-list")];
-      if (lists.length) {
-        try {
-          parse2(lists[0], { document });
-        } catch (e) {
-          console.error("adventure-list parse failed", e);
-        }
-        lists.slice(1).forEach((l) => {
-          const wrapper = l.closest(".image-list") || l;
-          wrapper.remove();
-        });
-      }
-      document.querySelectorAll(".image-list.list, .cmp-tabs__tabpanel").forEach((el) => {
-        if (!el.querySelector(".adventure-list") && !el.textContent.trim()) el.remove();
       });
       executeTransformers("afterTransform", main, payload);
-      const hr = document.createElement("hr");
+      const hr = document2.createElement("hr");
       main.appendChild(hr);
-      WebImporter.rules.createMetadata(main, document);
-      WebImporter.rules.transformBackgroundImages(main, document);
+      WebImporter.rules.createMetadata(main, document2);
+      WebImporter.rules.transformBackgroundImages(main, document2);
       WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
       const rawPath = new URL(params.originalURL).pathname.replace(/\/$/, "").replace(/\.html?$/, "");
       const path = WebImporter.FileUtils.sanitizePath(rawPath === "" ? "/index" : rawPath);
       return [{
         element: main,
         path,
-        report: { title: document.title, template: PAGE_TEMPLATE.name, blocks: ["teaser", "adventure-list"] }
+        report: {
+          title: document2.title,
+          template: PAGE_TEMPLATE.name,
+          blocks: pageBlocks.map((b) => b.name)
+        }
       }];
     }
   };
