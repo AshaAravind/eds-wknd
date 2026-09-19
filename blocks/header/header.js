@@ -165,6 +165,20 @@ export default async function decorate(block) {
         }
       });
     });
+
+    // Highlight the current-page nav link with a yellow box (source behaviour):
+    // match the link whose href is a prefix of the current path (longest match wins).
+    const here = window.location.pathname.replace(/\.html?$/, '').replace(/\/$/, '');
+    let best = null;
+    let bestLen = -1;
+    navSections.querySelectorAll('a[href]').forEach((a) => {
+      const href = new URL(a.href, window.location).pathname.replace(/\/$/, '');
+      if ((here === href || here.startsWith(`${href}/`)) && href.length > bestLen) {
+        best = a;
+        bestLen = href.length;
+      }
+    });
+    if (best) best.closest('li').classList.add('nav-active');
   }
 
   // tools: build the search form + turn the locale link list into a dropdown.
@@ -172,15 +186,16 @@ export default async function decorate(block) {
   // form controls are created here per the nav fragment contract.
   const navTools = nav.querySelector('.nav-tools');
   if (navTools) {
-    // 1. Search affordance — a labelled text input (content-independent control).
+    // 1. Search affordance — a rounded pill with the magnifying-glass icon BEFORE
+    //    the input (matching the source). content-independent control.
     const search = document.createElement('div');
     search.className = 'nav-search';
     search.innerHTML = `<form role="search" action="/search">
+        <button type="submit" class="nav-search-submit" aria-label="Search">
+          <img src="/icons/search.svg" alt="" width="18" height="18">
+        </button>
         <label class="nav-search-label" for="nav-search-input">Search</label>
         <input id="nav-search-input" type="search" name="q" placeholder="Search" aria-label="Search">
-        <button type="submit" class="nav-search-submit" aria-label="Search">
-          <img src="/icons/search.svg" alt="" width="20" height="20">
-        </button>
       </form>`;
 
     // 2. Locale selector — a toggle button showing the current locale that opens
@@ -198,6 +213,14 @@ export default async function decorate(block) {
       toggle.setAttribute('aria-expanded', 'false');
       toggle.setAttribute('aria-haspopup', 'true');
       toggle.textContent = currentLabel;
+      // show a flag before the current locale label (matches the source)
+      const flag = document.createElement('img');
+      flag.className = 'nav-locale-flag';
+      flag.src = '/icons/flag-us.svg';
+      flag.alt = '';
+      flag.width = 20;
+      flag.height = 14;
+      toggle.prepend(flag);
       toggle.addEventListener('click', () => {
         const open = toggle.getAttribute('aria-expanded') === 'true';
         toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
@@ -207,9 +230,21 @@ export default async function decorate(block) {
         if (!locale.contains(e.target)) toggle.setAttribute('aria-expanded', 'false');
       });
       locale.append(toggle, localeList);
-      // assemble tools: search first, then locale (matching the source order)
+
+      // Utility bar (source): a "Sign In" link sits to the left of the locale
+      // selector in the dark top row. Inert placeholder — no auth yet.
+      const signIn = document.createElement('a');
+      signIn.className = 'nav-signin';
+      signIn.href = '#sign-in';
+      signIn.textContent = 'Sign In';
+
+      // assemble tools: search (main row) + a utility group (top bar) holding
+      // Sign In + the locale selector.
+      const utility = document.createElement('div');
+      utility.className = 'nav-utility';
+      utility.append(signIn, locale);
       navTools.textContent = '';
-      navTools.append(search, locale);
+      navTools.append(search, utility);
     } else {
       navTools.prepend(search);
     }
