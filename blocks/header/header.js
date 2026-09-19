@@ -198,13 +198,43 @@ export default async function decorate(block) {
         <input id="nav-search-input" type="search" name="q" placeholder="Search" aria-label="Search">
       </form>`;
 
-    // 2. Locale selector — a toggle button showing the current locale that opens
-    //    the authored locale list. Current locale = the list's first entry.
+    // 2. Locale selector — a toggle showing the current locale + flag that opens
+    //    a country-grouped dropdown (matches the source language navigation).
+    //    The fragment authors the groups: each top-level <li> is a country
+    //    (name + a nested <ul> of its locale links, e.g. en-US, es-US).
     const localeList = navTools.querySelector('ul');
     if (localeList) {
       localeList.classList.add('nav-locale-list');
-      const current = localeList.querySelector('a');
-      const currentLabel = current ? current.textContent.trim() : 'en-US';
+
+      // country flag = the 2-letter country code from any locale href in the
+      // group (/us/en → us). Add a flag <img> + heading class to each group.
+      const flagFor = (li) => {
+        const href = li.querySelector('a')?.getAttribute('href') || '';
+        const cc = href.split('/').filter(Boolean)[0] || 'us';
+        return `/icons/flag-${cc}.svg`;
+      };
+      localeList.querySelectorAll(':scope > li').forEach((group) => {
+        group.classList.add('nav-locale-country');
+        const flag = document.createElement('img');
+        flag.className = 'nav-locale-flag';
+        flag.src = flagFor(group);
+        flag.alt = '';
+        flag.width = 20;
+        flag.height = 14;
+        group.prepend(flag);
+      });
+
+      // current locale = the leaf link matching the current page's locale prefix,
+      // else the first link. Its label + flag drive the toggle.
+      const here = window.location.pathname.replace(/\.html?$/, '');
+      const leafLinks = [...localeList.querySelectorAll('a')];
+      const currentLink = leafLinks.find((a) => {
+        const p = new URL(a.href, window.location).pathname;
+        return here === p || here.startsWith(`${p}/`);
+      }) || leafLinks[0];
+      const currentLabel = currentLink ? currentLink.textContent.trim() : 'en-US';
+      const currentCc = (currentLink?.getAttribute('href') || '/us/en').split('/').filter(Boolean)[0] || 'us';
+
       const locale = document.createElement('div');
       locale.className = 'nav-locale';
       const toggle = document.createElement('button');
@@ -212,15 +242,15 @@ export default async function decorate(block) {
       toggle.className = 'nav-locale-toggle';
       toggle.setAttribute('aria-expanded', 'false');
       toggle.setAttribute('aria-haspopup', 'true');
-      toggle.textContent = currentLabel;
-      // show a flag before the current locale label (matches the source)
-      const flag = document.createElement('img');
-      flag.className = 'nav-locale-flag';
-      flag.src = '/icons/flag-us.svg';
-      flag.alt = '';
-      flag.width = 20;
-      flag.height = 14;
-      toggle.prepend(flag);
+      const toggleLabel = document.createElement('span');
+      toggleLabel.textContent = currentLabel;
+      const toggleFlag = document.createElement('img');
+      toggleFlag.className = 'nav-locale-flag';
+      toggleFlag.src = `/icons/flag-${currentCc}.svg`;
+      toggleFlag.alt = '';
+      toggleFlag.width = 20;
+      toggleFlag.height = 14;
+      toggle.append(toggleFlag, toggleLabel);
       toggle.addEventListener('click', () => {
         const open = toggle.getAttribute('aria-expanded') === 'true';
         toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
