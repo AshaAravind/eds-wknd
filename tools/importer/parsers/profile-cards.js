@@ -9,7 +9,9 @@
  */
 export default function parseProfiles(cardEls, { document }) {
   if (!cardEls.length) return;
-  const rows = [['Cards']];
+  // "profiles" variant → renders as circular-avatar contributor cards without
+  // disturbing the generic `cards` block used elsewhere.
+  const rows = [['Cards (profiles)']];
 
   cardEls.forEach((card) => {
     const imageCell = document.createElement('div');

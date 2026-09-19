@@ -111,6 +111,16 @@ export default async function decorate(block) {
   const rows = block.querySelectorAll(':scope > div');
   const isSingleSlide = rows.length < 2;
 
+  // Distinguish the full-bleed homepage hero (slides carry a heading / text /
+  // CTA in their second cell) from the image-only "mini" gallery used by
+  // adventure-detail (second cell is empty). The hero variant renders the text
+  // as an overlay card on the image; the mini variant stays image-only.
+  const isHero = [...rows].some((row) => {
+    const contentCell = row.querySelector(':scope > div:nth-child(2)');
+    return contentCell && contentCell.textContent.trim().length > 0;
+  });
+  if (isHero) block.classList.add('carousel-hero');
+
   block.setAttribute('role', 'region');
   block.setAttribute('aria-roledescription', 'Carousel');
 

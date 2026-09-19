@@ -8,6 +8,16 @@
  * All selectors verified against migration-work/cleaned.html.
  * Template-agnostic: reused across every WKND template (content-landing,
  * adventure-detail, adventures-landing, faqs, home, article-detail).
+ *
+ * content-landing / magazine coverage (verified against magazine.html cleaned.html):
+ *   header/footer experience-fragments, demdex iframe, #toggleNav, #mobileNav and
+ *   empty <meta> tags inside cmp-image blocks are the only non-authorable chrome and
+ *   are all removed by the selectors below. The page's main content (h1 "Magazine",
+ *   featured teaser, "All Articles"/"Members Only" titles, image-list, members-only
+ *   text, and the two secure teasers) is authorable and left intact.
+ *   IMPORTANT: the magazine's visible authorable separator
+ *   (.separator.cmp-separator--space-medium, holding a real <hr>) MUST be preserved —
+ *   cleanup only strips .cmp-separator--hidden, never that visible separator or bare <hr>.
  */
 const TransformHook = { beforeTransform: 'beforeTransform', afterTransform: 'afterTransform' };
 

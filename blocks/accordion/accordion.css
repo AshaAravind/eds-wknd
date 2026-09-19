@@ -1,53 +1,87 @@
-.accordion details {
-  border-bottom: 1px solid #dadada;
+/*
+ * Accordion Block
+ * Styling matched to the WKND FAQs page (wknd.site/us/en/faqs).
+ * Source: uppercase Source Sans Pro titles, thin plus/minus toggle,
+ * light 2px dividers between items.
+ * https://www.hlx.live/developer/block-collection/accordion
+ */
+
+.accordion .accordion-item {
+  border-bottom: 2px solid #ebebeb;
 }
 
-.accordion details:first-of-type {
-  border-top: 1px solid #dadada;
+.accordion .accordion-item:first-of-type {
+  border-top: 2px solid #ebebeb;
 }
 
-.accordion details p {
-  margin-bottom: 0.8em;
-}
-
-.accordion details summary {
+/* item header / clickable label */
+.accordion .accordion-item summary {
   position: relative;
-  padding: 20px 46px 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 13px 13px 21px;
   cursor: pointer;
   list-style: none;
-  font-family: var(--heading-font-family);
-  font-size: var(--heading-font-size-s);
-  transition: color 0.2s;
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-s);
+  font-weight: 600;
+  line-height: 1.2;
+  text-transform: uppercase;
 }
 
-.accordion details[open] summary,
-.accordion details summary:focus,
-.accordion details summary:hover {
-  color: var(--link-color);
-}
-
-.accordion details summary::-webkit-details-marker {
+.accordion .accordion-item summary::-webkit-details-marker {
   display: none;
 }
 
-.accordion details summary::after {
+/* label text sits in a <p> that decorateMain wraps; strip its default margins */
+.accordion .accordion-item summary p {
+  margin: 0;
+}
+
+/* plus / minus toggle indicator on the right */
+.accordion .accordion-item summary::before,
+.accordion .accordion-item summary::after {
   content: '';
   position: absolute;
+  right: 13px;
   top: 50%;
-  right: 12px;
-  transform: translateY(-50%) rotate(135deg);
-  width: 8px;
-  height: 8px;
-  border: 2px solid;
-  border-width: 2px 2px 0 0;
-  transition: transform 0.2s;
+  width: 18px;
+  height: 2px;
+  background-color: var(--text-color);
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-.accordion details[open] summary::after {
-  transform: translateY(-60%) rotate(-45deg);
+/* vertical bar of the plus */
+.accordion .accordion-item summary::after {
+  transform: translateY(-50%) rotate(90deg);
 }
 
-.accordion details .accordion-item-body {
-  padding: 0 0 20px;
+.accordion .accordion-item summary::before {
+  transform: translateY(-50%);
+}
+
+/* collapse to a minus when open */
+.accordion .accordion-item[open] summary::after {
+  transform: translateY(-50%) rotate(90deg) scaleX(0);
+  opacity: 0;
+}
+
+/* answer body */
+.accordion .accordion-item .accordion-item-body {
+  padding: 8px 13px 16px 7px;
   color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);
+  line-height: 1.5;
+}
+
+.accordion .accordion-item .accordion-item-body p {
+  margin: 0 0 0.8em;
+}
+
+.accordion .accordion-item .accordion-item-body p:last-child {
+  margin-bottom: 0;
 }

@@ -1,62 +1,184 @@
+/*
+ * Teaser Block
+ * Featured split panel: image alongside a grey content panel with eyebrow +
+ * heading + description + yellow CTA. The `members-only` variant renders
+ * compact, image-on-top cards with an inert (disabled) CTA pill.
+ * Values extracted from wknd.site computed styles; mapped to brand tokens.
+ */
+
+/* ---- Base / Featured (image left, grey content panel right) ---- */
 .teaser > div {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
-  align-items: center;
+  gap: 0;
+  align-items: stretch;
 }
 
 .teaser .teaser-image {
   line-height: 0;
 }
 
-.teaser .teaser-image picture,
+.teaser .teaser-image picture {
+  display: block;
+  height: 100%;
+}
+
 .teaser .teaser-image img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 }
 
 .teaser .teaser-content {
-  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 32px 24px;
+  background-color: var(--light-color);
 }
 
-/* eyebrow: the first short paragraph acts as a label (e.g. "Featured Article") */
-.teaser .teaser-content > p:first-child {
-  margin-top: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+.teaser .teaser-content p {
+  margin: 0;
   font-size: var(--body-font-size-xs);
-  font-weight: 600;
-  color: var(--dark-color);
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+/* eyebrow: the leading short paragraph (e.g. "Featured Article") */
+.teaser .teaser-content > p:first-child {
+  margin: 0 0 8px;
+  font-size: var(--body-font-size-m);
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-color);
 }
 
 .teaser .teaser-content h2,
 .teaser .teaser-content h3 {
-  margin-top: 0;
+  margin: 0 0 12px;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-l);
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--text-color);
 }
 
-.teaser .teaser-content .button-container {
-  margin-top: 16px;
+/* CTA: the trailing paragraph is the "Read More" action */
+.teaser .teaser-content > p:last-child {
+  margin-top: 20px;
 }
 
-/* members-only: inert CTA rendered as a static pill */
-.teaser.members-only .teaser-content a[aria-disabled='true'],
-.teaser.members-only .teaser-content .button-container {
-  opacity: 0.85;
+.teaser .teaser-content > p:last-child a {
+  display: inline-block;
+  padding: 14px 35px;
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  font-size: var(--body-font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.teaser .teaser-content > p:last-child a:hover,
+.teaser .teaser-content > p:last-child a:focus-visible {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+/* ---- Hero variant (Next Adventure): full-width image on top, white
+   content below with a larger description. No eyebrow, no grey panel. ---- */
+.teaser.teaser-hero > div {
+  grid-template-columns: 1fr;
+}
+
+.teaser.teaser-hero .teaser-image img {
+  aspect-ratio: 2 / 1;
+}
+
+.teaser.teaser-hero .teaser-content {
+  justify-content: flex-start;
+  padding: 18px 28px 24px;
+  background-color: transparent;
+}
+
+.teaser.teaser-hero .teaser-content h2,
+.teaser.teaser-hero .teaser-content h3 {
+  margin: 0;
+}
+
+.teaser.teaser-hero .teaser-content p {
+  font-size: var(--body-font-size-m);
+  line-height: 1.75;
+}
+
+/* ---- Members-only variant: compact card, image on top, inert CTA ---- */
+.teaser.members-only > div {
+  grid-template-columns: 1fr;
+}
+
+.teaser.members-only .teaser-image img {
+  aspect-ratio: 16 / 9;
+}
+
+.teaser.members-only .teaser-content {
+  justify-content: flex-start;
+  padding: 12px 0 0;
+  background-color: transparent;
+}
+
+.teaser.members-only .teaser-content h2,
+.teaser.members-only .teaser-content h3 {
+  margin: 0 0 4px;
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-m);
+  font-weight: 600;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.teaser.members-only .teaser-content p {
+  color: rgb(105 105 105); /* muted grey — no matching brand token */
+}
+
+.teaser.members-only .teaser-content > p:last-child {
+  margin-top: 14px;
+}
+
+/* inert "Read More": muted static pill, not an active button */
+.teaser.members-only .teaser-content > p:last-child a {
+  padding: 7px 14px;
+  background-color: rgb(235 235 235);
+  color: rgb(105 105 105);
+  font-weight: 400;
+  letter-spacing: normal;
   cursor: default;
 }
 
+.teaser.members-only .teaser-content > p:last-child a:hover,
+.teaser.members-only .teaser-content > p:last-child a:focus-visible {
+  color: rgb(105 105 105);
+}
+
+/* ---- Responsive ---- */
+@media (width >= 600px) {
+  /* two members-only cards sit side by side within the Members Only area */
+  .teaser-wrapper:has(.teaser.members-only) {
+    display: inline-block;
+    width: calc(50% - 16px);
+    max-width: 400px;
+    margin-right: 24px;
+    vertical-align: top;
+  }
+}
+
 @media (width >= 900px) {
-  .teaser > div {
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
+  /* featured: wider image on the left, grey content panel on the right */
+  .teaser:not(.members-only, .teaser-hero) > div {
+    grid-template-columns: 1.6fr 1fr;
   }
 
-  /* text-first variant: reverse so the image sits on the left */
-  .teaser.image-left > div .teaser-content {
-    order: 2;
-  }
-
-  .teaser.image-left > div .teaser-image {
-    order: 1;
+  .teaser:not(.members-only, .teaser-hero) .teaser-content {
+    padding: 60px 36px;
   }
 }

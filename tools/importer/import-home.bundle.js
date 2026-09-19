@@ -95,14 +95,26 @@ var CustomImportScript = (() => {
       return;
     }
     const cells = [[image || "", contentCell]];
-    const block = WebImporter.Blocks.createBlock(document2, { name: "teaser", cells });
+    const isSecure = element.classList.contains("cmp-teaser--secure") || element.querySelector(".cmp-teaser--secure");
+    const name = isSecure ? "teaser (members-only)" : "teaser";
+    const block = WebImporter.Blocks.createBlock(document2, { name, cells });
     element.replaceWith(block);
   }
 
   // tools/importer/parsers/article-list.js
-  function parse3(element, { document: document2 }) {
+  function localePrefix(src) {
+    if (!src) return "/us/en";
+    try {
+      const parts = new URL(src).pathname.split("/").filter(Boolean);
+      if (parts.length >= 2) return `/${parts[0]}/${parts[1].replace(/\.html?$/, "")}`;
+    } catch (e) {
+    }
+    return "/us/en";
+  }
+  function parse3(element, { document: document2, url, params } = {}) {
+    const prefix = localePrefix(params && params.originalURL || url);
     const cells = [
-      ["path", "/us/en/magazine/"],
+      ["path", `${prefix}/magazine/`],
       ["limit", "4"]
     ];
     const block = WebImporter.Blocks.createBlock(document2, { name: "article-list", cells });
@@ -110,11 +122,26 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/adventure-list.js
-  function parse4(element, { document: document2 }) {
-    const cells = [
-      ["path", "/us/en/adventures/"],
-      ["limit", "4"]
-    ];
+  function localePrefix2(src) {
+    if (!src) return "/us/en";
+    try {
+      const parts = new URL(src).pathname.split("/").filter(Boolean);
+      if (parts.length >= 2) return `/${parts[0]}/${parts[1].replace(/\.html?$/, "")}`;
+    } catch (e) {
+    }
+    return "/us/en";
+  }
+  function parse4(element, { document: document2, url, params } = {}) {
+    const tabLabels = Array.from(
+      element.querySelectorAll('.cmp-tabs__tab, [role="tab"]')
+    ).map((tab) => tab.textContent.trim()).filter(Boolean);
+    const prefix = localePrefix2(params && params.originalURL || url);
+    const cells = [["path", `${prefix}/adventures/`]];
+    if (tabLabels.length) {
+      cells.push(["filters", tabLabels.join(", ")]);
+    } else {
+      cells.push(["limit", "4"]);
+    }
     const block = WebImporter.Blocks.createBlock(document2, { name: "adventure-list", cells });
     element.replaceWith(block);
   }
@@ -128,7 +155,12 @@ var CustomImportScript = (() => {
         "footer.cmp-experiencefragment--footer",
         "#destination_publishing_iframe_wkndsite_0",
         "#toggleNav",
-        "#mobileNav"
+        "#mobileNav",
+        // Content-fragment internal title (visually hidden on source). The visible page
+        // title comes from the separate .cmp-title--underline heading; importing this
+        // too produces a duplicate "Bali Surf Camp" heading. Found in cleaned.html:
+        //   <h3 class="cmp-contentfragment__title">Bali Surf Camp</h3>
+        ".cmp-contentfragment__title"
       ]);
     }
     if (hookName === TransformHook.afterTransform) {
@@ -136,7 +168,20 @@ var CustomImportScript = (() => {
         "meta",
         "iframe",
         "noscript",
-        "link"
+        "link",
+        // Non-authorable social-share chrome in the article sidebar. The authorable
+        // sidebar content is the .cmp-list--upnext "up next" cards block; the share
+        // label + widget are site UI, not something an author would create.
+        // Scoped to the sidebar so the site-wide cleanup can't touch authorable
+        // titles elsewhere. Found in cleaned.html:
+        //   line 363 <div class="title cmp-title--black ...">SHARE THIS STORY</div>
+        //   line 368 <div class="sharing"> (empty FB div + empty Pinterest <a> -> stray [](url))
+        ".cmp-layoutcontainer--sidebar .title.cmp-title--black",
+        ".cmp-layoutcontainer--sidebar .sharing",
+        // Hidden decorative separators (sidebar line 374, footer line 490). These emit a
+        // stray thematic break in the import. Targets the classed cmp-separator wrapper
+        // only — NOT bare <hr> — so the section transformer's inserted <hr> breaks survive.
+        ".cmp-separator--hidden"
       ]);
       element.querySelectorAll("*").forEach((el) => {
         el.removeAttribute("data-cmp-data-layer");
@@ -228,10 +273,10 @@ var CustomImportScript = (() => {
       }
     });
   }
-  function parseDynamicLists(document2) {
+  function parseDynamicLists(document2, url, params) {
     const lists = [...document2.querySelectorAll(".cmp-image-list")];
-    if (lists[0] && lists[0].parentNode) parse3(lists[0], { document: document2 });
-    if (lists[1] && lists[1].parentNode) parse4(lists[1], { document: document2 });
+    if (lists[0] && lists[0].parentNode) parse3(lists[0], { document: document2, url, params });
+    if (lists[1] && lists[1].parentNode) parse4(lists[1], { document: document2, url, params });
   }
   var import_home_default = {
     transform: (payload) => {
@@ -253,7 +298,7 @@ var CustomImportScript = (() => {
           });
         });
       });
-      parseDynamicLists(document2);
+      parseDynamicLists(document2, url, params);
       executeTransformers("afterTransform", main, payload);
       const hr = document2.createElement("hr");
       main.appendChild(hr);

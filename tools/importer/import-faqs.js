@@ -3,13 +3,34 @@
 
 import accordionParser from './parsers/accordion.js';
 import cleanupTransformer from './transformers/wknd-cleanup.js';
+import sectionsTransformer from './transformers/wknd-sections.js';
 
+// FAQs is a single light section (title + hero image + intro + accordion +
+// contact info). The "faqs" section style drives the yellow underline accent
+// under the H1 (matching the WKND source .cmp-title--underline treatment).
 const PAGE_TEMPLATE = {
   name: 'faqs',
   urls: ['https://wknd.site/us/en/faqs.html'],
+  sections: [
+    {
+      id: 'rc1',
+      name: 'faqs-content',
+      selector: ['main.cmp-layout-container--fixed', '.cmp-layout-container--fixed'],
+      style: 'faqs',
+      blocks: ['accordion'],
+      defaultContent: ['.title', '.image', '.text', '.separator'],
+    },
+  ],
 };
 
-const transformers = [cleanupTransformer];
+const hasStyledSection = PAGE_TEMPLATE.sections
+  && PAGE_TEMPLATE.sections.some((s) => s.style);
+const transformers = [
+  cleanupTransformer,
+  ...(PAGE_TEMPLATE.sections
+    && (PAGE_TEMPLATE.sections.length > 1 || hasStyledSection)
+    ? [sectionsTransformer] : []),
+];
 
 function executeTransformers(hookName, element, payload) {
   transformers.forEach((fn) => {

@@ -301,6 +301,13 @@ main > .section:first-of-type {
   margin-top: 0;
 }
 
+/* collapse empty sections (e.g. a stray section break with no content between
+   two block sections) so they add no vertical whitespace */
+main > .section:empty {
+  display: none;
+  margin: 0;
+}
+
 @media (width >= 900px) {
   main > .section > div {
     padding: 0 32px;

@@ -23,6 +23,16 @@ export default function decorate(block) {
     row.firstElementChild.classList.add('teaser-content');
   }
 
+  // hero variant: no eyebrow (content leads with a heading) and not members-only.
+  // Renders stacked — full-width image on top, white content below with a larger
+  // description — instead of the featured image-left + grey-panel split layout.
+  const contentCell = row.querySelector('.teaser-content');
+  const leads = contentCell && contentCell.firstElementChild;
+  if (!block.classList.contains('members-only')
+    && leads && /^H[1-6]$/.test(leads.tagName)) {
+    block.classList.add('teaser-hero');
+  }
+
   // members-only variant: CTAs are placeholders that lead nowhere
   if (block.classList.contains('members-only')) {
     block.querySelectorAll('a[href]').forEach((a) => {

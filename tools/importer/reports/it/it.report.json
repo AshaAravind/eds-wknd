@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "url": "https://wknd.site/it/it.html",
+  "path": "it/it",
+  "timestamp": "2026-09-19T13:37:43.637Z",
+  "title": "Italiano",
+  "template": "home",
+  "blocks": [
+    "carousel",
+    "teaser",
+    "article-list",
+    "adventure-list"
+  ]
+}

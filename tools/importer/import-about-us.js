@@ -3,13 +3,35 @@
 
 import parseProfiles from './parsers/profile-cards.js';
 import cleanupTransformer from './transformers/wknd-cleanup.js';
+import sectionsTransformer from './transformers/wknd-sections.js';
 
+// About Us belongs to the content-landing template. It is a single light section
+// whose default-content headings ("Our Contributors", "WKND Guides") carry the
+// same yellow underline accent as the magazine page — driven by the
+// "content-landing" section style below.
 const PAGE_TEMPLATE = {
-  name: 'about-us',
+  name: 'content-landing',
   urls: ['https://wknd.site/us/en/about-us.html'],
+  sections: [
+    {
+      id: 'rc1',
+      name: 'about-content',
+      selector: ['main.cmp-layout-container--fixed', '.cmp-layout-container--fixed'],
+      style: 'content-landing',
+      blocks: ['cards'],
+      defaultContent: ['.title', '.text'],
+    },
+  ],
 };
 
-const transformers = [cleanupTransformer];
+const hasStyledSection = PAGE_TEMPLATE.sections
+  && PAGE_TEMPLATE.sections.some((s) => s.style);
+const transformers = [
+  cleanupTransformer,
+  ...(PAGE_TEMPLATE.sections
+    && (PAGE_TEMPLATE.sections.length > 1 || hasStyledSection)
+    ? [sectionsTransformer] : []),
+];
 
 function executeTransformers(hookName, element, payload) {
   transformers.forEach((fn) => {
@@ -72,7 +94,7 @@ export default {
     return [{
       element: main,
       path,
-      report: { title: document.title, template: PAGE_TEMPLATE.name, blocks: ['cards'] },
+      report: { title: document.title, template: PAGE_TEMPLATE.name, blocks: ['cards (profiles)'] },
     }];
   },
 };

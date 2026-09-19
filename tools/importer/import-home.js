@@ -59,10 +59,10 @@ function executeTransformers(hookName, element, payload) {
  * share the `.cmp-image-list` selector. Disambiguate positionally: the first
  * .cmp-image-list is the article-list, the second is the adventure-list.
  */
-function parseDynamicLists(document) {
+function parseDynamicLists(document, url, params) {
   const lists = [...document.querySelectorAll('.cmp-image-list')];
-  if (lists[0] && lists[0].parentNode) articleListParser(lists[0], { document });
-  if (lists[1] && lists[1].parentNode) adventureListParser(lists[1], { document });
+  if (lists[0] && lists[0].parentNode) articleListParser(lists[0], { document, url, params });
+  if (lists[1] && lists[1].parentNode) adventureListParser(lists[1], { document, url, params });
 }
 
 export default {
@@ -91,7 +91,7 @@ export default {
     });
 
     // 3. Parse the two dynamic lists positionally
-    parseDynamicLists(document);
+    parseDynamicLists(document, url, params);
 
     // 4. afterTransform (section metadata + final cleanup)
     executeTransformers('afterTransform', main, payload);
