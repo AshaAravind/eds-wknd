@@ -183,6 +183,29 @@ main .section.faqs .default-content-wrapper h1::after {
 }
 
 /*
+ * Homepage section headings ("Recent Articles", "Next Adventures", "Where do
+ * you want to go?") carry the same short yellow underline accent as the source.
+ * The `wknd-headings` section style is applied to the home content sections;
+ * scoped to default-content h2/h3 so block-internal titles (teaser/card titles)
+ * are unaffected.
+ */
+main .section.wknd-headings .default-content-wrapper :is(h2, h3) {
+  position: relative;
+  margin-bottom: 0.5em;
+  padding-bottom: 18px;
+}
+
+main .section.wknd-headings .default-content-wrapper :is(h2, h3)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 84px;
+  height: 2px;
+  background-color: var(--accent-color);
+}
+
+/*
  * FAQs 2-column layout (desktop): the source places the main content
  * (title + hero image + intro + accordion) in a wide left column and the
  * "Need more help?" contact block in a ~291px right sidebar pinned to the top.

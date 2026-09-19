@@ -255,10 +255,10 @@ var CustomImportScript = (() => {
     ],
     sections: [
       { id: "1", name: "hero-carousel", selector: [".carousel.cmp-carousel--hero"], style: null, blocks: ["carousel"], defaultContent: [] },
-      { id: "2", name: "featured-article", selector: [".teaser.cmp-teaser--featured"], style: "grey", blocks: ["teaser"], defaultContent: [] },
-      { id: "3", name: "recent-articles", selector: [".cmp-image-list"], style: null, blocks: ["article-list"], defaultContent: [] },
-      { id: "4", name: "next-adventures", selector: [".teaser"], style: null, blocks: ["teaser"], defaultContent: [] },
-      { id: "5", name: "adventures", selector: [".cmp-image-list"], style: null, blocks: ["adventure-list"], defaultContent: [] }
+      { id: "2", name: "featured-article", selector: [".teaser.cmp-teaser--featured"], style: "grey, wknd-headings", blocks: ["teaser"], defaultContent: [] },
+      { id: "3", name: "recent-articles", selector: [".cmp-image-list"], style: "wknd-headings", blocks: ["article-list"], defaultContent: [] },
+      { id: "4", name: "next-adventures", selector: [".teaser"], style: "wknd-headings", blocks: ["teaser"], defaultContent: [] },
+      { id: "5", name: "adventures", selector: [".cmp-image-list"], style: "wknd-headings", blocks: ["adventure-list"], defaultContent: [] }
     ]
   };
   var parsers = {
