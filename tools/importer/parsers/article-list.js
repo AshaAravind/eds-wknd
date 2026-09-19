@@ -12,10 +12,25 @@
  * configuration block table with `path` and `limit` rows.
  *
  * Structure: block name row, then one config row per key/value pair (2 columns).
+ *
+ * Locale-aware: the `path` is derived from the page's own locale prefix
+ * (e.g. /us/en, /ca/fr) so a locale homepage lists that locale's articles.
+ * Falls back to /us/en when no usable URL is provided.
  */
-export default function parse(element, { document }) {
+function localePrefix(src) {
+  if (!src) return '/us/en';
+  try {
+    const parts = new URL(src).pathname.split('/').filter(Boolean);
+    // homepage path is /{country}/{lang}(.html) → first two segments are the locale
+    if (parts.length >= 2) return `/${parts[0]}/${parts[1].replace(/\.html?$/, '')}`;
+  } catch (e) { /* fall through */ }
+  return '/us/en';
+}
+
+export default function parse(element, { document, url, params } = {}) {
+  const prefix = localePrefix((params && params.originalURL) || url);
   const cells = [
-    ['path', '/us/en/magazine/'],
+    ['path', `${prefix}/magazine/`],
     ['limit', '4'],
   ];
 

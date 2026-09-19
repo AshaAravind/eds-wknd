@@ -17,8 +17,21 @@
  *    category tabs). Emits `path` + `filters` (labels read from the source tabs);
  *    no `limit`, so the block shows all adventures with filter tabs.
  *  - home "next adventures": a preview grid (no tabs). Emits `path` + `limit` = 4.
+ *
+ * Locale-aware: the `path` is derived from the page's own locale prefix
+ * (e.g. /us/en, /ca/fr) so a locale page lists that locale's adventures.
+ * Falls back to /us/en when no usable URL is provided.
  */
-export default function parse(element, { document }) {
+function localePrefix(src) {
+  if (!src) return '/us/en';
+  try {
+    const parts = new URL(src).pathname.split('/').filter(Boolean);
+    if (parts.length >= 2) return `/${parts[0]}/${parts[1].replace(/\.html?$/, '')}`;
+  } catch (e) { /* fall through */ }
+  return '/us/en';
+}
+
+export default function parse(element, { document, url, params } = {}) {
   // Category filter tabs identify the full filterable grid variant
   const tabLabels = Array.from(
     element.querySelectorAll('.cmp-tabs__tab, [role="tab"]'),
@@ -26,7 +39,8 @@ export default function parse(element, { document }) {
     .map((tab) => tab.textContent.trim())
     .filter(Boolean);
 
-  const cells = [['path', '/us/en/adventures/']];
+  const prefix = localePrefix((params && params.originalURL) || url);
+  const cells = [['path', `${prefix}/adventures/`]];
 
   if (tabLabels.length) {
     // Full filterable grid — emit filter tab labels, no limit (show all)

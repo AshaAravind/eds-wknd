@@ -72,11 +72,21 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/adventure-list.js
-  function parse2(element, { document: document2 }) {
+  function localePrefix(src) {
+    if (!src) return "/us/en";
+    try {
+      const parts = new URL(src).pathname.split("/").filter(Boolean);
+      if (parts.length >= 2) return `/${parts[0]}/${parts[1].replace(/\.html?$/, "")}`;
+    } catch (e) {
+    }
+    return "/us/en";
+  }
+  function parse2(element, { document: document2, url, params } = {}) {
     const tabLabels = Array.from(
       element.querySelectorAll('.cmp-tabs__tab, [role="tab"]')
     ).map((tab) => tab.textContent.trim()).filter(Boolean);
-    const cells = [["path", "/us/en/adventures/"]];
+    const prefix = localePrefix(params && params.originalURL || url);
+    const cells = [["path", `${prefix}/adventures/`]];
     if (tabLabels.length) {
       cells.push(["filters", tabLabels.join(", ")]);
     } else {

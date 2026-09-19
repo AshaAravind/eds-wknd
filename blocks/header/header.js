@@ -151,6 +151,51 @@ export default async function decorate(block) {
     });
   }
 
+  // tools: build the search form + turn the locale link list into a dropdown.
+  // The locale entries (labels + hrefs) come from content/nav.plain.html; the
+  // form controls are created here per the nav fragment contract.
+  const navTools = nav.querySelector('.nav-tools');
+  if (navTools) {
+    // 1. Search affordance — a labelled text input (content-independent control).
+    const search = document.createElement('div');
+    search.className = 'nav-search';
+    search.innerHTML = `<form role="search" action="/search">
+        <label class="nav-search-label" for="nav-search-input">Search</label>
+        <input id="nav-search-input" type="search" name="q" placeholder="Search" aria-label="Search">
+      </form>`;
+
+    // 2. Locale selector — a toggle button showing the current locale that opens
+    //    the authored locale list. Current locale = the list's first entry.
+    const localeList = navTools.querySelector('ul');
+    if (localeList) {
+      localeList.classList.add('nav-locale-list');
+      const current = localeList.querySelector('a');
+      const currentLabel = current ? current.textContent.trim() : 'en-US';
+      const locale = document.createElement('div');
+      locale.className = 'nav-locale';
+      const toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = 'nav-locale-toggle';
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-haspopup', 'true');
+      toggle.textContent = currentLabel;
+      toggle.addEventListener('click', () => {
+        const open = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+      });
+      // close on outside click / Escape
+      document.addEventListener('click', (e) => {
+        if (!locale.contains(e.target)) toggle.setAttribute('aria-expanded', 'false');
+      });
+      locale.append(toggle, localeList);
+      // assemble tools: search first, then locale (matching the source order)
+      navTools.textContent = '';
+      navTools.append(search, locale);
+    } else {
+      navTools.prepend(search);
+    }
+  }
+
   // hamburger for mobile
   const hamburger = document.createElement('div');
   hamburger.classList.add('nav-hamburger');

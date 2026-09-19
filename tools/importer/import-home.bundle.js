@@ -102,9 +102,19 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/article-list.js
-  function parse3(element, { document: document2 }) {
+  function localePrefix(src) {
+    if (!src) return "/us/en";
+    try {
+      const parts = new URL(src).pathname.split("/").filter(Boolean);
+      if (parts.length >= 2) return `/${parts[0]}/${parts[1].replace(/\.html?$/, "")}`;
+    } catch (e) {
+    }
+    return "/us/en";
+  }
+  function parse3(element, { document: document2, url, params } = {}) {
+    const prefix = localePrefix(params && params.originalURL || url);
     const cells = [
-      ["path", "/us/en/magazine/"],
+      ["path", `${prefix}/magazine/`],
       ["limit", "4"]
     ];
     const block = WebImporter.Blocks.createBlock(document2, { name: "article-list", cells });
@@ -112,11 +122,21 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/adventure-list.js
-  function parse4(element, { document: document2 }) {
+  function localePrefix2(src) {
+    if (!src) return "/us/en";
+    try {
+      const parts = new URL(src).pathname.split("/").filter(Boolean);
+      if (parts.length >= 2) return `/${parts[0]}/${parts[1].replace(/\.html?$/, "")}`;
+    } catch (e) {
+    }
+    return "/us/en";
+  }
+  function parse4(element, { document: document2, url, params } = {}) {
     const tabLabels = Array.from(
       element.querySelectorAll('.cmp-tabs__tab, [role="tab"]')
     ).map((tab) => tab.textContent.trim()).filter(Boolean);
-    const cells = [["path", "/us/en/adventures/"]];
+    const prefix = localePrefix2(params && params.originalURL || url);
+    const cells = [["path", `${prefix}/adventures/`]];
     if (tabLabels.length) {
       cells.push(["filters", tabLabels.join(", ")]);
     } else {
@@ -253,10 +273,10 @@ var CustomImportScript = (() => {
       }
     });
   }
-  function parseDynamicLists(document2) {
+  function parseDynamicLists(document2, url, params) {
     const lists = [...document2.querySelectorAll(".cmp-image-list")];
-    if (lists[0] && lists[0].parentNode) parse3(lists[0], { document: document2 });
-    if (lists[1] && lists[1].parentNode) parse4(lists[1], { document: document2 });
+    if (lists[0] && lists[0].parentNode) parse3(lists[0], { document: document2, url, params });
+    if (lists[1] && lists[1].parentNode) parse4(lists[1], { document: document2, url, params });
   }
   var import_home_default = {
     transform: (payload) => {
@@ -278,7 +298,7 @@ var CustomImportScript = (() => {
           });
         });
       });
-      parseDynamicLists(document2);
+      parseDynamicLists(document2, url, params);
       executeTransformers("afterTransform", main, payload);
       const hr = document2.createElement("hr");
       main.appendChild(hr);
