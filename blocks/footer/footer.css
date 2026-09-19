@@ -57,11 +57,27 @@ footer .footer h4 {
   color: #fff;
 }
 
+/* Follow Us column: heading + social icons on one row (matches source) */
+footer .footer > div > div:nth-child(3) {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+footer .footer > div > div:nth-child(3) h4 {
+  margin: 0;
+  font-size: var(--body-font-size-s);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
 /* social row — icon-only buttons (labels moved to aria-label by footer.js) */
 footer .footer > div > div:nth-child(3) p,
 footer .footer .footer-social {
   display: flex;
   gap: 12px;
+  margin: 0;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */

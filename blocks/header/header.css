@@ -242,13 +242,15 @@ header nav .nav-sections a:hover {
   color: var(--link-hover-color);
 }
 
-/* current-page link highlighted with a yellow box (source: ADVENTURES) */
+/* current-page link highlighted with a generous yellow box (source: ADVENTURES) */
 header nav .nav-sections li.nav-active {
   background-color: var(--accent-color);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 header nav .nav-sections li.nav-active a:any-link {
+  display: block;
+  padding: 12px 20px;
   color: var(--text-color);
 }
 

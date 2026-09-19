@@ -42,14 +42,17 @@ export default function parse(element, { document, url, params } = {}) {
   const prefix = localePrefix((params && params.originalURL) || url);
   const cells = [['path', `${prefix}/adventures/`]];
 
+  let blockName = 'adventure-list';
   if (tabLabels.length) {
     // Full filterable grid — emit filter tab labels, no limit (show all)
     cells.push(['filters', tabLabels.join(', ')]);
   } else {
-    // Preview grid (e.g. home page "next adventures") — limit to 4 cards
+    // Preview grid (e.g. home page "next adventures") — limit to 4 cards and use
+    // the no-filters variant so the tab bar is suppressed (source has no tabs here).
     cells.push(['limit', '4']);
+    blockName = 'adventure-list (no-filters)';
   }
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'adventure-list', cells });
+  const block = WebImporter.Blocks.createBlock(document, { name: blockName, cells });
   element.replaceWith(block);
 }

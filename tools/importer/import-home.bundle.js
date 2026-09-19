@@ -137,12 +137,14 @@ var CustomImportScript = (() => {
     ).map((tab) => tab.textContent.trim()).filter(Boolean);
     const prefix = localePrefix2(params && params.originalURL || url);
     const cells = [["path", `${prefix}/adventures/`]];
+    let blockName = "adventure-list";
     if (tabLabels.length) {
       cells.push(["filters", tabLabels.join(", ")]);
     } else {
       cells.push(["limit", "4"]);
+      blockName = "adventure-list (no-filters)";
     }
-    const block = WebImporter.Blocks.createBlock(document2, { name: "adventure-list", cells });
+    const block = WebImporter.Blocks.createBlock(document2, { name: blockName, cells });
     element.replaceWith(block);
   }
 
@@ -162,6 +164,12 @@ var CustomImportScript = (() => {
         //   <h3 class="cmp-contentfragment__title">Bali Surf Camp</h3>
         ".cmp-contentfragment__title"
       ]);
+      element.querySelectorAll("a.cmp-button, .cmp-button__link, a.button").forEach((a) => {
+        if (a.closest("strong") || a.querySelector("img")) return;
+        const strong = document.createElement("strong");
+        a.replaceWith(strong);
+        strong.append(a);
+      });
     }
     if (hookName === TransformHook.afterTransform) {
       WebImporter.DOMUtils.remove(element, [

@@ -124,21 +124,28 @@ export default async function decorate(block) {
   items.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
   if (limit > 0) items = items.slice(0, limit);
 
-  const tabs = buildFilterTabs(filterLabels);
-  block.append(tabs);
+  // Filter tabs are the full filterable-grid experience (adventures landing).
+  // The homepage uses a plain preview grid — the `no-filters` variant (or an
+  // explicit `filters=none` config) suppresses the tab bar to match the source.
+  const showFilters = !block.classList.contains('no-filters')
+    && (config.filters || '').toLowerCase() !== 'none';
+
+  if (showFilters) {
+    const tabs = buildFilterTabs(filterLabels);
+    block.append(tabs);
+    tabs.addEventListener('click', (e) => {
+      const tab = e.target.closest('.adventure-list-filter');
+      if (!tab) return;
+      tabs.querySelectorAll('.adventure-list-filter').forEach((t) => {
+        t.classList.toggle('active', t === tab);
+        t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+      });
+      applyFilter(block, tab.dataset.filter);
+    });
+  }
 
   const ul = document.createElement('ul');
   ul.className = 'adventure-list-items';
   items.forEach((item) => ul.append(buildCard(item)));
   block.append(ul);
-
-  tabs.addEventListener('click', (e) => {
-    const tab = e.target.closest('.adventure-list-filter');
-    if (!tab) return;
-    tabs.querySelectorAll('.adventure-list-filter').forEach((t) => {
-      t.classList.toggle('active', t === tab);
-      t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
-    });
-    applyFilter(block, tab.dataset.filter);
-  });
 }
