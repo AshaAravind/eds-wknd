@@ -42,6 +42,17 @@ export default function transform(hookName, element, payload) {
       //   <h3 class="cmp-contentfragment__title">Bali Surf Camp</h3>
       '.cmp-contentfragment__title',
     ]);
+
+    // WKND CTA buttons (`wknd/components/button`, e.g. "All Articles", "All Trips")
+    // are standalone links in the source. EDS only buttonizes a <p><a> when the
+    // link is authored bold/italic, so wrap each button anchor in <strong> → it
+    // becomes a `.button.primary` (yellow) at render time, matching the source.
+    element.querySelectorAll('a.cmp-button, .cmp-button__link, a.button').forEach((a) => {
+      if (a.closest('strong') || a.querySelector('img')) return;
+      const strong = document.createElement('strong');
+      a.replaceWith(strong);
+      strong.append(a);
+    });
   }
 
   if (hookName === TransformHook.afterTransform) {

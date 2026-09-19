@@ -86,30 +86,58 @@
   text-decoration: none;
 }
 
-/* ---- Hero variant (Next Adventure): full-width image on top, white
-   content below with a larger description. No eyebrow, no grey panel. ---- */
+/* ---- Hero variant (Next Adventure): full-bleed image with a white content
+   card overlaid over its lower-left, matching the adventures-landing hero.
+   The image fills the block; the content floats on top. ---- */
 .teaser.teaser-hero > div {
-  grid-template-columns: 1fr;
+  position: relative;
+  display: block;
+  min-height: 320px;
 }
 
+.teaser.teaser-hero .teaser-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.teaser.teaser-hero .teaser-image picture,
 .teaser.teaser-hero .teaser-image img {
-  aspect-ratio: 2 / 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: auto;
 }
 
 .teaser.teaser-hero .teaser-content {
-  justify-content: flex-start;
-  padding: 18px 28px 24px;
-  background-color: transparent;
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  margin: 40px 24px;
+  max-width: 640px;
+  padding: 32px 28px;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .teaser.teaser-hero .teaser-content h2,
 .teaser.teaser-hero .teaser-content h3 {
-  margin: 0;
+  margin: 0 0 12px;
 }
 
 .teaser.teaser-hero .teaser-content p {
   font-size: var(--body-font-size-m);
-  line-height: 1.75;
+  line-height: 1.6;
+}
+
+@media (width >= 900px) {
+  .teaser.teaser-hero > div {
+    min-height: 480px;
+  }
+
+  .teaser.teaser-hero .teaser-content {
+    margin: 44px;
+  }
 }
 
 /* ---- Members-only variant: compact card, image on top, inert CTA ---- */
