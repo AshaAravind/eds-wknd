@@ -26,11 +26,20 @@ footer .footer a:hover {
   text-decoration: none;
 }
 
-/* brand */
-footer .footer > div > div:first-child p a {
+/* brand — WKND logo (serif wordmark styling is a text fallback) */
+footer .footer > div:first-child p a {
+  display: inline-block;
   font-family: var(--heading-font-family);
   font-size: var(--heading-font-size-m);
+  line-height: 0;
   color: #fff;
+}
+
+/* the logo SVG is the dark variant; invert it to white for the dark footer */
+footer .footer > div:first-child img {
+  width: 128px;
+  height: auto;
+  filter: brightness(0) invert(1);
 }
 
 /* nav links */
