@@ -2,11 +2,12 @@
   "status": "success",
   "url": "https://wknd.site/us/en/adventures/bali-surf-camp.html",
   "path": "us/en/adventures/bali-surf-camp",
-  "timestamp": "2026-09-16T17:00:57.404Z",
+  "timestamp": "2026-09-19T08:13:47.916Z",
   "title": "Bali Surf Camp",
   "template": "adventure-detail",
   "blocks": [
+    "breadcrumbs",
     "carousel",
-    "columns"
+    "tabs"
   ]
 }

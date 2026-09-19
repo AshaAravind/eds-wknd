@@ -1,0 +1,26 @@
+{
+  "variantName": "adventure-list",
+  "baseBlock": "adventure-list",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "moderate",
+    "hasBackgroundImage": false,
+    "hasGrid": true,
+    "imagePattern": "large",
+    "structure": "filter tabs + card grid"
+  },
+  "contentPattern": "Optional key/value config rows (path, limit, filters, exclude). Renders a category filter tab bar and a responsive grid of adventure cards (image, title, description).",
+  "usage": "Adventures landing page listing — filterable grid of adventure cards.",
+  "options": [],
+  "memberVariantIds": [
+    "v_8ab7ece34e9a-3"
+  ],
+  "usageTracking": {
+    "pagesUsing": [
+      "/us/en/adventures"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-19"
+  }
+}

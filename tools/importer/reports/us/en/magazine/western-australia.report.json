@@ -2,8 +2,13 @@
   "status": "success",
   "url": "https://wknd.site/us/en/magazine/western-australia.html",
   "path": "us/en/magazine/western-australia",
-  "timestamp": "2026-09-16T17:02:13.113Z",
+  "timestamp": "2026-09-18T18:27:04.913Z",
   "title": "Western Australia",
   "template": "article-detail",
-  "blocks": []
+  "blocks": [
+    "hero-article",
+    "breadcrumbs",
+    "author-bio",
+    "cards-related"
+  ]
 }

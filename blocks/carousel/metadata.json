@@ -1,0 +1,42 @@
+{
+  "variantName": "carousel",
+  "baseBlock": "carousel",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "minimal",
+    "hasBackgroundImage": false,
+    "hasGrid": false,
+    "imagePattern": "large",
+    "structure": "2 CTAs + image + list"
+  },
+  "contentPattern": "One row per slide; first cell is the slide image, optional following cell is overlay content. Prev/next controls and dot indicators when more than one slide.",
+  "usage": "Full-width image slider used for adventure and article hero galleries.",
+  "options": [
+    {
+      "class": "minimal-dark-withimg",
+      "label": "Minimal Dark Withimg"
+    },
+    {
+      "class": "minimal-dark-withimg-2",
+      "label": "Minimal Dark Withimg 2"
+    },
+    {
+      "class": "minimal-dark-withimg-3",
+      "label": "Minimal Dark Withimg 3"
+    }
+  ],
+  "memberVariantIds": [
+    "v_85f1e746e380",
+    "v_85f1e746e380-2",
+    "v_85f1e746e380-1",
+    "v_85f1e746e380-3"
+  ],
+  "usageTracking": {
+    "pagesUsing": [
+      "/us/en/adventures/bali-surf-camp"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-18T16:01:16.886859Z"
+  }
+}

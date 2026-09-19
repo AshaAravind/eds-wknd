@@ -1,0 +1,19 @@
+{
+  "variantName": "author-bio",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "minimal",
+    "hasBackgroundImage": false,
+    "hasGrid": false,
+    "imagePattern": "icon",
+    "structure": "avatar + name + role + social icons"
+  },
+  "contentPattern": "One row with cells: circular avatar image, author name (heading) + role text, and a row of social links.",
+  "usage": "Author credit shown at the end of a magazine article.",
+  "options": [],
+  "memberVariantIds": [
+    "v_ea9fb06fced2"
+  ]
+}

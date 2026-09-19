@@ -1,0 +1,32 @@
+/**
+ * Quote block
+ * Renders a pull-quote as a semantic <blockquote>. The first authored row is the
+ * quotation; an optional second row is the attribution (its <em> becomes <cite>).
+ *
+ * @param {Element} block The quote block element
+ */
+export default async function decorate(block) {
+  const [quotation, attribution] = [...block.children].map((c) => c.firstElementChild);
+  const blockquote = document.createElement('blockquote');
+
+  // decorate quotation
+  if (quotation) {
+    quotation.className = 'quote-quotation';
+    blockquote.append(quotation);
+  }
+
+  // decorate attribution
+  if (attribution) {
+    attribution.className = 'quote-attribution';
+    blockquote.append(attribution);
+    const ems = attribution.querySelectorAll('em');
+    ems.forEach((em) => {
+      const cite = document.createElement('cite');
+      cite.innerHTML = em.innerHTML;
+      em.replaceWith(cite);
+    });
+  }
+
+  block.innerHTML = '';
+  block.append(blockquote);
+}

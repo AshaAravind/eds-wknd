@@ -1,0 +1,27 @@
+{
+  "variantName": "breadcrumbs",
+  "baseBlock": "breadcrumbs",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "minimal",
+    "hasBackgroundImage": false,
+    "hasGrid": false,
+    "imagePattern": "noimg",
+    "structure": "list"
+  },
+  "contentPattern": "Horizontal trail of section links separated by a marker, ending with the current page.",
+  "usage": "Shows the page's position in the site hierarchy as a clickable breadcrumb trail.",
+  "options": [],
+  "memberVariantIds": [
+    "v_4d46829f22d9"
+  ],
+  "usageTracking": {
+    "pagesUsing": [
+      "/us/en/adventures/bali-surf-camp",
+      "/us/en/magazine/san-diego-surf"
+    ],
+    "reuseCount": 2,
+    "lastUsed": "2026-09-18T17:36:57.147Z"
+  }
+}

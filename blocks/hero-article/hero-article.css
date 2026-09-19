@@ -1,0 +1,29 @@
+/*
+ * Hero Article Block
+ * Lead image at the top of a magazine article. Image-only — no overlay text.
+ *
+ * Values extracted from source computed styles:
+ * https://wknd.site/us/en/magazine/san-diego-surf.html
+ *   - Contained within the content column (source container max-width ~1164px;
+ *     matches the EDS default section width of 1200px − 2×32px = 1136px), centered.
+ *   - Displayed at the image's natural aspect ratio (1312×810 ≈ 1.62), whole
+ *     image visible (object-fit: fill on source — no cropping).
+ * The block therefore stays inside the normal section container (no full-bleed
+ * override) so its width matches the source content column.
+ */
+
+.hero-article .hero-article-image {
+  width: 100%;
+}
+
+.hero-article picture {
+  display: block;
+}
+
+.hero-article img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1312 / 810;
+  object-fit: cover;
+}

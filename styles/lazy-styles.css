@@ -1,1 +1,138 @@
 /* add global styles that can be loaded post LCP here */
+
+/*
+ * Adventure-detail: title + metadata section (section style "adventure-info").
+ * Reproduces the WKND source treatment — page title with a yellow underline bar,
+ * and the adventure attributes styled as a metadata list with uppercase gray
+ * labels, bold values, and left divider lines. At desktop the attribute list
+ * floats into a left sidebar; it stacks on mobile.
+ */
+
+/* title underline bar (source: 84px yellow bar under the H1) */
+main .section.adventure-info h1 {
+  margin-bottom: 0.5em;
+  padding-bottom: 18px;
+  position: relative;
+}
+
+main .section.adventure-info h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 84px;
+  height: 3px;
+  background-color: var(--accent-color);
+}
+
+/* adventure attribute list — uppercase label + value pairs with divider lines */
+main .section.adventure-info ul {
+  margin: 24px 0;
+  padding: 0;
+  list-style: none;
+}
+
+main .section.adventure-info ul > li {
+  margin: 0 0 20px;
+  padding: 4px 0 4px 16px;
+  border-left: 2px solid var(--light-color);
+}
+
+main .section.adventure-info ul > li p {
+  margin: 0;
+}
+
+/* first paragraph in each item = the label */
+main .section.adventure-info ul > li p:first-child {
+  color: #696969;
+  font-size: var(--body-font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* second paragraph = the value */
+main .section.adventure-info ul > li p:last-child {
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+/* "Share this Adventure" heading */
+main .section.adventure-info h5 {
+  margin-top: 32px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/*
+ * Desktop: two-column layout. The default-content wrapper (title, metadata list,
+ * share heading) sits in a fixed-width left sidebar; the tabs wrapper takes the
+ * remaining width on the right. The H1 title still reads at the top of the left
+ * column, matching the source where the metadata sidebar aligns with the tabs.
+ */
+@media (width >= 900px) {
+  main .section.adventure-info > .default-content-wrapper,
+  main .section.adventure-info > .tabs-wrapper {
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+  }
+
+  main .section.adventure-info > .default-content-wrapper {
+    width: 280px;
+    padding-right: 40px;
+  }
+
+  main .section.adventure-info > .tabs-wrapper {
+    width: calc(100% - 284px);
+
+    /* align the tab bar with the metadata list (below the title's baseline) */
+    margin-top: 8px;
+  }
+}
+
+/*
+ * Article-detail: main content section (section style "article-main").
+ * The article header, body, and author bio render in a wide left column; the
+ * related-articles list ("up next") sits in a narrower right sidebar — matching
+ * the WKND source. Stacks to a single column on mobile.
+ */
+@media (width >= 900px) {
+  /*
+   * The grid container itself carries the centered content width (same 1200px /
+   * 32px container the hero and other sections use). Column split matches the
+   * source: ~66% article + 97px gutter + 291px sidebar.
+   */
+  main .section.article-main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 291px;
+    column-gap: 97px;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /*
+   * Reset the per-wrapper container constraints (max-width/auto-margin/padding
+   * from styles.css). Without this the wrappers re-center at 1200px inside their
+   * grid cell, so the article text renders as wide as the hero instead of filling
+   * only the left column.
+   */
+  main .section.article-main > div {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* article content (title, byline, body, author bio) fills the left column */
+  main .section.article-main > .default-content-wrapper,
+  main .section.article-main > .author-bio-wrapper {
+    grid-column: 1;
+  }
+
+  /* related-articles list occupies the right sidebar, aligned to the top row */
+  main .section.article-main > .cards-related-wrapper {
+    grid-column: 2;
+    grid-row: 1 / span 99;
+  }
+}

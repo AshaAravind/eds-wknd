@@ -1,0 +1,21 @@
+{
+  "variantName": "hero",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "minimal",
+    "hasBackgroundImage": true,
+    "hasGrid": false,
+    "imagePattern": "large",
+    "structure": "heading + text + image"
+  },
+  "contentPattern": "Image cell + content cell (heading + optional text/CTA). Base renders as a full-width banner with overlaid white text on a dark scrim.",
+  "usage": "Page hero banner. Default = overlaid white text on image; the 'landing' option renders the content in a white card over the lower-left of the image (WKND landing style).",
+  "options": [
+    { "class": "landing", "label": "Landing" }
+  ],
+  "memberVariantIds": [
+    "v_ce80ccd0f1fa"
+  ]
+}
