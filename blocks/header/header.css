@@ -31,6 +31,14 @@ header nav[aria-expanded='true'] {
 }
 
 @media (width >= 900px) {
+  /* On desktop the nav-wrapper is in-flow (position: relative) and renders taller
+     than --nav-height (40px utility bar + nav row). The fixed header height from
+     styles.css under-reserves, letting the nav overflow onto the first section
+     (breadcrumb). Let the header size to its actual content instead. */
+  header {
+    height: auto;
+  }
+
   header .nav-wrapper {
     position: relative;
 

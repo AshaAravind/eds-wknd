@@ -70,6 +70,26 @@ main .section.adventure-info h5 {
  * column, matching the source where the metadata sidebar aligns with the tabs.
  */
 @media (width >= 900px) {
+  /*
+   * Constrain the section itself to the centered 1200px content column (same as
+   * the breadcrumb / carousel-adjacent sections). Because the wrappers are
+   * inline-block, `margin:auto` on the per-wrapper container from styles.css no
+   * longer centers them — so the section carries the max-width/auto-margin and
+   * the wrappers fill it. This aligns the title + body with the breadcrumb's
+   * left edge instead of hugging the viewport edge.
+   */
+  main .section.adventure-info {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 32px;
+  }
+
+  main .section.adventure-info > div {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
   main .section.adventure-info > .default-content-wrapper,
   main .section.adventure-info > .tabs-wrapper {
     display: inline-block;

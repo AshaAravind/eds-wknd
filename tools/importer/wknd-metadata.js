@@ -25,6 +25,41 @@ export const ADVENTURE_META = {
   '/us/en/adventures/yosemite-backpacking': { category: 'travel', date: '01-16-2019', image: 'https://wknd.site/us/en/adventures/yosemite-backpacking/_jcr_content/root/container/carousel/image.coreimg.jpeg/1660323790695/adobestock-231698835.jpeg' },
 };
 
+/*
+ * Adventure `keywords` metadata, keyed by adventure slug (locale-agnostic).
+ * Sourced verbatim from each source page's <meta name="keywords"> and augmented
+ * with the tab category the source groups the adventure under. The source
+ * adventures-landing tabs (All, Climbing, Cycling, Skiing, Surfing, Travel) are
+ * a manual curation: the four sport tabs coincide with literal source keywords,
+ * but "Travel" is a curated group with no shared keyword — so it is appended to
+ * the six adventures the source places under the Travel tab. The adventure-list
+ * block filters by matching a tab label against this comma-separated list.
+ */
+export const ADVENTURE_KEYWORDS = {
+  'bali-surf-camp': 'Surfing',
+  'beervana-portland': 'Social,Engage,Summer,United States,Convert,Spring,Fall,Travel',
+  'climbing-new-zealand': 'Convert,Climbing,Summer,Engage',
+  'colorado-rock-climbing': 'Climbing',
+  'cycling-southern-utah': '',
+  'cycling-tuscany': 'Convert,Social,Italy,Cycling,Engage,Summer,Travel',
+  'downhill-skiing-wyoming': 'United States,Convert,Skiing,Winter,Engage',
+  'gastronomic-marais-tour': 'Social,Travel',
+  'napa-wine-tasting': 'United States,Social,Travel',
+  'riverside-camping-australia': 'Hiking,Australia,Engage,Summer,Convert,Hunting & Fishing,Camping,Travel',
+  'ski-touring-mont-blanc': 'Convert,Skiing,Switzerland,Winter,Engage',
+  'surf-camp-costa-rica': 'Convert,Surfing,Engage,Summer',
+  'tahoe-skiing': 'Skiing',
+  'west-coast-cycling': 'Cycling,Fall',
+  'whistler-mountain-biking': 'Canada,Convert,Cycling,Engage,Summer',
+  'yosemite-backpacking': 'Hiking,Camping,Travel',
+};
+
+/** Look up keywords for a document path (any locale) by its adventure slug. */
+export function keywordsForPath(path) {
+  const slug = (path || '').split('/').filter(Boolean).pop() || '';
+  return ADVENTURE_KEYWORDS[slug] || '';
+}
+
 export const ARTICLE_META = {
   '/us/en/magazine/guide-la-skateparks': { category: 'surfing', date: '05-01-2019', image: 'https://wknd.site/us/en/magazine/guide-la-skateparks/_jcr_content/root/container/container/contentfragment/par2/image_copy.coreimg.60.800.png/1660323783259/article-01-picture-01.png' },
   '/us/en/magazine/ski-touring': { category: 'skiing', date: '04-01-2019', image: 'https://wknd.site/us/en/magazine/ski-touring/_jcr_content/root/container/container/contentfragment/par1/image.coreimg.60.800.jpeg/1660323789866/skitouring5sjoeberg.jpeg' },

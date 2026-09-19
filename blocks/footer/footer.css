@@ -26,8 +26,12 @@ footer .footer a:hover {
   text-decoration: none;
 }
 
-/* brand — WKND logo (serif wordmark styling is a text fallback) */
-footer .footer > div:first-child p a {
+/* brand — WKND logo (serif wordmark styling is a text fallback).
+   Scope to the brand COLUMN (> div > div:first-child); the footer content is
+   wrapped in a single grid container div, so `> div:first-child` would match
+   that wrapper and leak the white link colour onto every footer anchor
+   (including the social icons, making their glyphs invisible). */
+footer .footer > div > div:first-child p a {
   display: inline-block;
   font-family: var(--heading-font-family);
   font-size: var(--heading-font-size-m);
@@ -36,7 +40,7 @@ footer .footer > div:first-child p a {
 }
 
 /* the logo SVG is the dark variant; invert it to white for the dark footer */
-footer .footer > div:first-child img {
+footer .footer > div > div:first-child img {
   width: 128px;
   height: auto;
   filter: brightness(0) invert(1);

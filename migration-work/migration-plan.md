@@ -273,3 +273,72 @@ Compared migrated page vs original WKND page (1440px full-page). Blocks matched 
 
 ## Artifacts
 _To be generated_
+
+## Nav visual critique (post logo/search/locale fixes) — desktop 1440
+Measured migrated nav (from local /content/nav.plain.html) vs source:
+- Logo: 128x48, left — MATCH (x differs only by page padding).
+- Nav link style: uppercase 14px — MATCH.
+- Search: right-aligned, present with icon — MATCH.
+- Locale: toggle "en-US" → 11-locale dropdown, opens/closes — MATCH.
+- FIXED: migrated had an extra "Home" nav link; source nav is 4 links (Magazine/Adventures/FAQs/About Us) with the logo as home. Removed "Home" from nav.plain.html.
+- FIXED (user chose match-source): source is a TWO-ROW header (~194px: thin locale utility bar on top, logo+nav+search below). Rebuilt desktop header.css to two rows — locale toggle absolute top-right (y~10) above the main flex row (logo/nav/search, nav padding 40/24). Bug found+fixed along the way: a duplicate `header nav .nav-locale` rule was overriding the absolute positioning; consolidated to one desktop override so the locale dropdown still anchors + opens.
+- Verified: two-row confirmed (locale y=10 above logo y=40), dropdown opens, logo/search/links present. Full lint passes.
+- Commit 9d59902 pushed. Needs nav content publish for the logo + 11 locales + removed Home to render live.
+
+## Publish nav + footer to Document Authoring — DONE (content) / logo pending merge
+- Uploaded content/nav.plain.html + footer.plain.html to DA source API (admin.da.live/source/ashaaravind/eds-wknd/{nav,footer}.html) — HTTP 200. Then preview (admin.hlx.page/preview/.../main/{nav,footer}) + live publish — all 200.
+- BUG FOUND + FIXED: first upload rendered EMPTY (<div></div>) on preview because DA source docs must be wrapped in <body><main>…</main></body> (matching the importer's working page docs), not bare .plain.html fragments. Re-uploaded wrapped versions → content renders.
+- Verified published (main preview): nav has logo <img>, all 11 locale links, NO "Home", 4 nav links; footer has logo, Follow Us + social, nav links, copyright.
+- KNOWN — logo asset not yet on main: icons/wknd-logo.svg is committed on feature branch aem-20260919-1628 (works at aem-20260919-1628--eds-wknd--ashaaravind.aem.page/icons/wknd-logo.svg = 200) but NOT on main, so the published nav/footer logo shows about:error on the main origin until the branch merges. User is merging the branch to main themselves; once merged /icons/wknd-logo.svg resolves and the logo renders. (Same applies to the header.js search-icon / two-row layout + footer social-icon CSS — all on the branch, live once merged.)
+
+## Nav/footer logo — ROOT CAUSE + real fix (supersedes earlier "just merge" note)
+- The published nav/footer logo showed src="about:error". CORRECTED diagnosis: it was NOT merely the asset missing on main. The real cause: an <img src="/icons/wknd-logo.svg"> placed in DA *content* (nav.plain.html/footer.plain.html) is run through the EDS content-image optimization pipeline, which can't resolve a code-asset path and rewrites it to about:error. Confirmed: even on the feature-branch origin where /icons/wknd-logo.svg returns 200, the content-embedded img still rendered about:error; a bare new Image('/icons/wknd-logo.svg') loaded fine (300px).
+- FIX (architecture): logo is site chrome, not authored content. Removed the <img> from nav.plain.html + footer.plain.html (brand is now a plain text "WKND" link). header.js and footer.js now INJECT the logo <img src="/icons/wknd-logo.svg"> into the brand anchor at render time, bypassing the content pipeline. footer.css already inverts it to white on the dark footer. Guarded so it only injects when no img present.
+- Re-published corrected (img-free) nav/footer to DA (upload+preview+live all 200). Verified published fragments: 0 about:error, no <img>, text "WKND" brand, 11 locales, no Home.
+- Verified end-to-end with the committed header.js/footer.js against the corrected fragments: BOTH nav + footer logos load (src=/icons/wknd-logo.svg, naturalWidth 300). 11 locales present.
+- Commit ed7887c pushed (blocks/header/header.js + blocks/footer/footer.js logo injection). Once the branch merges to main (and code sync deploys), the published nav/footer render the real logo. Content is already correct on main; only the code (JS injection + icons/wknd-logo.svg asset) needs to reach main.
+
+## Nav follow-up round 3: verify merge + black brand panel + right-align links
+- Checked merge state: PR #5 (merged as bd2f067) only included up to 9d59902 — it did NOT contain the logo-injection fix (ed7887c). So on main: logo asset present, but header.js/footer.js still had the pre-injection code.
+- New user requests implemented in header.css:
+  - First section (.nav-brand): black background (var(--dark-color)) + logo inverted to white (brightness(0) invert(1)) so the dark-variant SVG shows on black. Verified brandBg rgb(32,32,32), logo loaded + white.
+  - Second section (.nav-sections): links right-aligned — flex:1 1 auto on .nav-sections (desktop) + justify-content:flex-end on the ul. Verified justifyContent=flex-end, links pushed to the right toward the tools area.
+- Verified end-to-end on localhost with committed header.js + local /content/nav.plain.html (fetch intercepted): logo loads from /icons/wknd-logo.svg (white on black), links right-aligned, 11 locales + search intact.
+- Full project lint passes. Commits: ed7887c (logo injection) + 27b9490 (black panel + right align), both pushed to branch aem-20260919-1628.
+- Opened PR #6 (https://github.com/AshaAravind/eds-wknd/pull/6) to main with both commits — needed because PR #5 predated them. Once #6 merges + code sync deploys, the published nav shows: white logo on black brand panel, right-aligned links, working locale dropdown + search.
+
+## Nav round 4: match source screenshot (user side-by-side critique)
+User compared source vs dest screenshots. Differences found + fixed:
+- REVERTED black logo panel → logo now black-on-white (no panel, no invert), matching source. brandBg transparent, filter none.
+- Added DARK TOP UTILITY BAR: .nav-wrapper has a full-width 40px black band (linear-gradient top). header.js builds a .nav-utility group (Sign In link + locale) pinned absolute into that bar; locale toggle text white. US flag added before the locale label (new asset icons/flag-us.svg).
+- YELLOW ACTIVE LINK: header.js longest-prefix-matches the current path against nav links, tags the <li> .nav-active; CSS gives it accent-yellow bg + dark text (source highlights the current section, e.g. ADVENTURES).
+- SEARCH PILL: form is now a rounded (999px) light-grey pill with the search icon BEFORE the input (order:-1), matching source (was underline + icon-right).
+- Nav links bolder (font-weight 700).
+- Verified all on localhost with committed header.js + local /content/nav.plain.html (fetch intercept): logo black-on-white, dark top bar w/ Sign In + white locale + flag, FAQs link yellow-highlighted on /us/en/faqs, search pill icon-left, links 700. Full lint passes.
+- Commit d8f66d7 pushed to branch → PR #6. NOTE: still NOT auto-published — needs PR #6 merged + code sync; the nav CONTENT fragment is already live on main, this is the code (header.js/css + flag asset). Locale toggle color/flag/sign-in all render from code.
+
+## Nav round 5: country-grouped locale dropdown + flags + utility positioning
+User shared source screenshot with the locale dropdown OPEN. Differences found + fixed:
+- GROUPING: source dropdown groups locales BY COUNTRY (United States: en-US|es-US; Canada: en-CA|fr-CA; Switzerland: de-CH|fr-CH|it-CH; Germany: de-DE; France: fr-FR; Spain: es-ES; Italy: it-IT), each with a country-name heading + flag; locale links inline separated by dividers. Mine was a flat list. Restructured nav.plain.html into country groups (name + nested locale <ul>).
+- FLAGS: source uses per-country flags (country-flags/US.svg etc.). Created 7 flag SVGs in icons/ (us, ca, ch, de, fr, es, it). header.js derives each group's flag from its locale href country code, and sets the toggle's flag from the current page's locale.
+- DARK GROUPED PANEL: header.css — dropdown is a 300px dark (#202020) panel; each country row = flag + uppercase 11px muted heading + inline white locale links (divider between). Hover → yellow.
+- POSITIONING: source Sign In + locale align to the content-column right edge, NOT the viewport far-right. Changed .nav-utility from right:32px to a centered max-width:1200px band (left:50% + translateX) with justify-content:flex-end. Verified: signIn right=1165, locale right=1280 in 1440vp (content edge), Sign In left of locale.
+- Verified all on localhost (committed header.js + local fragment): 7 country groups with correct flags, US group inline en-US|es-US, dark panel, toggle en-US+flag, utility content-aligned. Full lint passes.
+- Commit 0a85e4d pushed → PR #6. Renders live once PR #6 merges + code sync deploys (content fragment already re-uploadable; the grouped structure is in nav.plain.html which needs re-publish to DA too).
+
+## Homepage visual critique round (6 issues) — all fixed
+1. CTA BUTTONS (All Articles/All Trips): wknd-cleanup transformer now wraps WKND button anchors (a.cmp-button) in <strong> before parsing → EDS buttonizes them as .button.primary (yellow #ffea00, padded). Re-imported home; verified 2 <strong> CTA buttons live.
+2. NEXT ADVENTURES TEASER OVERLAY: teaser.css .teaser.teaser-hero rewritten from image-top/text-below to full-bleed image + white content card overlaid lower-left (matches adventures-landing hero). Verified content overlays image.
+3. HOMEPAGE ADVENTURE FILTERS: adventure-list.js gated the filter tab bar behind a showFilters check (no-filters class or filters=none). parsers/adventure-list.js emits "adventure-list (no-filters)" for the home preview grid (limit case) → homepage grid has 0 filter tabs; adventures-landing keeps filters. Verified live: adventure-list no-filters, 0 tabs.
+4. NAV ACTIVE HIGHLIGHT: header.css .nav-active a now display:block padding 12px 20px → bigger yellow box.
+5. FOOTER COPY: footer.plain.html restored full source attribution (Core Components/Archetype/site source code/detailed tutorial links + Adobe Stock paragraph). Verified live.
+6. FOOTER FOLLOW US: footer.css 3rd column now flex row (heading + icons same line), heading smaller (--body-font-size-s uppercase). 
+- Full lint passes. Commit ba1e0cb pushed → PR #6. Re-published homepage + footer to DA (upload+preview+live all 200); verified published content has CTA buttons, no-filters variant, fuller footer copy. Block CSS/JS render live once PR #6 merges + code sync.
+
+## Homepage round 2 (post-merge): heading underline + teaser bottom-align
+User: "I don't see the underline in the migrated page" + teaser text floats top/overflows.
+- Measured source: section headings HAVE a deliberate 84px yellow underline bar (border-bottom 2px #ffea00); my homepage headings had NONE (the bar rule was only scoped to content-landing/faqs sections).
+- FIX underline: home importer sections 2-5 now carry a `wknd-headings` section style (section 2 = "grey, wknd-headings"); lazy-styles.css draws the 84px bar on `.section.wknd-headings .default-content-wrapper :is(h2,h3)::after`. Re-imported home (3 wknd-headings sections). Verified: Recent Articles / Next Adventures / Where do you want to go? all show 84px yellow bar.
+- Measured source teaser: full-bleed image, WHITE content card BOTTOM-aligned within the centered content column (content x124 w1192, bottom-pinned).
+- FIX teaser: teaser.css .teaser.teaser-hero > div = flex column justify-content flex-end (bottom); content is a white card within the centered max-width:1200px column, offset from the left. Verified: content BOTTOM-aligned, white bg, contained (teaser 1200px, not overflowing).
+- Full lint passes. Commit ba6429b pushed; opened PR #8 to main (branch already merged via #6, so new commits need a fresh PR). Re-published homepage to DA (upload+preview+live 200) so the wknd-headings section metadata is live; CSS renders once PR #8 merges + code sync.
