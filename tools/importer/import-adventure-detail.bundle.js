@@ -139,6 +139,12 @@ var CustomImportScript = (() => {
         //   <h3 class="cmp-contentfragment__title">Bali Surf Camp</h3>
         ".cmp-contentfragment__title"
       ]);
+      element.querySelectorAll("a.cmp-button, .cmp-button__link, a.button").forEach((a) => {
+        if (a.closest("strong") || a.querySelector("img")) return;
+        const strong = document.createElement("strong");
+        a.replaceWith(strong);
+        strong.append(a);
+      });
     }
     if (hookName === TransformHook.afterTransform) {
       WebImporter.DOMUtils.remove(element, [
@@ -209,6 +215,30 @@ var CustomImportScript = (() => {
         }
       }
     }
+  }
+
+  // tools/importer/wknd-metadata.js
+  var ADVENTURE_KEYWORDS = {
+    "bali-surf-camp": "Surfing",
+    "beervana-portland": "Social,Engage,Summer,United States,Convert,Spring,Fall,Travel",
+    "climbing-new-zealand": "Convert,Climbing,Summer,Engage",
+    "colorado-rock-climbing": "Climbing",
+    "cycling-southern-utah": "",
+    "cycling-tuscany": "Convert,Social,Italy,Cycling,Engage,Summer,Travel",
+    "downhill-skiing-wyoming": "United States,Convert,Skiing,Winter,Engage",
+    "gastronomic-marais-tour": "Social,Travel",
+    "napa-wine-tasting": "United States,Social,Travel",
+    "riverside-camping-australia": "Hiking,Australia,Engage,Summer,Convert,Hunting & Fishing,Camping,Travel",
+    "ski-touring-mont-blanc": "Convert,Skiing,Switzerland,Winter,Engage",
+    "surf-camp-costa-rica": "Convert,Surfing,Engage,Summer",
+    "tahoe-skiing": "Skiing",
+    "west-coast-cycling": "Cycling,Fall",
+    "whistler-mountain-biking": "Canada,Convert,Cycling,Engage,Summer",
+    "yosemite-backpacking": "Hiking,Camping,Travel"
+  };
+  function keywordsForPath(path) {
+    const slug = (path || "").split("/").filter(Boolean).pop() || "";
+    return ADVENTURE_KEYWORDS[slug] || "";
   }
 
   // tools/importer/import-adventure-detail.js
@@ -370,6 +400,26 @@ var CustomImportScript = (() => {
       WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
       const rawPath = new URL(params.originalURL).pathname.replace(/\/$/, "").replace(/\.html?$/, "");
       const path = WebImporter.FileUtils.sanitizePath(rawPath === "" ? "/index" : rawPath);
+      const keywords = keywordsForPath(path);
+      if (keywords) {
+        const metaTable = [...main.querySelectorAll("table")].find((t) => {
+          const firstCell = t.querySelector("tr th, tr td");
+          return firstCell && /^metadata$/i.test(firstCell.textContent.trim());
+        });
+        const hasKeywords = metaTable && [...metaTable.querySelectorAll("tr")].some((tr) => {
+          const c = tr.querySelector("td, th");
+          return c && c.textContent.trim().toLowerCase() === "keywords";
+        });
+        if (metaTable && !hasKeywords) {
+          const tr = document2.createElement("tr");
+          const k = document2.createElement("td");
+          k.textContent = "Keywords";
+          const v = document2.createElement("td");
+          v.textContent = keywords;
+          tr.append(k, v);
+          metaTable.append(tr);
+        }
+      }
       return [{
         element: main,
         path,

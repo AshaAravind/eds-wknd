@@ -70,6 +70,26 @@ main .section.adventure-info h5 {
  * column, matching the source where the metadata sidebar aligns with the tabs.
  */
 @media (width >= 900px) {
+  /*
+   * Constrain the section itself to the centered 1200px content column (same as
+   * the breadcrumb / carousel-adjacent sections). Because the wrappers are
+   * inline-block, `margin:auto` on the per-wrapper container from styles.css no
+   * longer centers them — so the section carries the max-width/auto-margin and
+   * the wrappers fill it. This aligns the title + body with the breadcrumb's
+   * left edge instead of hugging the viewport edge.
+   */
+  main .section.adventure-info {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 32px;
+  }
+
+  main .section.adventure-info > div {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
   main .section.adventure-info > .default-content-wrapper,
   main .section.adventure-info > .tabs-wrapper {
     display: inline-block;
@@ -173,6 +193,29 @@ main .section.faqs .default-content-wrapper h1 {
 }
 
 main .section.faqs .default-content-wrapper h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 84px;
+  height: 2px;
+  background-color: var(--accent-color);
+}
+
+/*
+ * Homepage section headings ("Recent Articles", "Next Adventures", "Where do
+ * you want to go?") carry the same short yellow underline accent as the source.
+ * The `wknd-headings` section style is applied to the home content sections;
+ * scoped to default-content h2/h3 so block-internal titles (teaser/card titles)
+ * are unaffected.
+ */
+main .section.wknd-headings .default-content-wrapper :is(h2, h3) {
+  position: relative;
+  margin-bottom: 0.5em;
+  padding-bottom: 18px;
+}
+
+main .section.wknd-headings .default-content-wrapper :is(h2, h3)::after {
   content: "";
   position: absolute;
   left: 0;

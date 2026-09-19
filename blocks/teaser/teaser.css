@@ -86,13 +86,16 @@
   text-decoration: none;
 }
 
-/* ---- Hero variant (Next Adventure): full-bleed image with a white content
-   card overlaid over its lower-left, matching the adventures-landing hero.
-   The image fills the block; the content floats on top. ---- */
+/* ---- Hero variant (Next Adventures): full-bleed image with a white content
+   card floating at the BOTTOM, the content constrained to the centered content
+   column — matching the source. The image fills the block edge-to-edge; the
+   content card overhangs the image's lower edge. ---- */
 .teaser.teaser-hero > div {
   position: relative;
-  display: block;
-  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 360px;
 }
 
 .teaser.teaser-hero .teaser-image {
@@ -109,13 +112,16 @@
   aspect-ratio: auto;
 }
 
+/* content: a single white card floating at the bottom, offset from the left
+   within the centered content column (matches the source next-adventures teaser). */
 .teaser.teaser-hero .teaser-content {
   position: relative;
   z-index: 1;
   box-sizing: border-box;
-  margin: 40px 24px;
-  max-width: 640px;
-  padding: 32px 28px;
+  width: calc(100% - 48px);
+  max-width: 720px;
+  margin: 0 24px;
+  padding: 28px 32px;
   background-color: var(--background-color);
   color: var(--text-color);
 }
@@ -126,7 +132,7 @@
 }
 
 .teaser.teaser-hero .teaser-content p {
-  font-size: var(--body-font-size-m);
+  font-size: var(--body-font-size-s);
   line-height: 1.6;
 }
 
@@ -135,8 +141,10 @@
     min-height: 480px;
   }
 
+  /* center the content column, then offset the card to its left edge */
   .teaser.teaser-hero .teaser-content {
-    margin: 44px;
+    max-width: 640px;
+    margin-left: max(44px, calc((100% - 1200px) / 2 + 44px));
   }
 }
 

@@ -10,6 +10,9 @@ import tabsParser from './parsers/tabs.js';
 import cleanupTransformer from './transformers/wknd-cleanup.js';
 import sectionsTransformer from './transformers/wknd-sections.js';
 
+// METADATA
+import { keywordsForPath } from './wknd-metadata.js';
+
 // PARSER REGISTRY
 const parsers = {
   breadcrumbs: breadcrumbsParser,
@@ -212,6 +215,30 @@ export default {
       .replace(/\/$/, '')
       .replace(/\.html?$/, '');
     const path = WebImporter.FileUtils.sanitizePath(rawPath === '' ? '/index' : rawPath);
+
+    // Append a Keywords row (verbatim source keywords + curated Travel tag) so
+    // the backend query-index carries a `keywords` column the adventures-landing
+    // filter grid matches against. Find the Metadata table and append the row.
+    const keywords = keywordsForPath(path);
+    if (keywords) {
+      const metaTable = [...main.querySelectorAll('table')].find((t) => {
+        const firstCell = t.querySelector('tr th, tr td');
+        return firstCell && /^metadata$/i.test(firstCell.textContent.trim());
+      });
+      const hasKeywords = metaTable && [...metaTable.querySelectorAll('tr')].some((tr) => {
+        const c = tr.querySelector('td, th');
+        return c && c.textContent.trim().toLowerCase() === 'keywords';
+      });
+      if (metaTable && !hasKeywords) {
+        const tr = document.createElement('tr');
+        const k = document.createElement('td');
+        k.textContent = 'Keywords';
+        const v = document.createElement('td');
+        v.textContent = keywords;
+        tr.append(k, v);
+        metaTable.append(tr);
+      }
+    }
 
     return [{
       element: main,

@@ -29,8 +29,16 @@ async function fetchIndex(indexUrl) {
   }
 }
 
+/**
+ * The set of lower-cased filter tokens for an item. The source drives filtering
+ * off the page `keywords` meta (comma-separated); we fall back to legacy
+ * category/tags fields. Returned as a comma-wrapped string so exact-token
+ * matching (`,token,`) can distinguish "ski" from "skiing".
+ */
 function itemCategory(item) {
-  return (item.category || item.tags || '').toString().toLowerCase();
+  const raw = (item.keywords || item.category || item.tags || '').toString();
+  const tokens = raw.split(',').map((t) => t.trim().toLowerCase()).filter(Boolean);
+  return tokens.length ? `,${tokens.join(',')},` : '';
 }
 
 function buildCard(item) {
@@ -91,9 +99,11 @@ function buildFilterTabs(labels) {
 }
 
 function applyFilter(block, filter) {
+  // dataset.category is a comma-wrapped token list (",climbing,summer,"); match
+  // the whole token so "ski" never matches "skiing" etc.
   block.querySelectorAll('.adventure-list-items > li').forEach((li) => {
     const cat = li.dataset.category || '';
-    const show = filter === 'all' || cat.includes(filter);
+    const show = filter === 'all' || cat.includes(`,${filter},`);
     li.hidden = !show;
   });
 }

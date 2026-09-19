@@ -31,6 +31,14 @@ header nav[aria-expanded='true'] {
 }
 
 @media (width >= 900px) {
+  /* On desktop the nav-wrapper is in-flow (position: relative) and renders taller
+     than --nav-height (40px utility bar + nav row). The fixed header height from
+     styles.css under-reserves, letting the nav overflow onto the first section
+     (breadcrumb). Let the header size to its actual content instead. */
+  header {
+    height: auto;
+  }
+
   header .nav-wrapper {
     position: relative;
 
@@ -470,9 +478,16 @@ header nav .nav-locale-list {
   list-style: none;
   margin: 0;
   padding: 0;
+
+  /* collapsed by default; the toggle reveals it (mobile inline + desktop panel) */
+  display: none;
 }
 
-/* mobile: locale list shows inline (stacked) when the drawer is open */
+/* mobile: locale list shows inline (stacked) only when its toggle is expanded */
+header nav .nav-locale-toggle[aria-expanded='true'] + .nav-locale-list {
+  display: block;
+}
+
 /* stylelint-disable-next-line no-descending-specificity */
 header nav .nav-locale-list > li {
   padding: 8px 0;
@@ -495,27 +510,37 @@ header nav .nav-locale-list a:any-link {
     color: #fff;
   }
 
-  /* dark, country-grouped dropdown panel (matches the source language nav) */
+  /* dark, country-grouped dropdown panel — matches the source language nav
+     (wknd.site .cmp-languagenavigation): position: fixed so it anchors to a
+     stable viewport offset (independent of the narrow toggle's box), drops from
+     just below the black top utility bar (40px), 360px wide, right-aligned to
+     the centered content column. Fixed positioning is what keeps the panel from
+     ever clipping off the left edge regardless of viewport width. */
   header nav .nav-locale-list {
     display: none;
-    position: absolute;
-    right: 0;
-    top: calc(100% + 8px);
-    z-index: 3;
-    width: 300px;
-    padding: 0;
+    position: fixed;
+    top: 40px;
+
+    /* pin the right edge to the content-column edge; never go off-screen */
+    right: max(8px, calc((100% - 1200px) / 2 + 40px));
+    z-index: 4;
+    width: 360px;
+    max-width: calc(100vw - 16px);
+    padding: 8px 0 16px;
     background-color: var(--dark-color);
+    box-shadow: 0 5px 10px rgb(0 0 0 / 25%);
   }
 
   header nav .nav-locale-toggle[aria-expanded='true'] + .nav-locale-list {
     display: block;
   }
 
-  /* one row per country: flag + uppercase country name, then the locale links */
-  header nav .nav-locale-country {
+  /* one country group per row: flag + uppercase country name as a block heading,
+     then the locale links stacked below (matching the source layout). Scoped via
+     the list ancestor so it outweighs the mobile `.nav-locale-list > li` padding. */
+  header nav .nav-locale-list > .nav-locale-country {
     position: relative;
-    padding: 16px 24px 16px 56px;
-    border-bottom: 1px solid rgb(255 255 255 / 12%);
+    padding: 15px 24px 4px 45px;
     text-transform: uppercase;
     font-size: 11px;
     font-weight: 700;
@@ -523,39 +548,32 @@ header nav .nav-locale-list a:any-link {
     color: rgb(255 255 255 / 70%);
   }
 
-  header nav .nav-locale-country:last-child {
-    border-bottom: 0;
-  }
-
   header nav .nav-locale-country > .nav-locale-flag {
     position: absolute;
-    left: 24px;
-    top: 18px;
+    left: 16px;
+    top: 15px;
   }
 
-  /* locale links inside a country: inline, separated, bold white */
+  /* locale links inside a country: stacked, indented under the country name */
   header nav .nav-locale-country > ul {
     list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px 10px;
-    margin: 6px 0 0;
-    padding: 0;
+    display: block;
+    margin: 4px 0 0;
+    padding: 0 0 0 45px;
   }
 
   header nav .nav-locale-country > ul > li {
     padding: 0;
   }
 
-  header nav .nav-locale-country > ul > li + li {
-    border-left: 1px solid rgb(255 255 255 / 30%);
-    padding-left: 10px;
-  }
-
   header nav .nav-locale-list a:any-link {
-    color: #fff;
+    display: block;
+    padding: 8px 24px 7px 0;
+    color: var(--footer-text-color);
     font-size: var(--body-font-size-xs);
+    text-transform: none;
     letter-spacing: 0.04em;
+    font-weight: 400;
   }
 
   header nav .nav-locale-list a:hover {
