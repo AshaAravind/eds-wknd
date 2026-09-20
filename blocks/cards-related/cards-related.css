@@ -1,44 +1,50 @@
 /*
- * Cards Related Block
+ * Cards Related Block (style variation of `cards`)
  * A curated "related articles" / "up next" list. Each authored row is one
  * related item rendered as: an uppercase article title (link) and a gray
  * publish date below it, with a thin gray accent strip down the left edge.
  * Values extracted from source .list.cmp-list--upnext computed styles.
- * Scoped to .cards-related only, never the base block class.
+ *
+ * Shares the cards decoration engine (see cards-related.js), so each item is a
+ * `.cards-card-body` cell holding a title paragraph and a date paragraph. All
+ * rules are scoped to .cards-related so the base cards block is unaffected.
  */
 
-.cards-related ul {
+.cards-related > ul {
   margin: 0;
   padding: 0;
   list-style: none;
+  display: block;
 }
 
-.cards-related .cards-related-item {
+.cards-related > ul > li {
   margin-bottom: 18px;
+  border: none;
+  background: none;
 }
 
-.cards-related .cards-related-item:last-child {
+.cards-related > ul > li:last-child {
   margin-bottom: 0;
 }
 
 /*
- * The decorate() function places both the title link and the date paragraph
- * inside a single .cards-related-title cell. The left accent strip + item
- * padding wrap the whole item (matching the source item link).
+ * The item's single body cell carries the left accent strip + padding
+ * (matching the source item link).
  */
-.cards-related .cards-related-title {
+.cards-related .cards-card-body {
+  margin: 0;
   border-left: 5px solid #ebebeb;
   padding: 8px 16px;
 }
 
-.cards-related .cards-related-title p {
+.cards-related .cards-card-body p {
   margin: 0;
   padding: 5px;
 }
 
 /* first paragraph = article title (link) */
-.cards-related .cards-related-title p:first-child,
-.cards-related .cards-related-title p:first-child a {
+.cards-related .cards-card-body p:first-child,
+.cards-related .cards-card-body p:first-child a {
   color: var(--text-color);
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
@@ -48,12 +54,12 @@
   text-decoration: none;
 }
 
-.cards-related .cards-related-title p:first-child a:hover {
+.cards-related .cards-card-body p:first-child a:hover {
   text-decoration: underline;
 }
 
 /* last paragraph = publish date */
-.cards-related .cards-related-title p:last-child {
+.cards-related .cards-card-body p:last-child {
   color: #696969;
   font-size: 12px;
   font-weight: 400;

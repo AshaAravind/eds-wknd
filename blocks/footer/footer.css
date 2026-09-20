@@ -34,7 +34,7 @@ footer .footer a:hover {
 footer .footer > div > div:first-child p a {
   display: inline-block;
   font-family: var(--heading-font-family);
-  font-size: var(--heading-font-size-m);
+  font-size: 28px; /* logo text fallback size (logo is an image) */
   line-height: 0;
   color: #fff;
 }

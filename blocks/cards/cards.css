@@ -64,7 +64,7 @@
 .cards.profiles .cards-card-body h3 {
   margin: 0 0 6px;
   font-family: var(--heading-font-family);
-  font-size: var(--heading-font-size-s);
+  font-size: var(--heading-font-size-l);
   font-weight: 400;
 }
 

@@ -57,7 +57,7 @@
 .teaser .teaser-content h3 {
   margin: 0 0 12px;
   font-family: var(--heading-font-family);
-  font-size: var(--heading-font-size-l);
+  font-size: var(--heading-font-size-xl);
   font-weight: 400;
   line-height: 1.3;
   color: var(--text-color);
