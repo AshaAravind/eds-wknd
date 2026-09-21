@@ -85,9 +85,14 @@ export default async function decorate(block) {
     && item.path !== pathFilter.replace(/\/$/, '')
     && !exclude.includes(item.path));
 
-  // newest first when a date field is available, otherwise keep index order
-  items.sort((a, b) => (parseInt(b.date || b.publishDate || 0, 10))
-    - (parseInt(a.date || a.publishDate || 0, 10)));
+  // newest first: prefer an authored publication date, falling back to the
+  // page's last-modified time so newly created/edited pages surface at the top
+  // even when no explicit date is set.
+  const sortTime = (item) => parseInt(
+    item.date || item.publishDate || item.lastModified || 0,
+    10,
+  );
+  items.sort((a, b) => sortTime(b) - sortTime(a));
 
   if (limit > 0) items = items.slice(0, limit);
 
