@@ -131,7 +131,13 @@ export default async function decorate(block) {
     && item.path !== pathFilter.replace(/\/$/, '')
     && !exclude.includes(item.path));
 
-  items.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+  // newest first: prefer an authored publication date, falling back to the
+  // page's last-modified time so newly created adventures surface at the top.
+  const sortTime = (item) => parseInt(
+    item.date || item.publishDate || item.lastModified || 0,
+    10,
+  );
+  items.sort((a, b) => sortTime(b) - sortTime(a));
   if (limit > 0) items = items.slice(0, limit);
 
   // Filter tabs are the full filterable-grid experience (adventures landing).

@@ -1,5 +1,5 @@
 /*
- * Hero Article Block
+ * Hero Article Block (style variation of `hero`)
  * Lead image at the top of a magazine article. Image-only — no overlay text.
  *
  * Values extracted from source computed styles:
@@ -10,14 +10,33 @@
  *     image visible (object-fit: fill on source — no cropping).
  * The block therefore stays inside the normal section container (no full-bleed
  * override) so its width matches the source content column.
+ *
+ * Shares the hero decoration engine (see hero-article.js), which tags the
+ * image cell as `.hero-image`. These rules reset the base hero's overlay
+ * layout (absolute image, scrim, min-height) back to a simple inline image.
  */
 
-.hero-article .hero-article-image {
+.hero-article {
+  position: static;
+  display: block;
+  padding: 0;
+  min-height: 0;
+}
+
+/* the base hero draws a readability scrim; the article hero has no overlay */
+.hero-article::before {
+  content: none;
+}
+
+.hero-article .hero-image {
+  position: static;
   width: 100%;
 }
 
 .hero-article picture {
+  position: static;
   display: block;
+  inset: auto;
 }
 
 .hero-article img {
